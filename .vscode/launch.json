@@ -6,12 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
             "name": "Launch Main",
             "request": "launch",
             "mainClass": "com.coursera.Main",
@@ -19,10 +13,16 @@
         },
         {
             "type": "java",
-            "name": "Launch HelloWorld",
+            "name": "Launch Main",
             "request": "launch",
-            "mainClass": "com.coveros.demo.helloworld.HelloWorld",
-            "projectName": "helloworld"
+            "mainClass": "com.coursera.Main",
+            "projectName": "junitmavenexample"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
         }
     ]
 }

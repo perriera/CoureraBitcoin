@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>helloworld</name>
+	<name>junitmavenexample</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -22,7 +22,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1629323877957</id>
+			<id>1629331325070</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
