@@ -9,20 +9,20 @@ public class UTXOPool {
     /**
      * The current collection of UTXOs, with each one mapped to its corresponding transaction output
      */
-    private HashMap<UTXO, Transaction.Output> H;
+    private HashMap<UTXO, IOutput> H;
 
     /** Creates a new empty UTXOPool */
     public UTXOPool() {
-        H = new HashMap<UTXO, Transaction.Output>();
+        H = new HashMap<UTXO, IOutput>();
     }
 
     /** Creates a new UTXOPool that is a copy of {@code uPool} */
     public UTXOPool(UTXOPool uPool) {
-        H = new HashMap<UTXO, Transaction.Output>(uPool.H);
+        H = new HashMap<UTXO, IOutput>(uPool.H);
     }
 
     /** Adds a mapping from UTXO {@code utxo} to transaction output @code{txOut} to the pool */
-    public void addUTXO(UTXO utxo, Transaction.Output txOut) {
+    public void addUTXO(UTXO utxo, IOutput txOut) {
         H.put(utxo, txOut);
     }
 
@@ -35,7 +35,7 @@ public class UTXOPool {
      * @return the transaction output corresponding to UTXO {@code utxo}, or null if {@code utxo} is
      *         not in the pool.
      */
-    public Transaction.Output getTxOutput(UTXO ut) {
+    public IOutput getTxOutput(UTXO ut) {
         return H.get(ut);
     }
 

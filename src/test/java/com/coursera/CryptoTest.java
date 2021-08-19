@@ -21,7 +21,7 @@ public class CryptoTest {
     private static ICrypto crypto;
 
     @BeforeClass
-    public static void initCrypto() {
+    public static void initCrypto() throws Exception{
         crypto = new Crypto();
     }
 

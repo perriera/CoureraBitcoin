@@ -31,6 +31,10 @@ public class Crypto implements ICrypto {
     PrivateKey prvKey;
     byte[] d, n, e, c, ep, eq, p, q;
 
+    public Crypto() throws Exception {
+        init(1024);
+    }
+
     public PublicKey genPublicKey() {
         return pubKey;
     }
