@@ -125,7 +125,7 @@ abstract public class BasicHandlerTests {
 		assertEquals(acceptedRx.length, 3);
 	}
 
-	@Test
+	@Test(expected = ConsumedCoinAvailableException.class)
 	public void testDoubleSpending() throws Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
@@ -150,16 +150,6 @@ abstract public class BasicHandlerTests {
 		acceptedRx = txHandler.handleTxs(new Transaction[] { tx2 });
 		assertEquals(acceptedRx.length, 1);
 
-	}
-
-	@Test(expected = ConsumedCoinAvailableException.class)
-	public void testDoubleSpending2() throws Exception {
-		Transaction tx1 = new Transaction();
-		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(10, people.getAlice().getPublic());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
-		tx1.addSignature(sig1, 0);
-		tx1.finalize();
 		// Alice then transfer the same 10 coins to mike
 		Transaction tx3 = new Transaction();
 		tx3.addInput(tx1.getHash(), 0);

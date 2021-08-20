@@ -17,7 +17,7 @@ public class MaxFeeTxHandlerTest extends BasicHandlerTests {
 	}
 
 	@Test
-	public void testMaxFeeTransfer() throws Exception {
+	public void testMaxFeeTransferEQUAL() throws Exception {
 		// Scrooge transfer 4 coins to Alice, 6 coins to bob, no transaction fee
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
@@ -48,38 +48,4 @@ public class MaxFeeTxHandlerTest extends BasicHandlerTests {
 		assertTrue(Arrays.equals(acceptedRx[0].getHash(), tx2.getHash()));
 	}
 
-	@Test(expected = ConsumedCoinAvailableException.class)
-	public void testDoubleSpending3() throws Exception {
-		// Scrooge transfer 10 coins to Alice
-		Transaction tx1 = new Transaction();
-		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(10, people.getAlice().getPublic());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
-		tx1.addSignature(sig1, 0);
-		tx1.finalize();
-
-		assertTrue(txHandler.isValidTx(tx1));
-		Transaction[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1 });
-		assertEquals(acceptedRx.length, 1);
-
-		// Alice transfer 10 coins to bob
-		Transaction tx2 = new Transaction();
-		tx2.addInput(tx1.getHash(), 0);
-		tx2.addOutput(10, people.getBob().getPublic());
-		byte[] sig2 = people.signMessage(people.getAlice().getPrivate(), tx2.getRawDataToSign(0));
-		tx2.addSignature(sig2, 0);
-		tx2.finalize();
-		assertTrue(txHandler.isValidTx(tx2));
-		acceptedRx = txHandler.handleTxs(new Transaction[] { tx2 });
-		assertEquals(acceptedRx.length, 1);
-
-		// Alice then transfer the same 10 coins to mike
-		Transaction tx3 = new Transaction();
-		tx3.addInput(tx1.getHash(), 0);
-		tx3.addOutput(10, people.getBob().getPublic());
-		byte[] sig3 = people.signMessage(people.getAlice().getPrivate(), tx3.getRawDataToSign(0));
-		tx3.addSignature(sig3, 0);
-		tx3.finalize();
-		assertFalse(txHandler.isValidTx(tx3));
-	}
 }
