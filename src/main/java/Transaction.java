@@ -5,9 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 
-public class Transaction {
+public class Transaction implements Interfaces {
 
-    public class Input {
+    public class Input implements InputInterface {
         /** hash of the Transaction whose output is being used */
         public byte[] prevTxHash;
         /** used output's index in the previous transaction */
@@ -31,7 +31,7 @@ public class Transaction {
         }
     }
 
-    public class Output {
+    public class Output implements OutputInterface {
         /** value in bitcoins of the output */
         public double value;
         /** the address or public key of the recipient */
