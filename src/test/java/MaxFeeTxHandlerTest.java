@@ -23,8 +23,8 @@ public class MaxFeeTxHandlerTest {
 	public void testValidTxSign() throws Exception {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(10, people.aliceKeypair.getPublic());
-		byte[] sig1 = people.signMessage(people.aliceKeypair.getPrivate(), tx1.getRawDataToSign(0));
+		tx1.addOutput(10, people.getAlice().getPublic());
+		byte[] sig1 = people.signMessage(people.getAlice().getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 		txHandler.isValidTx(tx1);
@@ -34,17 +34,17 @@ public class MaxFeeTxHandlerTest {
 	public void testValidTxSign2() throws Exception {
 		Transaction tx2 = new Transaction();
 		tx2.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx2.addOutput(10, people.aliceKeypair.getPublic());
-		byte[] sig2 = people.signMessage(people.scroogeKeypair.getPrivate(), tx2.getRawDataToSign(0));
+		tx2.addOutput(10, people.getAlice().getPublic());
+		byte[] sig2 = people.signMessage(people.getScrooge().getPrivate(), tx2.getRawDataToSign(0));
 		tx2.addSignature(sig2, 0);
 		tx2.finalize();
 		assertTrue(txHandler.isValidTx(tx2));
 
 		Transaction tx3 = new Transaction();
 		tx3.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx3.addOutput(4, people.aliceKeypair.getPublic());
-		tx3.addOutput(6, people.bobKeypair.getPublic());
-		byte[] sig3 = people.signMessage(people.scroogeKeypair.getPrivate(), tx3.getRawDataToSign(0));
+		tx3.addOutput(4, people.getAlice().getPublic());
+		tx3.addOutput(6, people.getBob().getPublic());
+		byte[] sig3 = people.signMessage(people.getScrooge().getPrivate(), tx3.getRawDataToSign(0));
 		tx3.addSignature(sig3, 0);
 		tx3.finalize();
 		assertTrue(txHandler.isValidTx(tx3));
@@ -54,18 +54,18 @@ public class MaxFeeTxHandlerTest {
 	public void testValidTxValue() throws Exception {
 		Transaction tx = new Transaction();
 		tx.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx.addOutput(4, people.aliceKeypair.getPublic());
-		tx.addOutput(7, people.bobKeypair.getPublic());
-		byte[] sig = people.signMessage(people.scroogeKeypair.getPrivate(), tx.getRawDataToSign(0));
+		tx.addOutput(4, people.getAlice().getPublic());
+		tx.addOutput(7, people.getBob().getPublic());
+		byte[] sig = people.signMessage(people.getScrooge().getPrivate(), tx.getRawDataToSign(0));
 		tx.addSignature(sig, 0);
 		tx.finalize();
 		assertFalse(txHandler.isValidTx(tx));
 
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(4, people.aliceKeypair.getPublic());
-		tx1.addOutput(-7, people.bobKeypair.getPublic());
-		byte[] sig1 = people.signMessage(people.scroogeKeypair.getPrivate(), tx1.getRawDataToSign(0));
+		tx1.addOutput(4, people.getAlice().getPublic());
+		tx1.addOutput(-7, people.getBob().getPublic());
+		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx.finalize();
 		assertFalse(txHandler.isValidTx(tx1));
@@ -76,25 +76,25 @@ public class MaxFeeTxHandlerTest {
 		// Scrooge transfer 4 coins to Alice, 6 coins to bob, no transaction fee
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(4, people.aliceKeypair.getPublic());
-		tx1.addOutput(6, people.bobKeypair.getPublic());
-		byte[] sig1 = people.signMessage(people.scroogeKeypair.getPrivate(), tx1.getRawDataToSign(0));
+		tx1.addOutput(4, people.getAlice().getPublic());
+		tx1.addOutput(6, people.getBob().getPublic());
+		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 
 		// Alice transfer 3.4 to mike, transaction fee is 4-3.4=0.6
 		Transaction tx2 = new Transaction();
 		tx2.addInput(tx1.getHash(), 0);
-		tx2.addOutput(3.4, people.mikeKeypair.getPublic());
-		byte[] sig = people.signMessage(people.aliceKeypair.getPrivate(), tx2.getRawDataToSign(0));
+		tx2.addOutput(3.4, people.getMike().getPublic());
+		byte[] sig = people.signMessage(people.getAlice().getPrivate(), tx2.getRawDataToSign(0));
 		tx2.addSignature(sig, 0);
 		tx2.finalize();
 
 		// Bob transfer 5.5 to mike, transaction fee is 5-5.5=0.5
 		Transaction tx3 = new Transaction();
 		tx3.addInput(tx1.getHash(), 1);
-		tx3.addOutput(5.5, people.mikeKeypair.getPublic());
-		sig = people.signMessage(people.bobKeypair.getPrivate(), tx3.getRawDataToSign(0));
+		tx3.addOutput(5.5, people.getMike().getPublic());
+		sig = people.signMessage(people.getBob().getPrivate(), tx3.getRawDataToSign(0));
 		tx3.addSignature(sig, 0);
 		tx3.finalize();
 
@@ -108,8 +108,8 @@ public class MaxFeeTxHandlerTest {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(10, people.aliceKeypair.getPublic());
-		byte[] sig1 = people.signMessage(people.scroogeKeypair.getPrivate(), tx1.getRawDataToSign(0));
+		tx1.addOutput(10, people.getAlice().getPublic());
+		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 
@@ -120,8 +120,8 @@ public class MaxFeeTxHandlerTest {
 		// Alice transfer 10 coins to bob
 		Transaction tx2 = new Transaction();
 		tx2.addInput(tx1.getHash(), 0);
-		tx2.addOutput(10, people.bobKeypair.getPublic());
-		byte[] sig2 = people.signMessage(people.aliceKeypair.getPrivate(), tx2.getRawDataToSign(0));
+		tx2.addOutput(10, people.getBob().getPublic());
+		byte[] sig2 = people.signMessage(people.getAlice().getPrivate(), tx2.getRawDataToSign(0));
 		tx2.addSignature(sig2, 0);
 		tx2.finalize();
 		assertTrue(txHandler.isValidTx(tx2));
@@ -131,8 +131,8 @@ public class MaxFeeTxHandlerTest {
 		// Alice then transfer the same 10 coins to mike
 		Transaction tx3 = new Transaction();
 		tx3.addInput(tx1.getHash(), 0);
-		tx3.addOutput(10, people.bobKeypair.getPublic());
-		byte[] sig3 = people.signMessage(people.aliceKeypair.getPrivate(), tx3.getRawDataToSign(0));
+		tx3.addOutput(10, people.getBob().getPublic());
+		byte[] sig3 = people.signMessage(people.getAlice().getPrivate(), tx3.getRawDataToSign(0));
 		tx3.addSignature(sig3, 0);
 		tx3.finalize();
 		assertFalse(txHandler.isValidTx(tx3));

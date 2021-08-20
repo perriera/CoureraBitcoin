@@ -10,10 +10,10 @@ import java.security.SignatureException;
 
 public class BitcoinPeople {
 
-	public KeyPair scroogeKeypair;
-	public KeyPair aliceKeypair;
-	public KeyPair bobKeypair;
-	public KeyPair mikeKeypair;
+	private KeyPair scroogeKeypair;
+	private KeyPair aliceKeypair;
+	private KeyPair bobKeypair;
+	private KeyPair mikeKeypair;
 
 	public BitcoinPeople() throws NoSuchAlgorithmException, NoSuchProviderException {
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
@@ -31,6 +31,22 @@ public class BitcoinPeople {
 		sig.initSign(sk);
 		sig.update(message);
 		return sig.sign();
+	}
+
+	public KeyPair getScrooge() {
+		return scroogeKeypair;
+	}
+
+	public KeyPair getAlice() {
+		return aliceKeypair;
+	}
+
+	public KeyPair getBob() {
+		return bobKeypair;
+	}
+
+	public KeyPair getMike() {
+		return mikeKeypair;
 	}
 
 }

@@ -5,7 +5,7 @@ public class BitCoinPool {
 
 	public BitCoinPool(BitcoinPeople people) {
 		genesiseTx = new Transaction();
-		genesiseTx.addOutput(10, people.scroogeKeypair.getPublic());
+		genesiseTx.addOutput(10, people.getScrooge().getPublic());
 		genesiseTx.finalize();
 		pool = new UTXOPool();
 		UTXO utxo = new UTXO(genesiseTx.getHash(), 0);
