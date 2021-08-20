@@ -33,9 +33,9 @@ public class TxHandler implements TxHandlerInterface {
 		List<Transaction.Input> inputs = tx.getInputs();
 		for (int i = 0; i < inputs.size(); i++) {
 			Transaction.Input input = inputs.get(i);
-			ConsumedCoinAvailablException.assetion(utxoPool, input);
-			VerifySignatureOfConsumeCoinException.assetion(utxoPool, tx, i, input);
-			CoinConsumedMultipleTimesException.assetion(claimedUTXO, input);
+			ConsumedCoinAvailableException.assertion(utxoPool, input);
+			VerifySignatureOfConsumeCoinException.assertion(utxoPool, tx, i, input);
+			CoinConsumedMultipleTimesException.assertion(claimedUTXO, input);
 			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
 			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
 			inputSum += correspondingOutput.value;
@@ -44,19 +44,11 @@ public class TxHandler implements TxHandlerInterface {
 		List<Transaction.Output> outputs = tx.getOutputs();
 		for (int i = 0; i < outputs.size(); i++) {
 			Transaction.Output output = outputs.get(i);
-			if (output.value <= 0) {
-				return false;
-			}
-
+			TransactionOutputLessThanZeroException.assertion(output);
 			outputSum += output.value;
 		}
 
-		// Should the input value and output value be equal? Otherwise the ledger will
-		// become unbalanced.
-		// The difference between inputSum and outputSum is the transaction fee
-		if (outputSum > inputSum) {
-			return false;
-		}
+		TransactionInputSumLessThanOutputSumException.assertion(outputSum, inputSum);
 
 		return true;
 	}

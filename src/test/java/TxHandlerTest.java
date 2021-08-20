@@ -62,7 +62,7 @@ public class TxHandlerTest {
 		assertTrue(txHandler.isValidTx(tx3));
 	}
 
-	@Test
+	@Test(expected = TransactionInputSumLessThanOutputSumException.class)
 	public void testValidTxValue() throws Exception {
 		Transaction tx = new Transaction();
 		tx.addInput(genesiseTx.getHash(), 0);
@@ -71,16 +71,19 @@ public class TxHandlerTest {
 		byte[] sig = signMessage(scroogeKeypair.getPrivate(), tx.getRawDataToSign(0));
 		tx.addSignature(sig, 0);
 		tx.finalize();
-		assertFalse(txHandler.isValidTx(tx));
+		txHandler.isValidTx(tx);
+	}
 
+	@Test(expected = TransactionOutputLessThanZeroException.class)
+	public void testValidTxValue2() throws Exception {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
 		tx1.addOutput(4, aliceKeypair.getPublic());
 		tx1.addOutput(-7, bobKeypair.getPublic());
 		byte[] sig1 = signMessage(scroogeKeypair.getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
-		tx.finalize();
-		assertFalse(txHandler.isValidTx(tx1));
+		tx1.finalize();
+		txHandler.isValidTx(tx1);
 	}
 
 	@Test
@@ -169,7 +172,7 @@ public class TxHandlerTest {
 
 	}
 
-	@Test(expected = ConsumedCoinAvailablException.class)
+	@Test(expected = ConsumedCoinAvailableException.class)
 	public void testDoubleSpending2() throws Exception {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);

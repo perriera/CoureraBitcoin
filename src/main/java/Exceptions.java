@@ -22,7 +22,7 @@ class CoinConsumedMultipleTimesException extends Exceptions {
         super("CoinConsumedMultipleTimesException");
     }
 
-    static public void assetion(Set<UTXO> claimedUTXO, Transaction.Input input)
+    static public void assertion(Set<UTXO> claimedUTXO, Transaction.Input input)
             throws CoinConsumedMultipleTimesException {
         UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
         if (!claimedUTXO.add(utxo))
@@ -37,7 +37,7 @@ class VerifySignatureOfConsumeCoinException extends Exceptions {
         super("VerifySignatureOfConsumeCoinException");
     }
 
-    static public void assetion(UTXOPool utxoPool, Transaction tx, int index, Transaction.Input input)
+    static public void assertion(UTXOPool utxoPool, Transaction tx, int index, Transaction.Input input)
             throws VerifySignatureOfConsumeCoinException {
         UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
         Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
@@ -48,16 +48,42 @@ class VerifySignatureOfConsumeCoinException extends Exceptions {
 
 }
 
-class ConsumedCoinAvailablException extends Exceptions {
+class ConsumedCoinAvailableException extends Exceptions {
 
-    public ConsumedCoinAvailablException() {
-        super("ConsumedCoinAvailablException");
+    public ConsumedCoinAvailableException() {
+        super("ConsumedCoinAvailableException");
     }
 
-    static public void assetion(UTXOPool utxoPool, Transaction.Input input) throws ConsumedCoinAvailablException {
+    static public void assertion(UTXOPool utxoPool, Transaction.Input input) throws ConsumedCoinAvailableException {
         UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
         if (!utxoPool.contains(utxo))
-            throw new ConsumedCoinAvailablException();
+            throw new ConsumedCoinAvailableException();
+    }
+
+}
+
+class TransactionOutputLessThanZeroException extends Exceptions {
+
+    public TransactionOutputLessThanZeroException() {
+        super("TransactionOutputLessThanZeroException");
+    }
+
+    static public void assertion(Transaction.Output output) throws TransactionOutputLessThanZeroException {
+        if (output.value<0)
+            throw new TransactionOutputLessThanZeroException();
+    }
+
+}
+
+class TransactionInputSumLessThanOutputSumException extends Exceptions {
+
+    public TransactionInputSumLessThanOutputSumException() {
+        super("TransactionOutputSumLessThanInputSumException");
+    }
+
+    static public void assertion(double outputSum, double inputSum) throws TransactionInputSumLessThanOutputSumException {
+        if (outputSum>inputSum)
+            throw new TransactionInputSumLessThanOutputSumException();
     }
 
 }
