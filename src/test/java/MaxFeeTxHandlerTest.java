@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class MaxFeeTxHandlerTest  {
+public class MaxFeeTxHandlerTest {
 	private KeyPair scroogeKeypair;
 	private KeyPair aliceKeypair;
 	private KeyPair bobKeypair;
@@ -33,17 +33,19 @@ public class MaxFeeTxHandlerTest  {
 		GenerateInitialCoins();
 	}
 
-	@Test
-	public void testValidTxSign()
-			throws Exception {
+	@Test(expected = VerifySignatureOfConsumeCoinException.class)
+	public void testValidTxSign() throws Exception {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
 		tx1.addOutput(10, aliceKeypair.getPublic());
 		byte[] sig1 = signMessage(aliceKeypair.getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
-		assertFalse(txHandler.isValidTx(tx1));
+		txHandler.isValidTx(tx1);
+	}
 
+	@Test
+	public void testValidTxSign2() throws Exception {
 		Transaction tx2 = new Transaction();
 		tx2.addInput(genesiseTx.getHash(), 0);
 		tx2.addOutput(10, aliceKeypair.getPublic());
@@ -63,8 +65,7 @@ public class MaxFeeTxHandlerTest  {
 	}
 
 	@Test
-	public void testValidTxValue()
-			throws  Exception {
+	public void testValidTxValue() throws Exception {
 		Transaction tx = new Transaction();
 		tx.addInput(genesiseTx.getHash(), 0);
 		tx.addOutput(4, aliceKeypair.getPublic());
@@ -85,8 +86,7 @@ public class MaxFeeTxHandlerTest  {
 	}
 
 	@Test
-	public void testMaxFeeTransfer()
-			throws  Exception {
+	public void testMaxFeeTransfer() throws Exception {
 		// Scrooge transfer 4 coins to Alice, 6 coins to bob, no transaction fee
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
@@ -117,9 +117,8 @@ public class MaxFeeTxHandlerTest  {
 		assertTrue(Arrays.equals(acceptedRx[0].getHash(), tx2.getHash()));
 	}
 
-	@Test
-	public void testDoubleSpending()
-			throws  Exception {
+	@Test(expected = ConsumedCoinAvailableException.class)
+	public void testDoubleSpending() throws Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);

@@ -35,17 +35,9 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 		for (int i = 0; i < inputs.size(); i++) {
 			Transaction.Input input = inputs.get(i);
 
-			if (!isConsumedCoinAvailable(input)) {
-				return false;
-			}
-
-			if (!verifySignatureOfConsumeCoin(tx, i, input)) {
-				return false;
-			}
-
-			if (isCoinConsumedMultipleTimes(claimedUTXO, input)) {
-				return false;
-			}
+			ConsumedCoinAvailableException.assertion(utxoPool, input);
+			VerifySignatureOfConsumeCoinException.assertion(utxoPool, tx, i, input);
+			CoinConsumedMultipleTimesException.assertion(claimedUTXO, input);
 
 			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
 			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
