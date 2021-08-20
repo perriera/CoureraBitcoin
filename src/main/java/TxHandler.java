@@ -22,8 +22,7 @@ public class TxHandler extends IsValidHander {
 	 */
 	public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception {
 		List<Transaction> acceptedTx = new ArrayList<Transaction>();
-		for (int i = 0; i < possibleTxs.length; i++) {
-			Transaction tx = possibleTxs[i];
+		for (Transaction tx : possibleTxs) {
 			try {
 				isValidTx(tx);
 				acceptedTx.add(tx);
