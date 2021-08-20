@@ -1,5 +1,3 @@
-package com.coursera;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -9,20 +7,20 @@ public class UTXOPool {
     /**
      * The current collection of UTXOs, with each one mapped to its corresponding transaction output
      */
-    private HashMap<UTXO, IOutput> H;
+    private HashMap<UTXO, Transaction.Output> H;
 
     /** Creates a new empty UTXOPool */
     public UTXOPool() {
-        H = new HashMap<UTXO, IOutput>();
+        H = new HashMap<UTXO, Transaction.Output>();
     }
 
     /** Creates a new UTXOPool that is a copy of {@code uPool} */
     public UTXOPool(UTXOPool uPool) {
-        H = new HashMap<UTXO, IOutput>(uPool.H);
+        H = new HashMap<UTXO, Transaction.Output>(uPool.H);
     }
 
     /** Adds a mapping from UTXO {@code utxo} to transaction output @code{txOut} to the pool */
-    public void addUTXO(UTXO utxo, IOutput txOut) {
+    public void addUTXO(UTXO utxo, Transaction.Output txOut) {
         H.put(utxo, txOut);
     }
 
@@ -35,7 +33,7 @@ public class UTXOPool {
      * @return the transaction output corresponding to UTXO {@code utxo}, or null if {@code utxo} is
      *         not in the pool.
      */
-    public IOutput getTxOutput(UTXO ut) {
+    public Transaction.Output getTxOutput(UTXO ut) {
         return H.get(ut);
     }
 

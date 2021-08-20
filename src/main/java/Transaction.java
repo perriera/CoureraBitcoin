@@ -1,5 +1,3 @@
-package com.coursera;
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,83 +5,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 
-interface IInput {
-    /**
-     * @brief getPrevTxHash();
-     * @return
-     */
-    public byte[] getPrevTxHash();
+public class Transaction {
 
-    /**
-     * @brief getOutputIndex()
-     * 
-     * used output's index in the previous transaction 
-     * @return
-     */
-    public int getOutputIndex();
-
-    /**
-     * @brief getSignature();
-     * 
-     * the signature produced to check validity
-     * 
-     * @return
-     */
-    public byte[] getSignature();
-
-    /**
-     * @brief addSignature(byte[] sig)
-     * @param sig
-     */
-    public void addSignature(byte[] sig);
-};
-
-interface IOutput {
-    public double getValue();
-    public PublicKey geAddress();
-};
-
-interface ITransaction {
-    public void addInput(byte[] prevTxHash, int outputIndex);
-
-    public void addOutput(double value, PublicKey address);
-
-    public void removeInput(int index);
-
-    public void removeInput(UTXO ut);
-
-    public byte[] getRawDataToSign(int index);
-
-    public void addSignature(byte[] signature, int index);
-
-    public byte[] getRawTx();
-
-    public void setHash(byte[] h);
-
-    public byte[] getHash();
-
-    public ArrayList<IInput> getInputs();
-
-    public ArrayList<IOutput> getOutputs();
-
-    public IInput getInput(int index);
-
-    public IOutput getOutput(int index);
-
-    public int numInputs();
-
-    public int numOutputs();
-};
-
-public class Transaction implements ITransaction {
-
-    public class Input implements IInput {
+    public class Input {
         /** hash of the Transaction whose output is being used */
-        private byte[] prevTxHash;
+        public byte[] prevTxHash;
         /** used output's index in the previous transaction */
-        private int outputIndex;
+        public int outputIndex;
         /** the signature produced to check validity */
-        private byte[] signature;
+        public byte[] signature;
 
         public Input(byte[] prevHash, int index) {
             if (prevHash == null)
@@ -93,14 +23,6 @@ public class Transaction implements ITransaction {
             outputIndex = index;
         }
 
-        public byte[] getPrevTxHash() { return prevTxHash; }
-
-        /** used output's index in the previous transaction */
-        public int getOutputIndex() { return outputIndex; }
-    
-        /** the signature produced to check validity */
-        public byte[] getSignature() { return signature; }
-    
         public void addSignature(byte[] sig) {
             if (sig == null)
                 signature = null;
@@ -109,14 +31,12 @@ public class Transaction implements ITransaction {
         }
     }
 
-    public class Output implements IOutput {
+    public class Output {
         /** value in bitcoins of the output */
-        private double value;
+        public double value;
         /** the address or public key of the recipient */
-        private PublicKey address;
+        public PublicKey address;
 
-        public double getValue() { return value;}
-        public PublicKey geAddress() { return address;}
         public Output(double v, PublicKey addr) {
             value = v;
             address = addr;
@@ -125,18 +45,18 @@ public class Transaction implements ITransaction {
 
     /** hash of the transaction, its unique id */
     private byte[] hash;
-    private ArrayList<IInput> inputs;
-    private ArrayList<IOutput> outputs;
+    private ArrayList<Input> inputs;
+    private ArrayList<Output> outputs;
 
     public Transaction() {
-        inputs = new ArrayList<IInput>();
-        outputs = new ArrayList<IOutput>();
+        inputs = new ArrayList<Input>();
+        outputs = new ArrayList<Output>();
     }
 
     public Transaction(Transaction tx) {
         hash = tx.hash.clone();
-        inputs = new ArrayList<IInput>(tx.inputs);
-        outputs = new ArrayList<IOutput>(tx.outputs);
+        inputs = new ArrayList<Input>(tx.inputs);
+        outputs = new ArrayList<Output>(tx.outputs);
     }
 
     public void addInput(byte[] prevTxHash, int outputIndex) {
@@ -155,8 +75,8 @@ public class Transaction implements ITransaction {
 
     public void removeInput(UTXO ut) {
         for (int i = 0; i < inputs.size(); i++) {
-            IInput in = inputs.get(i);
-            UTXO u = new UTXO(in.getPrevTxHash(), in.getOutputIndex());
+            Input in = inputs.get(i);
+            UTXO u = new UTXO(in.prevTxHash, in.outputIndex);
             if (u.equals(ut)) {
                 inputs.remove(i);
                 return;
@@ -169,21 +89,21 @@ public class Transaction implements ITransaction {
         ArrayList<Byte> sigData = new ArrayList<Byte>();
         if (index > inputs.size())
             return null;
-        IInput in = inputs.get(index);
-        byte[] prevTxHash = in.getPrevTxHash();
+        Input in = inputs.get(index);
+        byte[] prevTxHash = in.prevTxHash;
         ByteBuffer b = ByteBuffer.allocate(Integer.SIZE / 8);
-        b.putInt(in.getOutputIndex());
+        b.putInt(in.outputIndex);
         byte[] outputIndex = b.array();
         if (prevTxHash != null)
             for (int i = 0; i < prevTxHash.length; i++)
                 sigData.add(prevTxHash[i]);
         for (int i = 0; i < outputIndex.length; i++)
             sigData.add(outputIndex[i]);
-        for (IOutput op : outputs) {
+        for (Output op : outputs) {
             ByteBuffer bo = ByteBuffer.allocate(Double.SIZE / 8);
-            bo.putDouble(op.getValue());
+            bo.putDouble(op.value);
             byte[] value = bo.array();
-            byte[] addressBytes = op.geAddress().getEncoded();
+            byte[] addressBytes = op.address.getEncoded();
             for (int i = 0; i < value.length; i++)
                 sigData.add(value[i]);
 
@@ -203,12 +123,12 @@ public class Transaction implements ITransaction {
 
     public byte[] getRawTx() {
         ArrayList<Byte> rawTx = new ArrayList<Byte>();
-        for (IInput in : inputs) {
-            byte[] prevTxHash = in.getPrevTxHash();
+        for (Input in : inputs) {
+            byte[] prevTxHash = in.prevTxHash;
             ByteBuffer b = ByteBuffer.allocate(Integer.SIZE / 8);
-            b.putInt(in.getOutputIndex());
+            b.putInt(in.outputIndex);
             byte[] outputIndex = b.array();
-            byte[] signature = in.getSignature();
+            byte[] signature = in.signature;
             if (prevTxHash != null)
                 for (int i = 0; i < prevTxHash.length; i++)
                     rawTx.add(prevTxHash[i]);
@@ -218,11 +138,11 @@ public class Transaction implements ITransaction {
                 for (int i = 0; i < signature.length; i++)
                     rawTx.add(signature[i]);
         }
-        for (IOutput op : outputs) {
+        for (Output op : outputs) {
             ByteBuffer b = ByteBuffer.allocate(Double.SIZE / 8);
-            b.putDouble(op.getValue());
+            b.putDouble(op.value);
             byte[] value = b.array();
-            byte[] addressBytes = op.geAddress().getEncoded();
+            byte[] addressBytes = op.address.getEncoded();
             for (int i = 0; i < value.length; i++) {
                 rawTx.add(value[i]);
             }
@@ -256,22 +176,22 @@ public class Transaction implements ITransaction {
         return hash;
     }
 
-    public ArrayList<IInput> getInputs() {
+    public ArrayList<Input> getInputs() {
         return inputs;
     }
 
-    public ArrayList<IOutput> getOutputs() {
+    public ArrayList<Output> getOutputs() {
         return outputs;
     }
 
-    public IInput getInput(int index) {
+    public Input getInput(int index) {
         if (index < inputs.size()) {
             return inputs.get(index);
         }
         return null;
     }
 
-    public IOutput getOutput(int index) {
+    public Output getOutput(int index) {
         if (index < outputs.size()) {
             return outputs.get(index);
         }

@@ -1,5 +1,3 @@
-package com.coursera;
-
 import java.util.Arrays;
 
 public class UTXO implements Comparable<UTXO> {
