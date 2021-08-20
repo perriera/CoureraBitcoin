@@ -1,5 +1,4 @@
 
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,17 +16,30 @@ abstract public class IsValidHander implements TxHandlerInterface {
 	}
 
 	/**
-	 * @return true if: (1) all outputs claimed by {@code tx} are in the current
-	 *         UTXO pool, (2) the signatures on each input of {@code tx} are valid,
-	 *         (3) no UTXO is claimed multiple times by {@code tx}, (4) all of
-	 *         {@code tx}s output values are non-negative, and (5) the sum of
-	 *         {@code tx}s input values is greater than or equal to the sum of its
-	 *         output values; and false otherwise. //Should the input value and
-	 *         output value be equal? Otherwise the ledger will become unbalanced.
+	 * @brief isValidTx()
+	 * 
+	 *        Should the input value and output value be equal? Otherwise the ledger
+	 *        will become unbalanced.
+	 * 
+	 *        true if:
+	 * 
+	 * @implNote (1) all outputs claimed by {@code tx} are in the current UTXO pool,
+	 * @implNote (2) the signatures on each input of {@code tx} are valid,
+	 * @implNote (3) no UTXO is claimed multiple times by {@code tx},
+	 * @implNote (4) all of {@code tx}s output values are non-negative, and
+	 * @implNote (5) the sum of {@code tx}s input values is greater than or equal to
+	 *           the sum of its output values; and false otherwise.
+	 * 
+	 * @throws ConsumedCoinAvailableException,
+	 * @throws VerifySignatureOfConsumeCoinException,
+	 * @throws CoinConsumedMultipleTimesException,
+	 * @throws TransactionOutputLessThanZeroException,
+	 * @throws TransactionInputSumLessThanOutputSumException
+	 * 
 	 */
-    public boolean isValidTx(Transaction tx) throws ConsumedCoinAvailableException,
-            VerifySignatureOfConsumeCoinException, CoinConsumedMultipleTimesException,
-            TransactionOutputLessThanZeroException, TransactionInputSumLessThanOutputSumException {
+	public boolean isValidTx(Transaction tx) throws ConsumedCoinAvailableException,
+			VerifySignatureOfConsumeCoinException, CoinConsumedMultipleTimesException,
+			TransactionOutputLessThanZeroException, TransactionInputSumLessThanOutputSumException {
 		Set<UTXO> claimedUTXO = new HashSet<UTXO>();
 		double inputSum = 0;
 		double outputSum = 0;
@@ -61,6 +73,5 @@ abstract public class IsValidHander implements TxHandlerInterface {
 	 * of accepted transactions, and updating the current UTXO pool as appropriate.
 	 */
 	abstract public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception;
-
 
 }
