@@ -37,14 +37,14 @@ public class TxHandler implements TxHandlerInterface {
 			CoinConsumedMultipleTimesException.assertion(claimedUTXO, input);
 			UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
 			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
-			inputSum += correspondingOutput.value;
+			inputSum += correspondingOutput.getValue();
 		}
 
 		List<Transaction.Output> outputs = tx.getOutputs();
 		for (int i = 0; i < outputs.size(); i++) {
 			Transaction.Output output = outputs.get(i);
 			TransactionOutputLessThanZeroException.assertion(output);
-			outputSum += output.value;
+			outputSum += output.getValue();
 		}
 
 		TransactionInputSumLessThanOutputSumException.assertion(outputSum, inputSum);

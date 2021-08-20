@@ -41,7 +41,7 @@ class VerifySignatureOfConsumeCoinException extends Exceptions {
             throws VerifySignatureOfConsumeCoinException {
         UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
         Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
-        PublicKey pk = correspondingOutput.address;
+        PublicKey pk = correspondingOutput.getAddress();
         if (!Crypto.verifySignature(pk, tx.getRawDataToSign(index), input.getSignature()))
             throw new VerifySignatureOfConsumeCoinException();
     }
@@ -69,7 +69,7 @@ class TransactionOutputLessThanZeroException extends Exceptions {
     }
 
     static public void assertion(Transaction.Output output) throws TransactionOutputLessThanZeroException {
-        if (output.value<0)
+        if (output.getValue()<0)
             throw new TransactionOutputLessThanZeroException();
     }
 
