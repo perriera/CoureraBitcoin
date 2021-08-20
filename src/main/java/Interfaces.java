@@ -1,15 +1,23 @@
+import java.security.PublicKey;
+
 interface Interfaces {
 
 }
 
 interface InputInterface {
     public void addSignature(byte[] sig);
+
     public byte[] getPrevTxHash();
+
     public int getOutputIndex();
+
     public byte[] getSignature();
 }
 
 interface OutputInterface {
+    public double getValue();
+
+    public PublicKey getAddress();
 
 }
 
