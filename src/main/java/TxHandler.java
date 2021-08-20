@@ -1,10 +1,8 @@
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
-public class TxHandler implements TxHandlerInterface {
-	private UTXOPool utxoPool;
+public class TxHandler extends IsValidHander {
 
 	/**
 	 * Creates a public ledger whose current UTXOPool (collection of unspent
@@ -12,52 +10,15 @@ public class TxHandler implements TxHandlerInterface {
 	 * by using the UTXOPool(UTXOPool uPool) constructor.
 	 */
 	public TxHandler(UTXOPool utxoPool) {
-		this.utxoPool = new UTXOPool(utxoPool);
-	}
-
-	/**
-	 * @return true if: (1) all outputs claimed by {@code tx} are in the current
-	 *         UTXO pool, (2) the signatures on each input of {@code tx} are valid,
-	 *         (3) no UTXO is claimed multiple times by {@code tx}, (4) all of
-	 *         {@code tx}s output values are non-negative, and (5) the sum of
-	 *         {@code tx}s input values is greater than or equal to the sum of its
-	 *         output values; and false otherwise. //Should the input value and
-	 *         output value be equal? Otherwise the ledger will become unbalanced.
-	 */
-    public boolean isValidTx(Transaction tx) throws ConsumedCoinAvailableException,
-            VerifySignatureOfConsumeCoinException, CoinConsumedMultipleTimesException,
-            TransactionOutputLessThanZeroException, TransactionInputSumLessThanOutputSumException {
-		Set<UTXO> claimedUTXO = new HashSet<UTXO>();
-		double inputSum = 0;
-		double outputSum = 0;
-
-		List<InputInterface> inputs = tx.getInputs();
-		for (int i = 0; i < inputs.size(); i++) {
-			InputInterface input = inputs.get(i);
-			ConsumedCoinAvailableException.assertion(utxoPool, input);
-			VerifySignatureOfConsumeCoinException.assertion(utxoPool, tx, i, input);
-			CoinConsumedMultipleTimesException.assertion(claimedUTXO, input);
-			UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
-			OutputInterface correspondingOutput = utxoPool.getTxOutput(utxo);
-			inputSum += correspondingOutput.getValue();
-		}
-
-		List<OutputInterface> outputs = tx.getOutputs();
-		for (int i = 0; i < outputs.size(); i++) {
-			OutputInterface output = outputs.get(i);
-			TransactionOutputLessThanZeroException.assertion(output);
-			outputSum += output.getValue();
-		}
-
-		TransactionInputSumLessThanOutputSumException.assertion(outputSum, inputSum);
-
-		return true;
+		super(utxoPool);
 	}
 
 	/**
 	 * Handles each epoch by receiving an unordered array of proposed transactions,
 	 * checking each transaction for correctness, returning a mutually valid array
 	 * of accepted transactions, and updating the current UTXO pool as appropriate.
+	 * 
+	 * Don't sort the accepted transactions by fee
 	 */
 	public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception {
 		List<Transaction> acceptedTx = new ArrayList<Transaction>();
@@ -66,7 +27,6 @@ public class TxHandler implements TxHandlerInterface {
 			try {
 				if (isValidTx(tx)) {
 					acceptedTx.add(tx);
-
 					removeConsumedCoinsFromPool(tx);
 					addCreatedCoinsToPool(tx);
 				}
