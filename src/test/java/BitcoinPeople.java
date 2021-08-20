@@ -8,14 +8,14 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
 
-public class SampleBitcoinPeople {
+public class BitcoinPeople {
 
 	public KeyPair scroogeKeypair;
 	public KeyPair aliceKeypair;
 	public KeyPair bobKeypair;
 	public KeyPair mikeKeypair;
 
-	public SampleBitcoinPeople() throws NoSuchAlgorithmException, NoSuchProviderException {
+	public BitcoinPeople() throws NoSuchAlgorithmException, NoSuchProviderException {
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
 		SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
 		keyGen.initialize(1024, random);

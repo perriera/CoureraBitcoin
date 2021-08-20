@@ -1,26 +1,18 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.security.InvalidKeyException;
-import java.security.KeyPair;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
-import java.security.Signature;
-import java.security.SignatureException;
-
 import org.junit.Before;
 import org.junit.Test;
 
 public class TxHandlerTest {
-	private SampleBitcoinPeople people;
-	private BitCoinsFor bitcoins;
+	private BitcoinPeople people;
+	private BitCoinPool bitcoins;
 	private TxHandlerInterface txHandler;
 
 	@Before
 	public void setUp() throws Exception {
-		people = new SampleBitcoinPeople();
-		bitcoins = new BitCoinsFor(people);
+		people = new BitcoinPeople();
+		bitcoins = new BitCoinPool(people);
 		txHandler = new TxHandler(bitcoins.getPool());
 	}
 

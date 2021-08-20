@@ -1,17 +1,9 @@
-public class BitCoinsFor {
-
-	public Transaction getGenesiseTx() {
-		return genesiseTx;
-	}
-
-	public UTXOPool getPool() {
-		return pool;
-	}
+public class BitCoinPool {
 
 	private Transaction genesiseTx;
 	private UTXOPool pool;
 
-	public BitCoinsFor(SampleBitcoinPeople people) {
+	public BitCoinPool(BitcoinPeople people) {
 		genesiseTx = new Transaction();
 		genesiseTx.addOutput(10, people.scroogeKeypair.getPublic());
 		genesiseTx.finalize();
@@ -19,6 +11,14 @@ public class BitCoinsFor {
 		UTXO utxo = new UTXO(genesiseTx.getHash(), 0);
 		pool.addUTXO(utxo, genesiseTx.getOutput(0));
 
+	}
+
+	public Transaction getGenesiseTx() {
+		return genesiseTx;
+	}
+
+	public UTXOPool getPool() {
+		return pool;
 	}
 
 }
