@@ -10,12 +10,19 @@ abstract public class Exceptions extends Exception {
 
     static public void diagnostics(Exceptions ex) {
         System.err.println("\n\n");
-        System.err.println("\t" + ex.getClass().getSimpleName() + " : " + ex.getMessage());
+        System.err.println("\t" + ex.getClass().getSimpleName());
+        System.err.println("\t" + ex.getMessage());
         System.err.println("\n");
     }
 
 }
 
+/**
+ * @brief CoinConsumedMultipleTimesException
+ * 
+ * @implNote (3) no UTXO is claimed multiple times by {@code tx},
+ * 
+ */
 class CoinConsumedMultipleTimesException extends Exceptions {
 
     public CoinConsumedMultipleTimesException() {
@@ -30,6 +37,13 @@ class CoinConsumedMultipleTimesException extends Exceptions {
     }
 
 }
+
+/**
+ * @brief VerifySignatureOfConsumeCoinException
+ * 
+ * @implNote (2) the signatures on each input of {@code tx} are valid,
+ * 
+ */
 
 class VerifySignatureOfConsumeCoinException extends Exceptions {
 
@@ -48,6 +62,12 @@ class VerifySignatureOfConsumeCoinException extends Exceptions {
 
 }
 
+/**
+ * @brief
+ * 
+ * @implNote (1) all outputs claimed by {@code tx} are in the current UTXO pool,
+ * 
+ */
 class ConsumedCoinAvailableException extends Exceptions {
 
     public ConsumedCoinAvailableException() {
@@ -62,6 +82,12 @@ class ConsumedCoinAvailableException extends Exceptions {
 
 }
 
+/**
+ * @brief TransactionOutputLessThanZeroException
+ * 
+ * @implNote (4) all of {@code tx}s output values are non-negative, and
+ * 
+ */
 class TransactionOutputLessThanZeroException extends Exceptions {
 
     public TransactionOutputLessThanZeroException() {
@@ -69,11 +95,18 @@ class TransactionOutputLessThanZeroException extends Exceptions {
     }
 
     static public void assertion(OutputInterface output) throws TransactionOutputLessThanZeroException {
-        if (output.getValue()<0)
+        if (output.getValue() < 0)
             throw new TransactionOutputLessThanZeroException();
     }
 
 }
+
+/**
+ * @brief TransactionInputSumLessThanOutputSumException
+ * 
+ * @implNote (5) the sum of {@code tx}s input values is greater than or equal to
+ *           the sum of its output values; and false otherwise.
+ */
 
 class TransactionInputSumLessThanOutputSumException extends Exceptions {
 
@@ -81,8 +114,9 @@ class TransactionInputSumLessThanOutputSumException extends Exceptions {
         super("TransactionOutputSumLessThanInputSumException");
     }
 
-    static public void assertion(double outputSum, double inputSum) throws TransactionInputSumLessThanOutputSumException {
-        if (outputSum>inputSum)
+    static public void assertion(double outputSum, double inputSum)
+            throws TransactionInputSumLessThanOutputSumException {
+        if (outputSum > inputSum)
             throw new TransactionInputSumLessThanOutputSumException();
     }
 
