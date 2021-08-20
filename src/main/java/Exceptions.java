@@ -24,7 +24,7 @@ class CoinConsumedMultipleTimesException extends Exceptions {
 
     static public void assertion(Set<UTXO> claimedUTXO, Transaction.Input input)
             throws CoinConsumedMultipleTimesException {
-        UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+        UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
         if (!claimedUTXO.add(utxo))
             throw new CoinConsumedMultipleTimesException();
     }
@@ -39,10 +39,10 @@ class VerifySignatureOfConsumeCoinException extends Exceptions {
 
     static public void assertion(UTXOPool utxoPool, Transaction tx, int index, Transaction.Input input)
             throws VerifySignatureOfConsumeCoinException {
-        UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+        UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
         Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
         PublicKey pk = correspondingOutput.address;
-        if (!Crypto.verifySignature(pk, tx.getRawDataToSign(index), input.signature))
+        if (!Crypto.verifySignature(pk, tx.getRawDataToSign(index), input.getSignature()))
             throw new VerifySignatureOfConsumeCoinException();
     }
 
@@ -55,7 +55,7 @@ class ConsumedCoinAvailableException extends Exceptions {
     }
 
     static public void assertion(UTXOPool utxoPool, Transaction.Input input) throws ConsumedCoinAvailableException {
-        UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+        UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
         if (!utxoPool.contains(utxo))
             throw new ConsumedCoinAvailableException();
     }

@@ -37,7 +37,7 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 			ConsumedCoinAvailableException.assertion(utxoPool, input);
 			VerifySignatureOfConsumeCoinException.assertion(utxoPool, tx, i, input);
 			CoinConsumedMultipleTimesException.assertion(claimedUTXO, input);
-			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+			UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
 			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
 			inputSum += correspondingOutput.value;
 		}
@@ -129,7 +129,7 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 		double inputSum = 0;
 		for (int j = 0; j < inputs.size(); j++) {
 			Transaction.Input input = inputs.get(j);
-			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+			UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
 			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
 			inputSum += correspondingOutput.value;
 		}
@@ -149,7 +149,7 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 		List<Transaction.Input> inputs = tx.getInputs();
 		for (int j = 0; j < inputs.size(); j++) {
 			Transaction.Input input = inputs.get(j);
-			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+			UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
 			utxoPool.removeUTXO(utxo);
 		}
 	}

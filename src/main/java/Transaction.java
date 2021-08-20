@@ -9,11 +9,11 @@ public class Transaction implements Interfaces {
 
     public class Input implements InputInterface {
         /** hash of the Transaction whose output is being used */
-        public byte[] prevTxHash;
+        private byte[] prevTxHash;
         /** used output's index in the previous transaction */
-        public int outputIndex;
+        private int outputIndex;
         /** the signature produced to check validity */
-        public byte[] signature;
+        private byte[] signature;
 
         public Input(byte[] prevHash, int index) {
             if (prevHash == null)
@@ -29,6 +29,19 @@ public class Transaction implements Interfaces {
             else
                 signature = Arrays.copyOf(sig, sig.length);
         }
+
+        public byte[] getPrevTxHash() {
+            return prevTxHash;
+        }
+
+        public int getOutputIndex() {
+            return outputIndex;
+        }
+
+        public byte[] getSignature() {
+            return signature;
+        }
+
     }
 
     public class Output implements OutputInterface {
