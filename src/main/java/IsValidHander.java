@@ -64,6 +64,24 @@ abstract public class IsValidHander implements TxHandlerInterface {
 		return true;
 	}
 
+	protected void addCreatedCoinsToPool(Transaction tx) {
+		List<OutputInterface> outputs = tx.getOutputs();
+		for (int j = 0; j < outputs.size(); j++) {
+			OutputInterface output = outputs.get(j);
+			UTXO utxo = new UTXO(tx.getHash(), j);
+			utxoPool.addUTXO(utxo, output);
+		}
+	}
+
+	protected void removeConsumedCoinsFromPool(Transaction tx) {
+		List<InputInterface> inputs = tx.getInputs();
+		for (int j = 0; j < inputs.size(); j++) {
+			InputInterface input = inputs.get(j);
+			UTXO utxo = new UTXO(input);
+			utxoPool.removeUTXO(utxo);
+		}
+	}
+
 	/**
 	 * Handles each epoch by receiving an unordered array of proposed transactions,
 	 * checking each transaction for correctness, returning a mutually valid array

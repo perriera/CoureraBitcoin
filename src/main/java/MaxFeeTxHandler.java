@@ -96,22 +96,6 @@ public class MaxFeeTxHandler extends IsValidHander {
 		return inputSum;
 	}
 
-	private void addCreatedCoinsToPool(Transaction tx) {
-		List<OutputInterface> outputs = tx.getOutputs();
-		for (int j = 0; j < outputs.size(); j++) {
-			OutputInterface output = outputs.get(j);
-			UTXO utxo = new UTXO(tx.getHash(), j);
-			utxoPool.addUTXO(utxo, output);
-		}
-	}
-
-	private void removeConsumedCoinsFromPool(Transaction tx) {
-		List<InputInterface> inputs = tx.getInputs();
-		for (int j = 0; j < inputs.size(); j++) {
-			InputInterface input = inputs.get(j);
-			UTXO utxo = new UTXO(input);
-			utxoPool.removeUTXO(utxo);
-		}
-	}
+ 
 
 }
