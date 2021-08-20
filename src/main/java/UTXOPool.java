@@ -2,10 +2,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-public class UTXOPool {
+public class UTXOPool implements UTXOPoolInterface {
 
     /**
-     * The current collection of UTXOs, with each one mapped to its corresponding transaction output
+     * The current collection of UTXOs, with each one mapped to its corresponding
+     * transaction output
      */
     private HashMap<UTXO, OutputInterface> H;
 
@@ -19,7 +20,10 @@ public class UTXOPool {
         H = new HashMap<UTXO, OutputInterface>(uPool.H);
     }
 
-    /** Adds a mapping from UTXO {@code utxo} to transaction output @code{txOut} to the pool */
+    /**
+     * Adds a mapping from UTXO {@code utxo} to transaction output @code{txOut} to
+     * the pool
+     */
     public void addUTXO(UTXO utxo, OutputInterface txOut) {
         H.put(utxo, txOut);
     }
@@ -30,8 +34,8 @@ public class UTXOPool {
     }
 
     /**
-     * @return the transaction output corresponding to UTXO {@code utxo}, or null if {@code utxo} is
-     *         not in the pool.
+     * @return the transaction output corresponding to UTXO {@code utxo}, or null if
+     *         {@code utxo} is not in the pool.
      */
     public OutputInterface getTxOutput(UTXO ut) {
         return H.get(ut);
