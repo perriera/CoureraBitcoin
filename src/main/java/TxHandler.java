@@ -25,11 +25,10 @@ public class TxHandler extends IsValidHander {
 		for (int i = 0; i < possibleTxs.length; i++) {
 			Transaction tx = possibleTxs[i];
 			try {
-				if (isValidTx(tx)) {
-					acceptedTx.add(tx);
-					removeConsumedCoinsFromPool(tx);
-					addCreatedCoinsToPool(tx);
-				}
+				isValidTx(tx);
+				acceptedTx.add(tx);
+				removeConsumedCoinsFromPool(tx);
+				addCreatedCoinsToPool(tx);
 			} catch (Exceptions ex) {
 				Exceptions.diagnostics(ex);
 			} catch (Exception ex) {

@@ -24,12 +24,13 @@ public class MaxFeeTxHandler extends IsValidHander {
 		List<TransactionWithFee> acceptedTx = new ArrayList<TransactionWithFee>();
 		for (Transaction tx : possibleTxs) {
 			try {
-				if (isValidTx(tx)) {
-					TransactionWithFee txWithFee = new TransactionWithFee(tx);
-					acceptedTx.add(txWithFee);
-					removeConsumedCoinsFromPool(tx);
-					addCreatedCoinsToPool(tx);
-				}
+				isValidTx(tx);
+				TransactionWithFee txWithFee = new TransactionWithFee(tx);
+				acceptedTx.add(txWithFee);
+				removeConsumedCoinsFromPool(tx);
+				addCreatedCoinsToPool(tx);
+			} catch (Exceptions ex) {
+				Exceptions.diagnostics(ex);
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());
 			}
