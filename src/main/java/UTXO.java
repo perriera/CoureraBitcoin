@@ -16,6 +16,11 @@ public class UTXO implements UTXOInterface, Comparable<UTXO> {
         this.txHash = Arrays.copyOf(txHash, txHash.length);
         this.index = index;
     }
+    
+    public UTXO(InputInterface input) {
+        this.txHash = Arrays.copyOf(input.getPrevTxHash(), input.getPrevTxHash().length);
+        this.index = input.getOutputIndex();
+    }
 
     /** @return the transaction hash of this UTXO */
     public byte[] getTxHash() {

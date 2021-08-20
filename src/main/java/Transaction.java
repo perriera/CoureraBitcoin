@@ -97,8 +97,8 @@ public class Transaction implements TransactionInterface {
 
     public void removeInput(UTXO ut) {
         for (int i = 0; i < inputs.size(); i++) {
-            InputInterface in = inputs.get(i);
-            UTXO u = new UTXO(in.getPrevTxHash(), in.getOutputIndex());
+            InputInterface input = inputs.get(i);
+            UTXO u = new UTXO(input);
             if (u.equals(ut)) {
                 inputs.remove(i);
                 return;

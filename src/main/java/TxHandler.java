@@ -53,7 +53,7 @@ public class TxHandler extends IsValidHander {
 		List<InputInterface> inputs = tx.getInputs();
 		for (int j = 0; j < inputs.size(); j++) {
 			InputInterface input = inputs.get(j);
-			UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
+			UTXO utxo = new UTXO(input);
 			utxoPool.removeUTXO(utxo);
 		}
 	}

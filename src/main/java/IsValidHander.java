@@ -49,7 +49,7 @@ abstract public class IsValidHander implements TxHandlerInterface {
 			ConsumedCoinAvailableException.assertion(utxoPool, input);
 			VerifySignatureOfConsumeCoinException.assertion(utxoPool, tx, i++, input);
 			CoinConsumedMultipleTimesException.assertion(claimedUTXO, input);
-			UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
+			UTXO utxo = new UTXO(input);
 			OutputInterface correspondingOutput = utxoPool.getTxOutput(utxo);
 			inputSum += correspondingOutput.getValue();
 		}
