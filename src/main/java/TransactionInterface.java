@@ -87,3 +87,7 @@ interface UTXOPoolInterface {
     public ArrayList<UTXO> getAllUTXO();
 
 }
+
+interface CryptoInterface {
+    public boolean verifySignature(PublicKey pubKey, byte[] message, byte[] signature);
+}

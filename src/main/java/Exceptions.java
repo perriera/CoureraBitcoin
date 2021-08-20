@@ -42,7 +42,7 @@ class VerifySignatureOfConsumeCoinException extends Exceptions {
         UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
         OutputInterface correspondingOutput = utxoPool.getTxOutput(utxo);
         PublicKey pk = correspondingOutput.getAddress();
-        if (!Crypto.verifySignature(pk, tx.getRawDataToSign(index), input.getSignature()))
+        if (!new Crypto().verifySignature(pk, tx.getRawDataToSign(index), input.getSignature()))
             throw new VerifySignatureOfConsumeCoinException();
     }
 
