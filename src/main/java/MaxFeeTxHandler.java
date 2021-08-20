@@ -34,15 +34,12 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 		List<Transaction.Input> inputs = tx.getInputs();
 		for (int i = 0; i < inputs.size(); i++) {
 			Transaction.Input input = inputs.get(i);
-
 			ConsumedCoinAvailableException.assertion(utxoPool, input);
 			VerifySignatureOfConsumeCoinException.assertion(utxoPool, tx, i, input);
 			CoinConsumedMultipleTimesException.assertion(claimedUTXO, input);
-
 			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
 			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
 			inputSum += correspondingOutput.value;
-
 		}
 
 		List<Transaction.Output> outputs = tx.getOutputs();
