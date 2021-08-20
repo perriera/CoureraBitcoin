@@ -100,11 +100,15 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 	public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception {
 		List<TransactionWithFee> acceptedTx = new ArrayList<TransactionWithFee>();
 		for (Transaction tx : possibleTxs) {
-			if (isValidTx(tx)) {
-				TransactionWithFee txWithFee = new TransactionWithFee(tx);
-				acceptedTx.add(txWithFee);
-				removeConsumedCoinsFromPool(tx);
-				addCreatedCoinsToPool(tx);
+			try {
+				if (isValidTx(tx)) {
+					TransactionWithFee txWithFee = new TransactionWithFee(tx);
+					acceptedTx.add(txWithFee);
+					removeConsumedCoinsFromPool(tx);
+					addCreatedCoinsToPool(tx);
+				}
+			} catch (Exception ex) {
+				System.out.println(ex.getMessage());
 			}
 		}
 

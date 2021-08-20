@@ -38,13 +38,14 @@ public class TxHandler implements TxHandlerInterface {
 				return false;
 			}
 
-			if (!verifySignatureOfConsumeCoin(tx, i, input)) {
-				return false;
-			}
+			VerifySignatureOfConsumeCoinException.assetion(utxoPool, tx, i, input);
+			// if (!verifySignatureOfConsumeCoin(tx, i, input)) {
+			// return false;
+			// }
 
 			CoinConsumedMultipleTimesException.assetion(claimedUTXO, input);
 			// if (isCoinConsumedMultipleTimes(claimedUTXO, input)) {
-			// 	return false;
+			// return false;
 			// }
 
 			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
@@ -95,15 +96,19 @@ public class TxHandler implements TxHandlerInterface {
 	 * checking each transaction for correctness, returning a mutually valid array
 	 * of accepted transactions, and updating the current UTXO pool as appropriate.
 	 */
-	public Transaction[] handleTxs(Transaction[] possibleTxs)  throws Exception {
+	public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception {
 		List<Transaction> acceptedTx = new ArrayList<Transaction>();
 		for (int i = 0; i < possibleTxs.length; i++) {
 			Transaction tx = possibleTxs[i];
-			if (isValidTx(tx)) {
-				acceptedTx.add(tx);
+			try {
+				if (isValidTx(tx)) {
+					acceptedTx.add(tx);
 
-				removeConsumedCoinsFromPool(tx);
-				addCreatedCoinsToPool(tx);
+					removeConsumedCoinsFromPool(tx);
+					addCreatedCoinsToPool(tx);
+				}
+			} catch (Exception ex) {
+				System.out.println(ex.getMessage());
 			}
 		}
 

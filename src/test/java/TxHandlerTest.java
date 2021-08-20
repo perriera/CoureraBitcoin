@@ -31,17 +31,19 @@ public class TxHandlerTest   {
 		GenerateInitialCoins();
 	}
 
-	@Test
-	public void testValidTxSign()
-			throws  Exception {
+	@Test(expected = VerifySignatureOfConsumeCoinException.class)
+	public void testValidTxSign() throws  Exception {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
 		tx1.addOutput(10, aliceKeypair.getPublic());
 		byte[] sig1 = signMessage(aliceKeypair.getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
-		assertFalse(txHandler.isValidTx(tx1));
+		txHandler.isValidTx(tx1);
+	}
 
+	@Test 
+	public void testValidTxSign2() throws  Exception {
 		Transaction tx2 = new Transaction();
 		tx2.addInput(genesiseTx.getHash(), 0);
 		tx2.addOutput(10, aliceKeypair.getPublic());
