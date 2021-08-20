@@ -50,7 +50,7 @@ public class MaxFeeTxHandlerTest {
 		assertTrue(txHandler.isValidTx(tx3));
 	}
 
-	@Test
+	@Test(expected = TransactionInputSumLessThanOutputSumException.class)
 	public void testValidTxValue() throws Exception {
 		Transaction tx = new Transaction();
 		tx.addInput(bitcoins.getGenesiseTx().getHash(), 0);
@@ -60,14 +60,17 @@ public class MaxFeeTxHandlerTest {
 		tx.addSignature(sig, 0);
 		tx.finalize();
 		assertFalse(txHandler.isValidTx(tx));
+	}
 
-		Transaction tx1 = new Transaction();
+	@Test(expected = TransactionOutputLessThanZeroException.class)
+		public void testValidTxValue2() throws Exception {
+			Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(4, people.getAlice().getPublic());
 		tx1.addOutput(-7, people.getBob().getPublic());
 		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
-		tx.finalize();
+		tx1.finalize();
 		assertFalse(txHandler.isValidTx(tx1));
 	}
 

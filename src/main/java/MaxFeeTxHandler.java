@@ -48,38 +48,13 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 		List<Transaction.Output> outputs = tx.getOutputs();
 		for (int i = 0; i < outputs.size(); i++) {
 			Transaction.Output output = outputs.get(i);
-			if (output.value <= 0) {
-				return false;
-			}
-
+			TransactionOutputLessThanZeroException.assertion(output);
 			outputSum += output.value;
 		}
 
-		// Should the input value and output value be equal? Otherwise the ledger will
-		// become unbalanced.
-		// The difference between inputSum and outputSum is the transaction fee
-		if (outputSum > inputSum) {
-			return false;
-		}
+		TransactionInputSumLessThanOutputSumException.assertion(outputSum, inputSum);
 
 		return true;
-	}
-
-	private boolean isCoinConsumedMultipleTimes(Set<UTXO> claimedUTXO, Transaction.Input input) {
-		UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-		return !claimedUTXO.add(utxo);
-	}
-
-	private boolean verifySignatureOfConsumeCoin(Transaction tx, int index, Transaction.Input input) {
-		UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-		Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
-		PublicKey pk = correspondingOutput.address;
-		return Crypto.verifySignature(pk, tx.getRawDataToSign(index), input.signature);
-	}
-
-	private boolean isConsumedCoinAvailable(Transaction.Input input) {
-		UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-		return utxoPool.contains(utxo);
 	}
 
 	/**
