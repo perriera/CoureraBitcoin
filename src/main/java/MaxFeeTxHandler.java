@@ -26,7 +26,7 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 	 *         output values; and false otherwise. //Should the input value and
 	 *         output value be equal? Otherwise the ledger will become unbalanced.
 	 */
-	public boolean isValidTx(Transaction tx) {
+	public boolean isValidTx(Transaction tx) throws Exception {
 		Set<UTXO> claimedUTXO = new HashSet<UTXO>();
 		double inputSum = 0;
 		double outputSum = 0;
@@ -97,7 +97,7 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 	 * 
 	 * Sort the accepted transactions by fee
 	 */
-	public Transaction[] handleTxs(Transaction[] possibleTxs) {
+	public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception {
 		List<TransactionWithFee> acceptedTx = new ArrayList<TransactionWithFee>();
 		for (Transaction tx : possibleTxs) {
 			if (isValidTx(tx)) {

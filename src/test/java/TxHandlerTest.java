@@ -33,7 +33,7 @@ public class TxHandlerTest   {
 
 	@Test
 	public void testValidTxSign()
-			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, SignatureException {
+			throws  Exception {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
 		tx1.addOutput(10, aliceKeypair.getPublic());
@@ -62,7 +62,7 @@ public class TxHandlerTest   {
 
 	@Test
 	public void testValidTxValue()
-			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, SignatureException {
+			throws  Exception {
 		Transaction tx = new Transaction();
 		tx.addInput(genesiseTx.getHash(), 0);
 		tx.addOutput(4, aliceKeypair.getPublic());
@@ -84,7 +84,7 @@ public class TxHandlerTest   {
 
 	@Test
 	public void testTransfer()
-			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, SignatureException {
+			throws  Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
@@ -113,7 +113,7 @@ public class TxHandlerTest   {
 
 	@Test
 	public void testMultipTxDepenonEachother()
-			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, SignatureException {
+			throws  Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
@@ -145,7 +145,7 @@ public class TxHandlerTest   {
 
 	@Test
 	public void testDoubleSpending()
-			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, SignatureException {
+			throws  Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);

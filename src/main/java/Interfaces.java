@@ -11,7 +11,7 @@ interface OutputInterface {
 }
 
 interface TxHandlerInterface {
-    public boolean isValidTx(Transaction tx);
+    public boolean isValidTx(Transaction tx) throws Exception;
 
-    public Transaction[] handleTxs(Transaction[] possibleTxs);
+    public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception;
 }

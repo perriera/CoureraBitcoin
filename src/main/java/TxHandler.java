@@ -25,7 +25,7 @@ public class TxHandler implements TxHandlerInterface {
 	 *         output values; and false otherwise. //Should the input value and
 	 *         output value be equal? Otherwise the ledger will become unbalanced.
 	 */
-	public boolean isValidTx(Transaction tx) {
+	public boolean isValidTx(Transaction tx) throws Exception {
 		Set<UTXO> claimedUTXO = new HashSet<UTXO>();
 		double inputSum = 0;
 		double outputSum = 0;
@@ -42,9 +42,10 @@ public class TxHandler implements TxHandlerInterface {
 				return false;
 			}
 
-			if (isCoinConsumedMultipleTimes(claimedUTXO, input)) {
-				return false;
-			}
+			CoinConsumedMultipleTimesException.assetion(claimedUTXO, input);
+			// if (isCoinConsumedMultipleTimes(claimedUTXO, input)) {
+			// 	return false;
+			// }
 
 			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
 			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
@@ -94,7 +95,7 @@ public class TxHandler implements TxHandlerInterface {
 	 * checking each transaction for correctness, returning a mutually valid array
 	 * of accepted transactions, and updating the current UTXO pool as appropriate.
 	 */
-	public Transaction[] handleTxs(Transaction[] possibleTxs) {
+	public Transaction[] handleTxs(Transaction[] possibleTxs)  throws Exception {
 		List<Transaction> acceptedTx = new ArrayList<Transaction>();
 		for (int i = 0; i < possibleTxs.length; i++) {
 			Transaction tx = possibleTxs[i];

@@ -35,7 +35,7 @@ public class MaxFeeTxHandlerTest  {
 
 	@Test
 	public void testValidTxSign()
-			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, SignatureException {
+			throws Exception {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
 		tx1.addOutput(10, aliceKeypair.getPublic());
@@ -64,7 +64,7 @@ public class MaxFeeTxHandlerTest  {
 
 	@Test
 	public void testValidTxValue()
-			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, SignatureException {
+			throws  Exception {
 		Transaction tx = new Transaction();
 		tx.addInput(genesiseTx.getHash(), 0);
 		tx.addOutput(4, aliceKeypair.getPublic());
@@ -86,7 +86,7 @@ public class MaxFeeTxHandlerTest  {
 
 	@Test
 	public void testMaxFeeTransfer()
-			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, SignatureException {
+			throws  Exception {
 		// Scrooge transfer 4 coins to Alice, 6 coins to bob, no transaction fee
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
@@ -119,7 +119,7 @@ public class MaxFeeTxHandlerTest  {
 
 	@Test
 	public void testDoubleSpending()
-			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, SignatureException {
+			throws  Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
