@@ -31,20 +31,20 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 		double inputSum = 0;
 		double outputSum = 0;
 
-		List<Transaction.Input> inputs = tx.getInputs();
+		List<InputInterface> inputs = tx.getInputs();
 		for (int i = 0; i < inputs.size(); i++) {
-			Transaction.Input input = inputs.get(i);
+			InputInterface input = inputs.get(i);
 			ConsumedCoinAvailableException.assertion(utxoPool, input);
 			VerifySignatureOfConsumeCoinException.assertion(utxoPool, tx, i, input);
 			CoinConsumedMultipleTimesException.assertion(claimedUTXO, input);
 			UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
-			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
+			OutputInterface correspondingOutput = utxoPool.getTxOutput(utxo);
 			inputSum += correspondingOutput.getValue();
 		}
 
-		List<Transaction.Output> outputs = tx.getOutputs();
+		List<OutputInterface> outputs = tx.getOutputs();
 		for (int i = 0; i < outputs.size(); i++) {
-			Transaction.Output output = outputs.get(i);
+			OutputInterface output = outputs.get(i);
 			TransactionOutputLessThanZeroException.assertion(output);
 			outputSum += output.getValue();
 		}
@@ -116,39 +116,39 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 
 	private double calculateOutputSum(Transaction tx) {
 		double outputSum = 0;
-		List<Transaction.Output> outputs = tx.getOutputs();
+		List<OutputInterface> outputs = tx.getOutputs();
 		for (int j = 0; j < outputs.size(); j++) {
-			Transaction.Output output = outputs.get(j);
+			OutputInterface output = outputs.get(j);
 			outputSum += output.getValue();
 		}
 		return outputSum;
 	}
 
 	private double calculateInputSum(Transaction tx) {
-		List<Transaction.Input> inputs = tx.getInputs();
+		List<InputInterface> inputs = tx.getInputs();
 		double inputSum = 0;
 		for (int j = 0; j < inputs.size(); j++) {
-			Transaction.Input input = inputs.get(j);
+			InputInterface input = inputs.get(j);
 			UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
-			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
+			OutputInterface correspondingOutput = utxoPool.getTxOutput(utxo);
 			inputSum += correspondingOutput.getValue();
 		}
 		return inputSum;
 	}
 
 	private void addCreatedCoinsToPool(Transaction tx) {
-		List<Transaction.Output> outputs = tx.getOutputs();
+		List<OutputInterface> outputs = tx.getOutputs();
 		for (int j = 0; j < outputs.size(); j++) {
-			Transaction.Output output = outputs.get(j);
+			OutputInterface output = outputs.get(j);
 			UTXO utxo = new UTXO(tx.getHash(), j);
 			utxoPool.addUTXO(utxo, output);
 		}
 	}
 
 	private void removeConsumedCoinsFromPool(Transaction tx) {
-		List<Transaction.Input> inputs = tx.getInputs();
+		List<InputInterface> inputs = tx.getInputs();
 		for (int j = 0; j < inputs.size(); j++) {
-			Transaction.Input input = inputs.get(j);
+			InputInterface input = inputs.get(j);
 			UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
 			utxoPool.removeUTXO(utxo);
 		}

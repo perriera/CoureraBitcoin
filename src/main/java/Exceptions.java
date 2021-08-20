@@ -22,7 +22,7 @@ class CoinConsumedMultipleTimesException extends Exceptions {
         super("CoinConsumedMultipleTimesException");
     }
 
-    static public void assertion(Set<UTXO> claimedUTXO, Transaction.Input input)
+    static public void assertion(Set<UTXO> claimedUTXO, InputInterface input)
             throws CoinConsumedMultipleTimesException {
         UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
         if (!claimedUTXO.add(utxo))
@@ -37,10 +37,10 @@ class VerifySignatureOfConsumeCoinException extends Exceptions {
         super("VerifySignatureOfConsumeCoinException");
     }
 
-    static public void assertion(UTXOPool utxoPool, Transaction tx, int index, Transaction.Input input)
+    static public void assertion(UTXOPool utxoPool, Transaction tx, int index, InputInterface input)
             throws VerifySignatureOfConsumeCoinException {
         UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
-        Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
+        OutputInterface correspondingOutput = utxoPool.getTxOutput(utxo);
         PublicKey pk = correspondingOutput.getAddress();
         if (!Crypto.verifySignature(pk, tx.getRawDataToSign(index), input.getSignature()))
             throw new VerifySignatureOfConsumeCoinException();
@@ -54,7 +54,7 @@ class ConsumedCoinAvailableException extends Exceptions {
         super("ConsumedCoinAvailableException");
     }
 
-    static public void assertion(UTXOPool utxoPool, Transaction.Input input) throws ConsumedCoinAvailableException {
+    static public void assertion(UTXOPool utxoPool, InputInterface input) throws ConsumedCoinAvailableException {
         UTXO utxo = new UTXO(input.getPrevTxHash(), input.getOutputIndex());
         if (!utxoPool.contains(utxo))
             throw new ConsumedCoinAvailableException();
@@ -68,7 +68,7 @@ class TransactionOutputLessThanZeroException extends Exceptions {
         super("TransactionOutputLessThanZeroException");
     }
 
-    static public void assertion(Transaction.Output output) throws TransactionOutputLessThanZeroException {
+    static public void assertion(OutputInterface output) throws TransactionOutputLessThanZeroException {
         if (output.getValue()<0)
             throw new TransactionOutputLessThanZeroException();
     }
