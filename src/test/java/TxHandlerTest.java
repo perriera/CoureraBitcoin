@@ -14,19 +14,20 @@ import org.junit.Test;
 
 public class TxHandlerTest {
 	private SampleBitcoinPeople people;
-	private Transaction genesiseTx;
-	private TxHandler txHandler;
+	private BitCoinsFor bitcoins;
+	private TxHandlerInterface txHandler;
 
 	@Before
 	public void setUp() throws Exception {
 		people = new SampleBitcoinPeople();
-		GenerateInitialCoins();
+		bitcoins = new BitCoinsFor(people);
+		txHandler = new TxHandler(bitcoins.getPool());
 	}
 
 	@Test(expected = VerifySignatureOfConsumeCoinException.class)
 	public void testValidTxSign() throws Exception {
 		Transaction tx1 = new Transaction();
-		tx1.addInput(genesiseTx.getHash(), 0);
+		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.aliceKeypair.getPublic());
 		byte[] sig1 = signMessage(people.aliceKeypair.getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
@@ -37,7 +38,7 @@ public class TxHandlerTest {
 	@Test
 	public void testValidTxSign2() throws Exception {
 		Transaction tx2 = new Transaction();
-		tx2.addInput(genesiseTx.getHash(), 0);
+		tx2.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx2.addOutput(10, people.aliceKeypair.getPublic());
 		byte[] sig2 = signMessage(people.scroogeKeypair.getPrivate(), tx2.getRawDataToSign(0));
 		tx2.addSignature(sig2, 0);
@@ -45,7 +46,7 @@ public class TxHandlerTest {
 		assertTrue(txHandler.isValidTx(tx2));
 
 		Transaction tx3 = new Transaction();
-		tx3.addInput(genesiseTx.getHash(), 0);
+		tx3.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx3.addOutput(4, people.aliceKeypair.getPublic());
 		tx3.addOutput(6, people.bobKeypair.getPublic());
 		byte[] sig3 = signMessage(people.scroogeKeypair.getPrivate(), tx3.getRawDataToSign(0));
@@ -57,7 +58,7 @@ public class TxHandlerTest {
 	@Test(expected = TransactionInputSumLessThanOutputSumException.class)
 	public void testValidTxValue() throws Exception {
 		Transaction tx = new Transaction();
-		tx.addInput(genesiseTx.getHash(), 0);
+		tx.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx.addOutput(4, people.aliceKeypair.getPublic());
 		tx.addOutput(7, people.bobKeypair.getPublic());
 		byte[] sig = signMessage(people.scroogeKeypair.getPrivate(), tx.getRawDataToSign(0));
@@ -69,7 +70,7 @@ public class TxHandlerTest {
 	@Test(expected = TransactionOutputLessThanZeroException.class)
 	public void testValidTxValue2() throws Exception {
 		Transaction tx1 = new Transaction();
-		tx1.addInput(genesiseTx.getHash(), 0);
+		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(4, people.aliceKeypair.getPublic());
 		tx1.addOutput(-7, people.bobKeypair.getPublic());
 		byte[] sig1 = signMessage(people.scroogeKeypair.getPrivate(), tx1.getRawDataToSign(0));
@@ -82,7 +83,7 @@ public class TxHandlerTest {
 	public void testTransfer() throws Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
-		tx1.addInput(genesiseTx.getHash(), 0);
+		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.aliceKeypair.getPublic());
 		byte[] sig1 = signMessage(people.scroogeKeypair.getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
@@ -110,7 +111,7 @@ public class TxHandlerTest {
 	public void testMultipTxDepenonEachother() throws Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
-		tx1.addInput(genesiseTx.getHash(), 0);
+		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.aliceKeypair.getPublic());
 		byte[] sig1 = signMessage(people.scroogeKeypair.getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
@@ -141,7 +142,7 @@ public class TxHandlerTest {
 	public void testDoubleSpending() throws Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
-		tx1.addInput(genesiseTx.getHash(), 0);
+		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.aliceKeypair.getPublic());
 		byte[] sig1 = signMessage(people.scroogeKeypair.getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
@@ -167,7 +168,7 @@ public class TxHandlerTest {
 	@Test(expected = ConsumedCoinAvailableException.class)
 	public void testDoubleSpending2() throws Exception {
 		Transaction tx1 = new Transaction();
-		tx1.addInput(genesiseTx.getHash(), 0);
+		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.aliceKeypair.getPublic());
 		byte[] sig1 = signMessage(people.scroogeKeypair.getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
@@ -180,18 +181,6 @@ public class TxHandlerTest {
 		tx3.addSignature(sig3, 0);
 		tx3.finalize();
 		txHandler.isValidTx(tx3);
-	}
-
-	private void GenerateInitialCoins() {
-		genesiseTx = new Transaction();
-		genesiseTx.addOutput(10, people.scroogeKeypair.getPublic());
-		genesiseTx.finalize();
-
-		UTXOPool pool = new UTXOPool();
-		UTXO utxo = new UTXO(genesiseTx.getHash(), 0);
-		pool.addUTXO(utxo, genesiseTx.getOutput(0));
-
-		txHandler = new TxHandler(pool);
 	}
 
 	private byte[] signMessage(PrivateKey sk, byte[] message)
