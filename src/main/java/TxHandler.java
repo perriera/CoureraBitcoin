@@ -21,7 +21,7 @@ public class TxHandler extends IsValidHander {
 	 * Don't sort the accepted transactions by fee
 	 */
 	public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception {
-		List<Transaction> acceptedTx = new ArrayList<Transaction>();
+		List<TransactionInterface> acceptedTx = new ArrayList<TransactionInterface>();
 		for (Transaction tx : possibleTxs) {
 			try {
 				isValidTx(tx);
