@@ -62,3 +62,12 @@ interface TxHandlerInterface {
 
     public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception;
 }
+
+interface UTXOInterface {
+
+        /** @return the transaction hash of this UTXO */
+        public byte[] getTxHash();
+    
+        /** @return the index of this UTXO */
+        public int getIndex();
+}
