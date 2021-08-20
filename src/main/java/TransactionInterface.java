@@ -54,7 +54,9 @@ interface OutputInterface {
 }
 
 interface TxHandlerInterface {
-    public boolean isValidTx(Transaction tx) throws Exception;
+    public boolean isValidTx(Transaction tx) throws ConsumedCoinAvailableException,
+            VerifySignatureOfConsumeCoinException, CoinConsumedMultipleTimesException,
+            TransactionOutputLessThanZeroException, TransactionInputSumLessThanOutputSumException;
 
     public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception;
 }

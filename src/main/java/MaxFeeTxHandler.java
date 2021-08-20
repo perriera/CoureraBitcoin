@@ -25,8 +25,15 @@ public class MaxFeeTxHandler implements TxHandlerInterface {
 	 *         {@code tx}s input values is greater than or equal to the sum of its
 	 *         output values; and false otherwise. //Should the input value and
 	 *         output value be equal? Otherwise the ledger will become unbalanced.
+	 * @throws ConsumedCoinAvailableException
+	 * @throws VerifySignatureOfConsumeCoinException
+	 * @throws CoinConsumedMultipleTimesException
+	 * @throws TransactionOutputLessThanZeroException
+	 * @throws TransactionInputSumLessThanOutputSumException
 	 */
-	public boolean isValidTx(Transaction tx) throws Exception {
+    public boolean isValidTx(Transaction tx) throws ConsumedCoinAvailableException,
+            VerifySignatureOfConsumeCoinException, CoinConsumedMultipleTimesException,
+            TransactionOutputLessThanZeroException, TransactionInputSumLessThanOutputSumException {
 		Set<UTXO> claimedUTXO = new HashSet<UTXO>();
 		double inputSum = 0;
 		double outputSum = 0;

@@ -24,7 +24,9 @@ public class TxHandler implements TxHandlerInterface {
 	 *         output values; and false otherwise. //Should the input value and
 	 *         output value be equal? Otherwise the ledger will become unbalanced.
 	 */
-	public boolean isValidTx(Transaction tx) throws Exception {
+    public boolean isValidTx(Transaction tx) throws ConsumedCoinAvailableException,
+            VerifySignatureOfConsumeCoinException, CoinConsumedMultipleTimesException,
+            TransactionOutputLessThanZeroException, TransactionInputSumLessThanOutputSumException {
 		Set<UTXO> claimedUTXO = new HashSet<UTXO>();
 		double inputSum = 0;
 		double outputSum = 0;
