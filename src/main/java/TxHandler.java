@@ -33,26 +33,12 @@ public class TxHandler implements TxHandlerInterface {
 		List<Transaction.Input> inputs = tx.getInputs();
 		for (int i = 0; i < inputs.size(); i++) {
 			Transaction.Input input = inputs.get(i);
-
 			ConsumedCoinAvailablException.assetion(utxoPool, input);
-			// if (!isConsumedCoinAvailable(input)) {
-			// 	return false;
-			// }
-
 			VerifySignatureOfConsumeCoinException.assetion(utxoPool, tx, i, input);
-			// if (!verifySignatureOfConsumeCoin(tx, i, input)) {
-			// return false;
-			// }
-
 			CoinConsumedMultipleTimesException.assetion(claimedUTXO, input);
-			// if (isCoinConsumedMultipleTimes(claimedUTXO, input)) {
-			// return false;
-			// }
-
 			UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
 			Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
 			inputSum += correspondingOutput.value;
-
 		}
 
 		List<Transaction.Output> outputs = tx.getOutputs();
@@ -73,23 +59,6 @@ public class TxHandler implements TxHandlerInterface {
 		}
 
 		return true;
-	}
-
-	private boolean isCoinConsumedMultipleTimes(Set<UTXO> claimedUTXO, Transaction.Input input) {
-		UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-		return !claimedUTXO.add(utxo);
-	}
-
-	private boolean verifySignatureOfConsumeCoin(Transaction tx, int index, Transaction.Input input) {
-		UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-		Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
-		PublicKey pk = correspondingOutput.address;
-		return Crypto.verifySignature(pk, tx.getRawDataToSign(index), input.signature);
-	}
-
-	private boolean isConsumedCoinAvailable(Transaction.Input input) {
-		UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
-		return utxoPool.contains(utxo);
 	}
 
 	/**

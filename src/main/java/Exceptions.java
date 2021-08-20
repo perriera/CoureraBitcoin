@@ -8,16 +8,9 @@ abstract public class Exceptions extends Exception {
         super(name);
     }
 
-    public Exceptions() {
-        super("Exceptions default constructor");
-    }
-
-    abstract public String getIssue();
-
     static public void diagnostics(Exceptions ex) {
         System.err.println("\n\n");
         System.err.println("\t" + ex.getClass().getSimpleName() + " : " + ex.getMessage());
-        System.err.println("\t" + ex.getIssue());
         System.err.println("\n");
     }
 
@@ -27,11 +20,6 @@ class CoinConsumedMultipleTimesException extends Exceptions {
 
     public CoinConsumedMultipleTimesException() {
         super("CoinConsumedMultipleTimesException");
-    }
-
-    @Override
-    public String getIssue() {
-        return "CoinConsumedMultipleTimes ";
     }
 
     static public void assetion(Set<UTXO> claimedUTXO, Transaction.Input input)
@@ -49,11 +37,6 @@ class VerifySignatureOfConsumeCoinException extends Exceptions {
         super("VerifySignatureOfConsumeCoinException");
     }
 
-    @Override
-    public String getIssue() {
-        return "VerifySignatureOfConsumeCoinException ";
-    }
-
     static public void assetion(UTXOPool utxoPool, Transaction tx, int index, Transaction.Input input)
             throws VerifySignatureOfConsumeCoinException {
         UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
@@ -69,11 +52,6 @@ class ConsumedCoinAvailablException extends Exceptions {
 
     public ConsumedCoinAvailablException() {
         super("ConsumedCoinAvailablException");
-    }
-
-    @Override
-    public String getIssue() {
-        return "ConsumedCoinAvailablException " ;
     }
 
     static public void assetion(UTXOPool utxoPool, Transaction.Input input) throws ConsumedCoinAvailablException {
