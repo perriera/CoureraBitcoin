@@ -30,6 +30,8 @@ public class TxHandler extends IsValidHander {
 					removeConsumedCoinsFromPool(tx);
 					addCreatedCoinsToPool(tx);
 				}
+			} catch (Exceptions ex) {
+				Exceptions.diagnostics(ex);
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());
 			}
