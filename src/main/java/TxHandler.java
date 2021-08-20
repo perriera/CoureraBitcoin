@@ -34,9 +34,10 @@ public class TxHandler implements TxHandlerInterface {
 		for (int i = 0; i < inputs.size(); i++) {
 			Transaction.Input input = inputs.get(i);
 
-			if (!isConsumedCoinAvailable(input)) {
-				return false;
-			}
+			ConsumedCoinAvailablException.assetion(utxoPool, input);
+			// if (!isConsumedCoinAvailable(input)) {
+			// 	return false;
+			// }
 
 			VerifySignatureOfConsumeCoinException.assetion(utxoPool, tx, i, input);
 			// if (!verifySignatureOfConsumeCoin(tx, i, input)) {

@@ -25,49 +25,33 @@ abstract public class Exceptions extends Exception {
 
 class CoinConsumedMultipleTimesException extends Exceptions {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -9114856538242344478L;
-
-    String name;
-
-    public CoinConsumedMultipleTimesException(String name) {
-        super(name);
-        this.name = name;
+    public CoinConsumedMultipleTimesException() {
+        super("CoinConsumedMultipleTimesException");
     }
 
     @Override
     public String getIssue() {
-        return "CoinConsumedMultipleTimes " + name;
+        return "CoinConsumedMultipleTimes ";
     }
 
     static public void assetion(Set<UTXO> claimedUTXO, Transaction.Input input)
             throws CoinConsumedMultipleTimesException {
         UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
         if (!claimedUTXO.add(utxo))
-            throw new CoinConsumedMultipleTimesException("this");
+            throw new CoinConsumedMultipleTimesException();
     }
 
 }
 
 class VerifySignatureOfConsumeCoinException extends Exceptions {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -9114856538242344478L;
-
-    String name;
-
-    public VerifySignatureOfConsumeCoinException(String name) {
-        super(name);
-        this.name = name;
+    public VerifySignatureOfConsumeCoinException() {
+        super("VerifySignatureOfConsumeCoinException");
     }
 
     @Override
     public String getIssue() {
-        return "CoinConsumedMultipleTimes " + name;
+        return "VerifySignatureOfConsumeCoinException ";
     }
 
     static public void assetion(UTXOPool utxoPool, Transaction tx, int index, Transaction.Input input)
@@ -76,7 +60,26 @@ class VerifySignatureOfConsumeCoinException extends Exceptions {
         Transaction.Output correspondingOutput = utxoPool.getTxOutput(utxo);
         PublicKey pk = correspondingOutput.address;
         if (!Crypto.verifySignature(pk, tx.getRawDataToSign(index), input.signature))
-            throw new VerifySignatureOfConsumeCoinException("this");
+            throw new VerifySignatureOfConsumeCoinException();
+    }
+
+}
+
+class ConsumedCoinAvailablException extends Exceptions {
+
+    public ConsumedCoinAvailablException() {
+        super("ConsumedCoinAvailablException");
+    }
+
+    @Override
+    public String getIssue() {
+        return "ConsumedCoinAvailablException " ;
+    }
+
+    static public void assetion(UTXOPool utxoPool, Transaction.Input input) throws ConsumedCoinAvailablException {
+        UTXO utxo = new UTXO(input.prevTxHash, input.outputIndex);
+        if (!utxoPool.contains(utxo))
+            throw new ConsumedCoinAvailablException();
     }
 
 }

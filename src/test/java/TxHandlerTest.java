@@ -17,7 +17,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TxHandlerTest   {
+public class TxHandlerTest {
 	private KeyPair scroogeKeypair;
 	private KeyPair aliceKeypair;
 	private KeyPair bobKeypair;
@@ -32,7 +32,7 @@ public class TxHandlerTest   {
 	}
 
 	@Test(expected = VerifySignatureOfConsumeCoinException.class)
-	public void testValidTxSign() throws  Exception {
+	public void testValidTxSign() throws Exception {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
 		tx1.addOutput(10, aliceKeypair.getPublic());
@@ -42,8 +42,8 @@ public class TxHandlerTest   {
 		txHandler.isValidTx(tx1);
 	}
 
-	@Test 
-	public void testValidTxSign2() throws  Exception {
+	@Test
+	public void testValidTxSign2() throws Exception {
 		Transaction tx2 = new Transaction();
 		tx2.addInput(genesiseTx.getHash(), 0);
 		tx2.addOutput(10, aliceKeypair.getPublic());
@@ -63,8 +63,7 @@ public class TxHandlerTest   {
 	}
 
 	@Test
-	public void testValidTxValue()
-			throws  Exception {
+	public void testValidTxValue() throws Exception {
 		Transaction tx = new Transaction();
 		tx.addInput(genesiseTx.getHash(), 0);
 		tx.addOutput(4, aliceKeypair.getPublic());
@@ -85,8 +84,7 @@ public class TxHandlerTest   {
 	}
 
 	@Test
-	public void testTransfer()
-			throws  Exception {
+	public void testTransfer() throws Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
@@ -114,8 +112,7 @@ public class TxHandlerTest   {
 	}
 
 	@Test
-	public void testMultipTxDepenonEachother()
-			throws  Exception {
+	public void testMultipTxDepenonEachother() throws Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
@@ -146,8 +143,7 @@ public class TxHandlerTest   {
 	}
 
 	@Test
-	public void testDoubleSpending()
-			throws  Exception {
+	public void testDoubleSpending() throws Exception {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(genesiseTx.getHash(), 0);
@@ -171,6 +167,16 @@ public class TxHandlerTest   {
 		acceptedRx = txHandler.handleTxs(new Transaction[] { tx2 });
 		assertEquals(acceptedRx.length, 1);
 
+	}
+
+	@Test(expected = ConsumedCoinAvailablException.class)
+	public void testDoubleSpending2() throws Exception {
+		Transaction tx1 = new Transaction();
+		tx1.addInput(genesiseTx.getHash(), 0);
+		tx1.addOutput(10, aliceKeypair.getPublic());
+		byte[] sig1 = signMessage(scroogeKeypair.getPrivate(), tx1.getRawDataToSign(0));
+		tx1.addSignature(sig1, 0);
+		tx1.finalize();
 		// Alice then transfer the same 10 coins to mike
 		Transaction tx3 = new Transaction();
 		tx3.addInput(tx1.getHash(), 0);
@@ -178,7 +184,7 @@ public class TxHandlerTest   {
 		byte[] sig3 = signMessage(aliceKeypair.getPrivate(), tx3.getRawDataToSign(0));
 		tx3.addSignature(sig3, 0);
 		tx3.finalize();
-		assertFalse(txHandler.isValidTx(tx3));
+		txHandler.isValidTx(tx3);
 	}
 
 	private void GenerateInitialCoins() {
