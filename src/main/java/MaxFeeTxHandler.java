@@ -20,12 +20,13 @@ public class MaxFeeTxHandler extends IsValidHander {
 	 * 
 	 * Sort the accepted transactions by fee
 	 */
-	public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception {
+	@Override
+	public TransactionInterface[] handleTxs(TransactionInterface[] possibleTxs) throws Exception {
 		List<TransactionWithFee> acceptedTx = new ArrayList<TransactionWithFee>();
-		for (Transaction tx : possibleTxs) {
+		for (TransactionInterface tx : possibleTxs) {
 			try {
 				isValidTx(tx);
-				TransactionWithFee txWithFee = new TransactionWithFee(tx);
+				TransactionWithFee txWithFee = new TransactionWithFee(utxoPool,tx);
 				acceptedTx.add(txWithFee);
 				removeConsumedCoinsFromPool(tx);
 				addCreatedCoinsToPool(tx);
@@ -37,61 +38,12 @@ public class MaxFeeTxHandler extends IsValidHander {
 		}
 
 		Collections.sort(acceptedTx);
-		Transaction[] result = new Transaction[acceptedTx.size()];
+		TransactionInterface[] result = new Transaction[acceptedTx.size()];
 		for (int i = 0; i < acceptedTx.size(); i++) {
 			result[i] = acceptedTx.get(acceptedTx.size() - i - 1).tx;
 		}
 
 		return result;
-	}
-
-	class TransactionWithFee implements Comparable<TransactionWithFee> {
-		public Transaction tx;
-		private double fee;
-
-		public TransactionWithFee(Transaction tx) {
-			this.tx = tx;
-			this.fee = calcTxFee(tx);
-		}
-
-		@Override
-		public int compareTo(TransactionWithFee otherTx) {
-			double diff = fee - otherTx.fee;
-			if (diff > 0) {
-				return 1;
-			} else if (diff < 0) {
-				return -1;
-			} else {
-				return 0;
-			}
-		}
-	}
-
-	private double calcTxFee(Transaction tx) {
-		double inputSum = calculateInputSum(tx);
-		double outputSum = calculateOutputSum(tx);
-		return inputSum - outputSum;
-	}
-
-	private double calculateOutputSum(Transaction tx) {
-		double outputSum = 0;
-		List<OutputInterface> outputs = tx.getOutputs();
-		for (OutputInterface output : outputs) 
-			outputSum += output.getValue();
-		return outputSum;
-	}
-
-	private double calculateInputSum(Transaction tx) {
-		List<InputInterface> inputs = tx.getInputs();
-		double inputSum = 0;
-		for (InputInterface input : inputs) {
-			UTXO utxo = new UTXO(input);
-			OutputInterface correspondingOutput = utxoPool.getTxOutput(utxo);
-			inputSum += correspondingOutput.getValue();
-		}
-		return inputSum;
-	}
-
- 
+	} 
 
 }

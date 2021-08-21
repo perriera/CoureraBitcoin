@@ -20,9 +20,10 @@ public class TxHandler extends IsValidHander {
 	 * 
 	 * Don't sort the accepted transactions by fee
 	 */
-	public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception {
+	@Override
+	public TransactionInterface[] handleTxs(TransactionInterface[] possibleTxs) throws Exception {
 		List<TransactionInterface> acceptedTx = new ArrayList<TransactionInterface>();
-		for (Transaction tx : possibleTxs) {
+		for (TransactionInterface tx : possibleTxs) {
 			try {
 				isValidTx(tx);
 				acceptedTx.add(tx);
@@ -39,5 +40,6 @@ public class TxHandler extends IsValidHander {
 		acceptedTx.toArray(result);
 		return result;
 	}
+
 
 }

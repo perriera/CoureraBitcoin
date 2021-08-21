@@ -1,16 +1,23 @@
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
-abstract public class BasicHandlerTests {
-	protected ScroogeCoinPeople people;
+abstract public class TestCases {
+	protected ScroogeCoinAuthority authority;
 	protected ScroogeCoinPool bitcoins;
 	protected TxHandlerInterface txHandler;
 
-	abstract public void setUp() throws Exception;
+	@Before
+	public void setUpCoin() throws Exception {
+		authority = new ScroogeCoinAuthority();
+		bitcoins = new ScroogeCoinPool(authority);
+	}
+
+	abstract public void setUpHandler() throws Exception;
 
 	@Test(expected = VerifySignatureOfConsumeCoinException.class)
 	public void testValidTxSign() throws Exception {
@@ -20,11 +27,13 @@ abstract public class BasicHandlerTests {
 		 * assigned them to himself, we don’t doubt that because the system-Scroogecoin
 		 * has a building rule which says that Scrooge has right to create coins.
 		 * 
+		 * In the second transaction, Scrooge transferred 10 coins to Alice.
+		 * 
 		 */
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(10, people.getAlice().getPublic());
-		byte[] sig1 = people.signMessage(people.getAlice().getPrivate(), tx1.getRawDataToSign(0));
+		tx1.addOutput(10, authority.getAlice().getPublicKey());
+		byte[] sig1 = authority.signMessage(authority.getAlice().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 		assertFalse(txHandler.isValidTx(tx1));
@@ -40,8 +49,8 @@ abstract public class BasicHandlerTests {
 		 */
 		Transaction tx2 = new Transaction();
 		tx2.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx2.addOutput(10, people.getAlice().getPublic());
-		byte[] sig2 = people.signMessage(people.getScrooge().getPrivate(), tx2.getRawDataToSign(0));
+		tx2.addOutput(10, authority.getAlice().getPublicKey());
+		byte[] sig2 = authority.signMessage(authority.getCreator().getPrivateKey(), tx2.getRawDataToSign(0));
 		tx2.addSignature(sig2, 0);
 		tx2.finalize();
 		assertTrue(txHandler.isValidTx(tx2));
@@ -53,9 +62,9 @@ abstract public class BasicHandlerTests {
 		 */
 		Transaction tx3 = new Transaction();
 		tx3.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx3.addOutput(4, people.getAlice().getPublic());
-		tx3.addOutput(6, people.getBob().getPublic());
-		byte[] sig3 = people.signMessage(people.getScrooge().getPrivate(), tx3.getRawDataToSign(0));
+		tx3.addOutput(4, authority.getAlice().getPublicKey());
+		tx3.addOutput(6, authority.getBob().getPublicKey());
+		byte[] sig3 = authority.signMessage(authority.getCreator().getPrivateKey(), tx3.getRawDataToSign(0));
 		tx3.addSignature(sig3, 0);
 		tx3.finalize();
 		assertTrue(txHandler.isValidTx(tx3));
@@ -65,9 +74,9 @@ abstract public class BasicHandlerTests {
 	public void testValidTxValue() throws Exception {
 		Transaction tx = new Transaction();
 		tx.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx.addOutput(4, people.getAlice().getPublic());
-		tx.addOutput(7, people.getBob().getPublic());
-		byte[] sig = people.signMessage(people.getScrooge().getPrivate(), tx.getRawDataToSign(0));
+		tx.addOutput(4, authority.getAlice().getPublicKey());
+		tx.addOutput(7, authority.getBob().getPublicKey());
+		byte[] sig = authority.signMessage(authority.getCreator().getPrivateKey(), tx.getRawDataToSign(0));
 		tx.addSignature(sig, 0);
 		tx.finalize();
 		txHandler.isValidTx(tx);
@@ -77,9 +86,9 @@ abstract public class BasicHandlerTests {
 	public void testValidTxValue2() throws Exception {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(4, people.getAlice().getPublic());
-		tx1.addOutput(-7, people.getBob().getPublic());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
+		tx1.addOutput(4, authority.getAlice().getPublicKey());
+		tx1.addOutput(-7, authority.getBob().getPublicKey());
+		byte[] sig1 = authority.signMessage(authority.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 		txHandler.isValidTx(tx1);
@@ -90,15 +99,15 @@ abstract public class BasicHandlerTests {
 		/** 
 		 * Scrooge transfer 10 coins to Alice
 		 */
-		Transaction tx1 = new Transaction();
+		TransactionInterface tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(10, people.getAlice().getPublic());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
+		tx1.addOutput(10, authority.getAlice().getPublicKey());
+		byte[] sig1 = authority.signMessage(authority.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 
 		assertTrue(txHandler.isValidTx(tx1));
-		Transaction[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1 });
+		TransactionInterface[] acceptedRx = txHandler.handleTxs(new TransactionInterface[] { tx1 });
 		assertEquals(acceptedRx.length, 1);
 
 		/** 
@@ -106,9 +115,9 @@ abstract public class BasicHandlerTests {
 		 */
 		Transaction tx2 = new Transaction();
 		tx2.addInput(tx1.getHash(), 0);
-		tx2.addOutput(4, people.getBob().getPublic());
-		tx2.addOutput(6, people.getMike().getPublic());
-		byte[] sig2 = people.signMessage(people.getAlice().getPrivate(), tx2.getRawDataToSign(0));
+		tx2.addOutput(4, authority.getBob().getPublicKey());
+		tx2.addOutput(6, authority.getMike().getPublicKey());
+		byte[] sig2 = authority.signMessage(authority.getAlice().getPrivateKey(), tx2.getRawDataToSign(0));
 		tx2.addSignature(sig2, 0);
 		tx2.finalize();
 
@@ -122,29 +131,29 @@ abstract public class BasicHandlerTests {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(10, people.getAlice().getPublic());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
+		tx1.addOutput(10, authority.getAlice().getPublicKey());
+		byte[] sig1 = authority.signMessage(authority.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 
 		// Alice transfer 4 to bob, 6 to mike
 		Transaction tx2 = new Transaction();
 		tx2.addInput(tx1.getHash(), 0);
-		tx2.addOutput(4, people.getBob().getPublic());
-		tx2.addOutput(6, people.getMike().getPublic());
-		byte[] sig2 = people.signMessage(people.getAlice().getPrivate(), tx2.getRawDataToSign(0));
+		tx2.addOutput(4, authority.getBob().getPublicKey());
+		tx2.addOutput(6, authority.getMike().getPublicKey());
+		byte[] sig2 = authority.signMessage(authority.getAlice().getPrivateKey(), tx2.getRawDataToSign(0));
 		tx2.addSignature(sig2, 0);
 		tx2.finalize();
 
 		// Bob transfer 4 to mike
 		Transaction tx3 = new Transaction();
 		tx3.addInput(tx2.getHash(), 0);
-		tx3.addOutput(4, people.getMike().getPublic());
-		byte[] sig3 = people.signMessage(people.getBob().getPrivate(), tx3.getRawDataToSign(0));
+		tx3.addOutput(4, authority.getMike().getPublicKey());
+		byte[] sig3 = authority.signMessage(authority.getBob().getPrivateKey(), tx3.getRawDataToSign(0));
 		tx3.addSignature(sig3, 0);
 		tx3.finalize();
 
-		Transaction[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1, tx2, tx3 });
+		TransactionInterface[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1, tx2, tx3 });
 		assertEquals(acceptedRx.length, 3);
 	}
 
@@ -153,20 +162,20 @@ abstract public class BasicHandlerTests {
 		// Scrooge transfer 10 coins to Alice
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(10, people.getAlice().getPublic());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
+		tx1.addOutput(10, authority.getAlice().getPublicKey());
+		byte[] sig1 = authority.signMessage(authority.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 
 		assertTrue(txHandler.isValidTx(tx1));
-		Transaction[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1 });
+		TransactionInterface[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1 });
 		assertEquals(acceptedRx.length, 1);
 
 		// Alice transfer 10 coins to bob
 		Transaction tx2 = new Transaction();
 		tx2.addInput(tx1.getHash(), 0);
-		tx2.addOutput(10, people.getBob().getPublic());
-		byte[] sig2 = people.signMessage(people.getAlice().getPrivate(), tx2.getRawDataToSign(0));
+		tx2.addOutput(10, authority.getBob().getPublicKey());
+		byte[] sig2 = authority.signMessage(authority.getAlice().getPrivateKey(), tx2.getRawDataToSign(0));
 		tx2.addSignature(sig2, 0);
 		tx2.finalize();
 		assertTrue(txHandler.isValidTx(tx2));
@@ -176,8 +185,8 @@ abstract public class BasicHandlerTests {
 		// Alice then transfer the same 10 coins to mike
 		Transaction tx3 = new Transaction();
 		tx3.addInput(tx1.getHash(), 0);
-		tx3.addOutput(10, people.getBob().getPublic());
-		byte[] sig3 = people.signMessage(people.getAlice().getPrivate(), tx3.getRawDataToSign(0));
+		tx3.addOutput(10, authority.getBob().getPublicKey());
+		byte[] sig3 = authority.signMessage(authority.getAlice().getPrivateKey(), tx3.getRawDataToSign(0));
 		tx3.addSignature(sig3, 0);
 		tx3.finalize();
 		txHandler.isValidTx(tx3);

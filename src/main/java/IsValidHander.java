@@ -37,7 +37,7 @@ abstract public class IsValidHander implements TxHandlerInterface {
 	 * @throws TransactionInputSumLessThanOutputSumException
 	 * 
 	 */
-	public boolean isValidTx(Transaction tx) throws ConsumedCoinAvailableException,
+	public boolean isValidTx(TransactionInterface tx) throws ConsumedCoinAvailableException,
 			VerifySignatureOfConsumeCoinException, CoinConsumedMultipleTimesException,
 			TransactionOutputLessThanZeroException, TransactionInputSumLessThanOutputSumException {
 		Set<UTXO> claimedUTXO = new HashSet<UTXO>();
@@ -64,7 +64,7 @@ abstract public class IsValidHander implements TxHandlerInterface {
 		return true;
 	}
 
-	protected void addCreatedCoinsToPool(Transaction tx) {
+	protected void addCreatedCoinsToPool(TransactionInterface tx) {
 		List<OutputInterface> outputs = tx.getOutputs();
 		for (int j = 0; j < outputs.size(); j++) {
 			OutputInterface output = outputs.get(j);
@@ -73,7 +73,7 @@ abstract public class IsValidHander implements TxHandlerInterface {
 		}
 	}
 
-	protected void removeConsumedCoinsFromPool(Transaction tx) {
+	protected void removeConsumedCoinsFromPool(TransactionInterface tx) {
 		List<InputInterface> inputs = tx.getInputs();
 		for (int j = 0; j < inputs.size(); j++) {
 			InputInterface input = inputs.get(j);
@@ -87,6 +87,6 @@ abstract public class IsValidHander implements TxHandlerInterface {
 	 * checking each transaction for correctness, returning a mutually valid array
 	 * of accepted transactions, and updating the current UTXO pool as appropriate.
 	 */
-	abstract public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception;
+	abstract public TransactionInterface[] handleTxs(TransactionInterface[] possibleTxs) throws Exception;
 
 }
