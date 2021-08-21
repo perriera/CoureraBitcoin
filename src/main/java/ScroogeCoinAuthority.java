@@ -8,14 +8,14 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
 
-public class ScroogeCoinPeople implements CoinAuthorityInterface {
+public class ScroogeCoinAuthority implements CoinAuthorityInterface {
 
 	private CoinCreatorInterface scroogeKeypair;
 	private CoinOwner aliceKeypair;
 	private CoinOwner bobKeypair;
 	private CoinOwner mikeKeypair;
 
-	public ScroogeCoinPeople() throws NoSuchAlgorithmException, NoSuchProviderException {
+	public ScroogeCoinAuthority() throws NoSuchAlgorithmException, NoSuchProviderException {
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
 		SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
 		keyGen.initialize(1024, random);

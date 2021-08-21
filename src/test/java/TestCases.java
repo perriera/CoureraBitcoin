@@ -7,13 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 abstract public class TestCases {
-	protected ScroogeCoinPeople people;
+	protected ScroogeCoinAuthority people;
 	protected ScroogeCoinPool bitcoins;
 	protected TxHandlerInterface txHandler;
 
 	@Before
 	public void setUpCoin() throws Exception {
-		people = new ScroogeCoinPeople();
+		people = new ScroogeCoinAuthority();
 		bitcoins = new ScroogeCoinPool(people);
 	}
 

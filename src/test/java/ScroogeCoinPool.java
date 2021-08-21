@@ -12,7 +12,7 @@ public class ScroogeCoinPool {
 	private TransactionInterface genesiseTx;
 	private UTXOPool pool;
 
-	public ScroogeCoinPool(ScroogeCoinPeople people) {
+	public ScroogeCoinPool(ScroogeCoinAuthority people) {
 		genesiseTx = people.getCreator().createCoin(10);
 		pool = new UTXOPool();
 		UTXO utxo = new UTXO(genesiseTx.getHash(), 0);
