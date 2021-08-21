@@ -1,5 +1,4 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import java.util.Arrays;
@@ -7,7 +6,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TxHandlerTest extends BasicHandlerTests {
+public class TestCasesWithTxHandler extends TestCases {
 
 	@Before
 	public void setUpHandler() throws Exception {

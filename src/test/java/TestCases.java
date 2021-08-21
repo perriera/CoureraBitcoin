@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-abstract public class BasicHandlerTests {
+abstract public class TestCases {
 	protected ScroogeCoinPeople people;
 	protected ScroogeCoinPool bitcoins;
 	protected TxHandlerInterface txHandler;

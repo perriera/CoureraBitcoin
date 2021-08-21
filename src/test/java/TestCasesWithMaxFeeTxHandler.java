@@ -1,13 +1,12 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class MaxFeeTxHandlerTest extends BasicHandlerTests {
+public class TestCasesWithMaxFeeTxHandler extends TestCases {
 
 	@Before
 	public void setUpHandler() throws Exception {
