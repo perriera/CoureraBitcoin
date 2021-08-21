@@ -17,8 +17,10 @@ public class TestCasesWithTxHandler extends TestCases {
 	public void testMaxFeeTransferUNEQUAL() throws Exception {
 		// Scrooge transfer 4 coins to Alice, 6 coins to bob, no transaction fee
 		TransactionInterface tx1 = new Transaction();
-		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
-		tx1.addOutput(4, people.getAlice().getPublicKey());
+		tx1 = people.addCoin(tx1, bitcoins.getGenesiseTx(), 0);
+		// tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
+		tx1 = people.addBuyer(tx1,4,people.getAlice());
+		//tx1.addOutput(4, people.getAlice().getPublicKey());
 		tx1.addOutput(6, people.getBob().getPublicKey());
 		byte[] sig1 = people.signMessage(people.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);

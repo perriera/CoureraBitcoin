@@ -11,12 +11,6 @@ interface CoinAuthorityInterface {
             throws NoSuchAlgorithmException, NoSuchProviderException, SignatureException, InvalidKeyException;
 
     public CoinCreatorInterface getCreator();
-}
-
-interface CoinOwnerInterface {
-    public PublicKey getPublicKey();
-
-    public PrivateKey getPrivateKey();
 
     public TransactionInterface addCoin(TransactionInterface tx, TransactionInterface source, int index);
 
@@ -25,6 +19,13 @@ interface CoinOwnerInterface {
     public TransactionInterface authorizeSale(TransactionInterface tx, CoinOwnerInterface seller, int index,
             CoinAuthorityInterface authority)
             throws NoSuchAlgorithmException, NoSuchProviderException, SignatureException, InvalidKeyException;
+
+}
+
+interface CoinOwnerInterface {
+    public PublicKey getPublicKey();
+
+    public PrivateKey getPrivateKey();
 
 }
 
