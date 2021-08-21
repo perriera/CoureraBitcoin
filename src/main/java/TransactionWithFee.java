@@ -1,11 +1,11 @@
 import java.util.List;
 
 public class TransactionWithFee implements Comparable<TransactionWithFee> {
-    public Transaction tx;
+    public TransactionInterface tx;
     private double fee;
     private UTXOPool utxoPool;
 
-    public TransactionWithFee(UTXOPool utxoPool, Transaction tx) 
+    public TransactionWithFee(UTXOPool utxoPool, TransactionInterface tx) 
     {   
         this.utxoPool = utxoPool;
         this.tx = tx;
@@ -24,13 +24,13 @@ public class TransactionWithFee implements Comparable<TransactionWithFee> {
         }
     }
 
-    private double calcTxFee(Transaction tx) {
+    private double calcTxFee(TransactionInterface tx) {
         double inputSum = calculateInputSum(tx);
         double outputSum = calculateOutputSum(tx);
         return inputSum - outputSum;
     }
 
-    private double calculateInputSum(Transaction tx) {
+    private double calculateInputSum(TransactionInterface tx) {
         List<InputInterface> inputs = tx.getInputs();
         double inputSum = 0;
         for (InputInterface input : inputs) {
@@ -41,7 +41,7 @@ public class TransactionWithFee implements Comparable<TransactionWithFee> {
         return inputSum;
     }
 
-    private double calculateOutputSum(Transaction tx) {
+    private double calculateOutputSum(TransactionInterface tx) {
         double outputSum = 0;
         List<OutputInterface> outputs = tx.getOutputs();
         for (OutputInterface output : outputs)

@@ -116,11 +116,11 @@ interface OutputInterface {
 }
 
 interface TxHandlerInterface {
-    public boolean isValidTx(Transaction tx) throws ConsumedCoinAvailableException,
+    public boolean isValidTx(TransactionInterface tx) throws ConsumedCoinAvailableException,
             VerifySignatureOfConsumeCoinException, CoinConsumedMultipleTimesException,
             TransactionOutputLessThanZeroException, TransactionInputSumLessThanOutputSumException;
 
-    public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception;
+    public TransactionInterface[] handleTxs(TransactionInterface[] possibleTxs) throws Exception;
 }
 
 interface UTXOInterface {

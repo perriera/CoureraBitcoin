@@ -40,7 +40,7 @@ public class TestCasesWithMaxFeeTxHandler extends TestCases {
 		tx3.addSignature(sig, 0);
 		tx3.finalize();
 
-		Transaction[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1, tx2, tx3 });
+		TransactionInterface[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1, tx2, tx3 });
 		assertEquals(acceptedRx.length, 3);
 		assertTrue(Arrays.equals(acceptedRx[0].getHash(), tx2.getHash()));
 	}

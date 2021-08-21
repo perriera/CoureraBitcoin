@@ -99,7 +99,7 @@ abstract public class TestCases {
 		/** 
 		 * Scrooge transfer 10 coins to Alice
 		 */
-		Transaction tx1 = new Transaction();
+		TransactionInterface tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.getAlice().getPublicKey());
 		byte[] sig1 = people.signMessage(people.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
@@ -107,7 +107,7 @@ abstract public class TestCases {
 		tx1.finalize();
 
 		assertTrue(txHandler.isValidTx(tx1));
-		Transaction[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1 });
+		TransactionInterface[] acceptedRx = txHandler.handleTxs(new TransactionInterface[] { tx1 });
 		assertEquals(acceptedRx.length, 1);
 
 		/** 
@@ -153,7 +153,7 @@ abstract public class TestCases {
 		tx3.addSignature(sig3, 0);
 		tx3.finalize();
 
-		Transaction[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1, tx2, tx3 });
+		TransactionInterface[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1, tx2, tx3 });
 		assertEquals(acceptedRx.length, 3);
 	}
 
@@ -168,7 +168,7 @@ abstract public class TestCases {
 		tx1.finalize();
 
 		assertTrue(txHandler.isValidTx(tx1));
-		Transaction[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1 });
+		TransactionInterface[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1 });
 		assertEquals(acceptedRx.length, 1);
 
 		// Alice transfer 10 coins to bob

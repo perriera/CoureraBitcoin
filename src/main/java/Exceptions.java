@@ -51,7 +51,7 @@ class VerifySignatureOfConsumeCoinException extends Exceptions {
         super("VerifySignatureOfConsumeCoinException");
     }
 
-    static public void assertion(UTXOPool utxoPool, Transaction tx, int index, InputInterface input)
+    static public void assertion(UTXOPool utxoPool, TransactionInterface tx, int index, InputInterface input)
             throws VerifySignatureOfConsumeCoinException {
         UTXO utxo = new UTXO(input);
         OutputInterface correspondingOutput = utxoPool.getTxOutput(utxo);

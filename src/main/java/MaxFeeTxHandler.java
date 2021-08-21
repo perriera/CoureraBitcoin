@@ -20,9 +20,10 @@ public class MaxFeeTxHandler extends IsValidHander {
 	 * 
 	 * Sort the accepted transactions by fee
 	 */
-	public Transaction[] handleTxs(Transaction[] possibleTxs) throws Exception {
+	@Override
+	public TransactionInterface[] handleTxs(TransactionInterface[] possibleTxs) throws Exception {
 		List<TransactionWithFee> acceptedTx = new ArrayList<TransactionWithFee>();
-		for (Transaction tx : possibleTxs) {
+		for (TransactionInterface tx : possibleTxs) {
 			try {
 				isValidTx(tx);
 				TransactionWithFee txWithFee = new TransactionWithFee(utxoPool,tx);
@@ -37,7 +38,7 @@ public class MaxFeeTxHandler extends IsValidHander {
 		}
 
 		Collections.sort(acceptedTx);
-		Transaction[] result = new Transaction[acceptedTx.size()];
+		TransactionInterface[] result = new Transaction[acceptedTx.size()];
 		for (int i = 0; i < acceptedTx.size(); i++) {
 			result[i] = acceptedTx.get(acceptedTx.size() - i - 1).tx;
 		}
