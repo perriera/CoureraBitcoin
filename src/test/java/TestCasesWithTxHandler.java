@@ -43,10 +43,12 @@ public class TestCasesWithTxHandler extends TestCases {
 		TransactionInterface tx3 = new Transaction();
 		// tx3.addInput(tx1.getHash(), 1);
 		tx3 = authority.addCoinForSale(tx3, tx1, 1);
-		tx3.addOutput(5.5, authority.getMike().getPublicKey());
-		byte[] sig = authority.signMessage(authority.getBob().getPrivateKey(), tx3.getRawDataToSign(0));
-		tx3.addSignature(sig, 0);
-		tx3.finalize();
+		// tx3.addOutput(5.5, authority.getMike().getPublicKey());
+		tx3 = authority.addBuyer(tx3,5.5,authority.getMike());
+		// byte[] sig = authority.signMessage(authority.getBob().getPrivateKey(), tx3.getRawDataToSign(0));
+		// tx3.addSignature(sig, 0);
+		// tx3.finalize();
+		tx3 = authority.authorizeSale(tx3,authority.getBob(),0);
 
 		TransactionInterface[] acceptedRx = txHandler.handleTxs(new TransactionInterface[] { tx1, tx2, tx3 });
 		assertEquals(acceptedRx.length, 3);
