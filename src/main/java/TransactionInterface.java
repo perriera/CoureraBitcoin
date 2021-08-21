@@ -7,6 +7,7 @@ import java.security.SignatureException;
 import java.util.ArrayList;
 
 interface CoinAuthorityInterface {
+    @Deprecated
     public byte[] signMessage(PrivateKey sk, byte[] message)
             throws NoSuchAlgorithmException, NoSuchProviderException, SignatureException, InvalidKeyException;
 
