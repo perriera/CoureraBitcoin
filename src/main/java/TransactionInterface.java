@@ -12,7 +12,7 @@ interface CoinAuthorityInterface {
 
     public CoinCreatorInterface getCreator();
 
-    public TransactionInterface addCoin(TransactionInterface tx, TransactionInterface source, int index);
+    public TransactionInterface addSeller(TransactionInterface tx, TransactionInterface source, int index);
 
     public TransactionInterface addBuyer(TransactionInterface tx, double amount, CoinOwnerInterface buyer);
 

@@ -50,7 +50,7 @@ public class ScroogeCoinAuthority implements CoinAuthorityInterface {
 	}
 
 	@Override
-    public TransactionInterface addCoin(TransactionInterface tx, TransactionInterface source, int index) {
+    public TransactionInterface addSeller(TransactionInterface tx, TransactionInterface source, int index) {
         tx.addInput(source.getHash(), index);
         return tx;
     }
