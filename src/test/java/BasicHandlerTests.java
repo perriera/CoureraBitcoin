@@ -6,14 +6,21 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 abstract public class BasicHandlerTests {
-	protected BitcoinPeople people;
-	protected BitCoinPool bitcoins;
+	protected ScroogeCoinPeople people;
+	protected ScroogeCoinPool bitcoins;
 	protected TxHandlerInterface txHandler;
 
 	abstract public void setUp() throws Exception;
 
 	@Test(expected = VerifySignatureOfConsumeCoinException.class)
 	public void testValidTxSign() throws Exception {
+
+		/**
+		 * In the first transaction, we assume that Scrooge has created 10 coins and
+		 * assigned them to himself, we don’t doubt that because the system-Scroogecoin
+		 * has a building rule which says that Scrooge has right to create coins.
+		 * 
+		 */
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.getAlice().getPublic());
@@ -25,6 +32,12 @@ abstract public class BasicHandlerTests {
 
 	@Test
 	public void testValidTxSign2() throws Exception {
+
+		/**
+		 * In the second transaction, Scrooge transferred 3.9 coins to Alice and 5.9
+		 * coins to Bob. The sum of the two outputs is 0.2 less than the input because
+		 * the transaction fee was 0.2 coin.
+		 */
 		Transaction tx2 = new Transaction();
 		tx2.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx2.addOutput(10, people.getAlice().getPublic());
@@ -33,6 +46,11 @@ abstract public class BasicHandlerTests {
 		tx2.finalize();
 		assertTrue(txHandler.isValidTx(tx2));
 
+		/**
+		 * In the third transaction, there were two inputs and one output, Alice and Bob
+		 * transferred 9.7 coins to mike, and the transaction fee was 0.1 coin.
+		 * 
+		 */
 		Transaction tx3 = new Transaction();
 		tx3.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx3.addOutput(4, people.getAlice().getPublic());
@@ -69,7 +87,9 @@ abstract public class BasicHandlerTests {
 
 	@Test
 	public void testTransfer() throws Exception {
-		// Scrooge transfer 10 coins to Alice
+		/** 
+		 * Scrooge transfer 10 coins to Alice
+		 */
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.getAlice().getPublic());
@@ -81,7 +101,9 @@ abstract public class BasicHandlerTests {
 		Transaction[] acceptedRx = txHandler.handleTxs(new Transaction[] { tx1 });
 		assertEquals(acceptedRx.length, 1);
 
-		// Alice transfer 4 to bob, 6 to mike
+		/** 
+		 * Alice transfer 4 to bob, 6 to mike
+		 */
 		Transaction tx2 = new Transaction();
 		tx2.addInput(tx1.getHash(), 0);
 		tx2.addOutput(4, people.getBob().getPublic());
@@ -162,5 +184,3 @@ abstract public class BasicHandlerTests {
 	}
 
 }
-
-

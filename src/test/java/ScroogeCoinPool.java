@@ -1,4 +1,4 @@
-public class BitCoinPool {
+public class ScroogeCoinPool {
 
 	/**
 	 * @brief Scrooge has right to create coins
@@ -12,7 +12,7 @@ public class BitCoinPool {
 	private Transaction genesiseTx;
 	private UTXOPool pool;
 
-	public BitCoinPool(BitcoinPeople people) {
+	public ScroogeCoinPool(ScroogeCoinPeople people) {
 		genesiseTx = new Transaction();
 		genesiseTx.addOutput(10, people.getScrooge().getPublic());
 		genesiseTx.finalize();

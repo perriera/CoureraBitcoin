@@ -11,8 +11,8 @@ public class TxHandlerTest extends BasicHandlerTests {
 
 	@Before
 	public void setUp() throws Exception {
-		people = new BitcoinPeople();
-		bitcoins = new BitCoinPool(people);
+		people = new ScroogeCoinPeople();
+		bitcoins = new ScroogeCoinPool(people);
 		txHandler = new TxHandler(bitcoins.getPool());
 	}
 
