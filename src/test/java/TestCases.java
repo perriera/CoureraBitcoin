@@ -27,6 +27,8 @@ abstract public class TestCases {
 		 * assigned them to himself, we don’t doubt that because the system-Scroogecoin
 		 * has a building rule which says that Scrooge has right to create coins.
 		 * 
+		 * In the second transaction, Scrooge transferred 10 coins to Alice.
+		 * 
 		 */
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);

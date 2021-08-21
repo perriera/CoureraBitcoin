@@ -2,10 +2,13 @@ import java.security.PublicKey;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 
-interface CoinCreatorInterface {
-    public TransactionInterface createCoin(double value);
+interface CoinOwnerInterface {
     public PublicKey getPublicKey();
     public PrivateKey getPrivateKey();
+}
+
+interface CoinCreatorInterface extends CoinOwnerInterface{
+    public TransactionInterface createCoin(double value);
 
 }
 
