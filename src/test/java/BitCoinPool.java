@@ -1,5 +1,14 @@
 public class BitCoinPool {
 
+	/**
+	 * @brief Scrooge has right to create coins
+	 * 
+	 *        In the first transaction, we assume that Scrooge has created 10 coins
+	 *        and assigned them to himself, we don’t doubt that because the
+	 *        system-Scroogecoin has a building rule which says that Scrooge has
+	 *        right to create coins.
+	 * 
+	 */
 	private Transaction genesiseTx;
 	private UTXOPool pool;
 
