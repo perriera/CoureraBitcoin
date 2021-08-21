@@ -9,19 +9,17 @@ public class ScroogeCoinPool {
 	 *        right to create coins.
 	 * 
 	 */
-	private Transaction genesiseTx;
+	private TransactionInterface genesiseTx;
 	private UTXOPool pool;
 
 	public ScroogeCoinPool(ScroogeCoinPeople people) {
-		genesiseTx = new Transaction();
-		genesiseTx.addOutput(10, people.getScrooge().getPublic());
-		genesiseTx.finalize();
+		genesiseTx = people.getScrooge().createCoin(10);
 		pool = new UTXOPool();
 		UTXO utxo = new UTXO(genesiseTx.getHash(), 0);
 		pool.addUTXO(utxo, genesiseTx.getOutput(0));
 	}
 
-	public Transaction getGenesiseTx() {
+	public TransactionInterface getGenesiseTx() {
 		return genesiseTx;
 	}
 

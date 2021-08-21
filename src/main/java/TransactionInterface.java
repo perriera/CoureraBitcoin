@@ -1,27 +1,52 @@
 import java.security.PublicKey;
+import java.security.PrivateKey;
 import java.util.ArrayList;
 
-/**
- * @brief TransactionInterface
- * 
- *        Interfaxce to transaction data structure used in Scrooge Coin
- * 
- *        Every transaction has a set of inputs and a set of outputs. An input
- *        in a transaction must use a hash pointer to refer to its corresponding
- *        output in the previous transaction, and it must be signed with the
- *        private key of the owner because the owner needs to prove he/she
- *        agrees to spend his/her coins. Every output is correlated to the
- *        public key of the receiver, which is his/her ScroogeCoin address.
- * 
- */
-interface TransactionInterface {
-    public void addInput(byte[] prevTxHash, int outputIndex);
+interface CoinCreatorInterface {
+    public TransactionInterface createCoin(double value);
+    public PublicKey getPublicKey();
+    public PrivateKey getPrivateKey();
 
-    public void addOutput(double value, PublicKey address);
+}
+
+interface CoinDistributerInterface {
+
+    /**
+     * Every transaction has a set of inputs and a set of outputs.
+     * 
+     * An input in a transaction must use a hash pointer to refer to its
+     * corresponding output in the previous transaction, and it must be signed with
+     * the private key of the owner because the owner needs to prove he/she agrees
+     * to spend his/her coins.
+     * 
+     * @param prevTxHash
+     * @param outputIndex
+     */
+    public void addInput(byte[] prevTxHash, int outputIndex);
 
     public void removeInput(int index);
 
     public void removeInput(UTXO ut);
+
+    /**
+     * Every transaction has a set of inputs and a set of outputs.
+     * 
+     * Every output is correlated to the public key of the receiver, which is
+     * his/her ScroogeCoin address.
+     * 
+     * @param value
+     * @param address
+     */
+
+    public void addOutput(double value, PublicKey address);
+
+}
+
+/**
+ * @brief TransactionInterface
+ * 
+ */
+interface TransactionInterface extends CoinDistributerInterface {
 
     public byte[] getRawDataToSign(int index);
 

@@ -20,7 +20,7 @@ public class TestCasesWithTxHandler extends TestCases {
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(4, people.getAlice().getPublic());
 		tx1.addOutput(6, people.getBob().getPublic());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivate(), tx1.getRawDataToSign(0));
+		byte[] sig1 = people.signMessage(people.getScrooge().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 

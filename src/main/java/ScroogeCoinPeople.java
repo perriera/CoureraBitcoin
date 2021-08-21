@@ -10,7 +10,7 @@ import java.security.SignatureException;
 
 public class ScroogeCoinPeople {
 
-	private KeyPair scroogeKeypair;
+	private CoinCreatorInterface scroogeKeypair;
 	private KeyPair aliceKeypair;
 	private KeyPair bobKeypair;
 	private KeyPair mikeKeypair;
@@ -19,7 +19,7 @@ public class ScroogeCoinPeople {
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
 		SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
 		keyGen.initialize(1024, random);
-		scroogeKeypair = keyGen.generateKeyPair();
+		scroogeKeypair = new CoinCreator(keyGen.generateKeyPair());
 		aliceKeypair = keyGen.generateKeyPair();
 		bobKeypair = keyGen.generateKeyPair();
 		mikeKeypair = keyGen.generateKeyPair();
@@ -33,7 +33,7 @@ public class ScroogeCoinPeople {
 		return sig.sign();
 	}
 
-	public KeyPair getScrooge() {
+	public CoinCreatorInterface getScrooge() {
 		return scroogeKeypair;
 	}
 
