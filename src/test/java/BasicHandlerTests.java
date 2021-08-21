@@ -1,8 +1,9 @@
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 abstract public class BasicHandlerTests {
@@ -10,7 +11,14 @@ abstract public class BasicHandlerTests {
 	protected ScroogeCoinPool bitcoins;
 	protected TxHandlerInterface txHandler;
 
-	abstract public void setUp() throws Exception;
+	@Before
+	public void setUpCoin() throws Exception {
+		people = new ScroogeCoinPeople();
+		bitcoins = new ScroogeCoinPool(people);
+	}
+
+
+	abstract public void setUpHandler() throws Exception;
 
 	@Test(expected = VerifySignatureOfConsumeCoinException.class)
 	public void testValidTxSign() throws Exception {

@@ -10,9 +10,7 @@ import org.junit.Test;
 public class MaxFeeTxHandlerTest extends BasicHandlerTests {
 
 	@Before
-	public void setUp() throws Exception {
-		people = new ScroogeCoinPeople();
-		bitcoins = new ScroogeCoinPool(people);
+	public void setUpHandler() throws Exception {
 		txHandler = new MaxFeeTxHandler(bitcoins.getPool());
 	}
 

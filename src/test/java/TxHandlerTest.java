@@ -10,9 +10,7 @@ import org.junit.Test;
 public class TxHandlerTest extends BasicHandlerTests {
 
 	@Before
-	public void setUp() throws Exception {
-		people = new ScroogeCoinPeople();
-		bitcoins = new ScroogeCoinPool(people);
+	public void setUpHandler() throws Exception {
 		txHandler = new TxHandler(bitcoins.getPool());
 	}
 
