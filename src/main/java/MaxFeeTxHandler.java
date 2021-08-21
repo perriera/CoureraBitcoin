@@ -70,7 +70,6 @@ public class MaxFeeTxHandler extends IsValidHander {
 	private double calcTxFee(Transaction tx) {
 		double inputSum = calculateInputSum(tx);
 		double outputSum = calculateOutputSum(tx);
-
 		return inputSum - outputSum;
 	}
 
