@@ -17,7 +17,6 @@ abstract public class TestCases {
 		bitcoins = new ScroogeCoinPool(people);
 	}
 
-
 	abstract public void setUpHandler() throws Exception;
 
 	@Test(expected = VerifySignatureOfConsumeCoinException.class)
