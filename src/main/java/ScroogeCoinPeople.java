@@ -11,18 +11,18 @@ import java.security.SignatureException;
 public class ScroogeCoinPeople {
 
 	private CoinCreatorInterface scroogeKeypair;
-	private KeyPair aliceKeypair;
-	private KeyPair bobKeypair;
-	private KeyPair mikeKeypair;
+	private CoinOwner aliceKeypair;
+	private CoinOwner bobKeypair;
+	private CoinOwner mikeKeypair;
 
 	public ScroogeCoinPeople() throws NoSuchAlgorithmException, NoSuchProviderException {
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
 		SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
 		keyGen.initialize(1024, random);
 		scroogeKeypair = new CoinCreator(keyGen.generateKeyPair());
-		aliceKeypair = keyGen.generateKeyPair();
-		bobKeypair = keyGen.generateKeyPair();
-		mikeKeypair = keyGen.generateKeyPair();
+		aliceKeypair = new CoinOwner(keyGen.generateKeyPair());
+		bobKeypair = new CoinOwner(keyGen.generateKeyPair());
+		mikeKeypair = new CoinOwner(keyGen.generateKeyPair());
 	}
 
 	public byte[] signMessage(PrivateKey sk, byte[] message)
@@ -37,15 +37,15 @@ public class ScroogeCoinPeople {
 		return scroogeKeypair;
 	}
 
-	public KeyPair getAlice() {
+	public CoinOwner getAlice() {
 		return aliceKeypair;
 	}
 
-	public KeyPair getBob() {
+	public CoinOwner getBob() {
 		return bobKeypair;
 	}
 
-	public KeyPair getMike() {
+	public CoinOwner getMike() {
 		return mikeKeypair;
 	}
 
