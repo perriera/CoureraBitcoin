@@ -54,4 +54,30 @@ public class TestCasesWithTxHandler extends TestCases {
 		assertEquals(acceptedRx.length, 3);
 		assertFalse(Arrays.equals(acceptedRx[0].getHash(), tx2.getHash()));
 	}
+
+	@Test
+	public void testMaxFeeTransferUNEQUAL2() throws Exception {
+		// Scrooge transfer 4 coins to Alice, 6 coins to bob, no transaction fee
+		TransactionInterface tx1 = new Transaction();
+		tx1 = authority.addCoinForSale(tx1, bitcoins.getGenesiseTx(), 0);
+		tx1 = authority.addBuyer(tx1,4,authority.getAlice());
+		tx1 = authority.addBuyer(tx1,6,authority.getBob());
+		tx1 = authority.authorizeSale(tx1,authority.getCreator(),0);
+
+		// Alice transfer 3.4 to mike, transaction fee is 4-3.4=0.6
+		TransactionInterface tx2 = new Transaction();
+		tx2 = authority.addCoinForSale(tx2, tx1, 0);
+		tx2 = authority.addBuyer(tx2,3.4,authority.getMike());
+		tx2 = authority.authorizeSale(tx2,authority.getAlice(),0);
+
+		// Bob transfer 5.5 to mike, transaction fee is 5-5.5=0.5
+		TransactionInterface tx3 = new Transaction();
+		tx3 = authority.addCoinForSale(tx3, tx1, 1);
+		tx3 = authority.addBuyer(tx3,5.5,authority.getMike());
+		tx3 = authority.authorizeSale(tx3,authority.getBob(),0);
+
+		TransactionInterface[] acceptedRx = txHandler.handleTxs(new TransactionInterface[] { tx1, tx2, tx3 });
+		assertEquals(acceptedRx.length, 3);
+		assertFalse(Arrays.equals(acceptedRx[0].getHash(), tx2.getHash()));
+	}
 }

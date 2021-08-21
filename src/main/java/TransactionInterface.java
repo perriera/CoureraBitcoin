@@ -47,11 +47,8 @@ interface CoinDistributerInterface {
      * @param prevTxHash
      * @param outputIndex
      */
+    @Deprecated
     public void addInput(byte[] prevTxHash, int outputIndex);
-
-    public void removeInput(int index);
-
-    public void removeInput(UTXO ut);
 
     /**
      * Every transaction has a set of inputs and a set of outputs.
@@ -63,6 +60,7 @@ interface CoinDistributerInterface {
      * @param address
      */
 
+    @Deprecated
     public void addOutput(double value, PublicKey address);
 
 }
@@ -75,15 +73,21 @@ interface TransactionInterface extends CoinDistributerInterface {
 
     public byte[] getRawDataToSign(int index);
 
+    @Deprecated
     public void addSignature(byte[] signature, int index);
 
     public byte[] getRawTx();
 
+    @Deprecated
     public void finalize();
 
     public void setHash(byte[] h);
 
     public byte[] getHash();
+
+    public void removeInput(int index);
+
+    public void removeInput(UTXO ut);
 
     public ArrayList<InputInterface> getInputs();
 
