@@ -40,8 +40,9 @@ public class TestCasesWithTxHandler extends TestCases {
 		tx2 = authority.authorizeSale(tx2,authority.getAlice(),0);
 
 		// Bob transfer 5.5 to mike, transaction fee is 5-5.5=0.5
-		Transaction tx3 = new Transaction();
-		tx3.addInput(tx1.getHash(), 1);
+		TransactionInterface tx3 = new Transaction();
+		// tx3.addInput(tx1.getHash(), 1);
+		tx3 = authority.addCoinForSale(tx3, tx1, 1);
 		tx3.addOutput(5.5, authority.getMike().getPublicKey());
 		byte[] sig = authority.signMessage(authority.getBob().getPrivateKey(), tx3.getRawDataToSign(0));
 		tx3.addSignature(sig, 0);
