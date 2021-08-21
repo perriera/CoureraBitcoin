@@ -1,6 +1,7 @@
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ abstract public class BasicHandlerTests {
 		byte[] sig1 = people.signMessage(people.getAlice().getPrivate(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
-		txHandler.isValidTx(tx1);
+		assertFalse(txHandler.isValidTx(tx1));
 	}
 
 	@Test

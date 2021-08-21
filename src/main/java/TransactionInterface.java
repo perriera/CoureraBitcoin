@@ -1,6 +1,19 @@
 import java.security.PublicKey;
 import java.util.ArrayList;
 
+/**
+ * @brief TransactionInterface
+ * 
+ *        Interfaxce to transaction data structure used in Scrooge Coin
+ * 
+ *        Every transaction has a set of inputs and a set of outputs. An input
+ *        in a transaction must use a hash pointer to refer to its corresponding
+ *        output in the previous transaction, and it must be signed with the
+ *        private key of the owner because the owner needs to prove he/she
+ *        agrees to spend his/her coins. Every output is correlated to the
+ *        public key of the receiver, which is his/her ScroogeCoin address.
+ * 
+ */
 interface TransactionInterface {
     public void addInput(byte[] prevTxHash, int outputIndex);
 
