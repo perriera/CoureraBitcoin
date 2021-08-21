@@ -16,8 +16,7 @@ interface CoinAuthorityInterface {
 
     public TransactionInterface addBuyer(TransactionInterface tx, double amount, CoinOwnerInterface buyer);
 
-    public TransactionInterface authorizeSale(TransactionInterface tx, CoinOwnerInterface seller, int index,
-            CoinAuthorityInterface authority)
+    public TransactionInterface authorizeSale(TransactionInterface tx, CoinOwnerInterface seller, int index)
             throws NoSuchAlgorithmException, NoSuchProviderException, SignatureException, InvalidKeyException;
 
 }

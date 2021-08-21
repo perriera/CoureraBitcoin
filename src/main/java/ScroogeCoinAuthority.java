@@ -62,10 +62,9 @@ public class ScroogeCoinAuthority implements CoinAuthorityInterface {
     }
 
     @Override
-    public TransactionInterface authorizeSale(TransactionInterface tx, CoinOwnerInterface seller, int index,
-            CoinAuthorityInterface authority)
+    public TransactionInterface authorizeSale(TransactionInterface tx, CoinOwnerInterface seller, int index)
             throws NoSuchAlgorithmException, NoSuchProviderException, SignatureException, InvalidKeyException {
-        byte[] authorization = authority.signMessage(seller.getPrivateKey(), tx.getRawDataToSign(index));
+        byte[] authorization = signMessage(seller.getPrivateKey(), tx.getRawDataToSign(index));
         tx.addSignature(authorization, 0);
         tx.finalize();
         return tx;
