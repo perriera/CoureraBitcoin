@@ -77,18 +77,15 @@ public class MaxFeeTxHandler extends IsValidHander {
 	private double calculateOutputSum(Transaction tx) {
 		double outputSum = 0;
 		List<OutputInterface> outputs = tx.getOutputs();
-		for (int j = 0; j < outputs.size(); j++) {
-			OutputInterface output = outputs.get(j);
+		for (OutputInterface output : outputs) 
 			outputSum += output.getValue();
-		}
 		return outputSum;
 	}
 
 	private double calculateInputSum(Transaction tx) {
 		List<InputInterface> inputs = tx.getInputs();
 		double inputSum = 0;
-		for (int j = 0; j < inputs.size(); j++) {
-			InputInterface input = inputs.get(j);
+		for (InputInterface input : inputs) {
 			UTXO utxo = new UTXO(input);
 			OutputInterface correspondingOutput = utxoPool.getTxOutput(utxo);
 			inputSum += correspondingOutput.getValue();
