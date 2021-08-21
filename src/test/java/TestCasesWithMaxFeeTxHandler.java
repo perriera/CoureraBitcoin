@@ -20,7 +20,7 @@ public class TestCasesWithMaxFeeTxHandler extends TestCases {
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(4, people.getAlice().getPublicKey());
 		tx1.addOutput(6, people.getBob().getPublicKey());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivateKey(), tx1.getRawDataToSign(0));
+		byte[] sig1 = people.signMessage(people.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 

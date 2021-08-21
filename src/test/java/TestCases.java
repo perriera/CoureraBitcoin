@@ -50,7 +50,7 @@ abstract public class TestCases {
 		Transaction tx2 = new Transaction();
 		tx2.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx2.addOutput(10, people.getAlice().getPublicKey());
-		byte[] sig2 = people.signMessage(people.getScrooge().getPrivateKey(), tx2.getRawDataToSign(0));
+		byte[] sig2 = people.signMessage(people.getCreator().getPrivateKey(), tx2.getRawDataToSign(0));
 		tx2.addSignature(sig2, 0);
 		tx2.finalize();
 		assertTrue(txHandler.isValidTx(tx2));
@@ -64,7 +64,7 @@ abstract public class TestCases {
 		tx3.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx3.addOutput(4, people.getAlice().getPublicKey());
 		tx3.addOutput(6, people.getBob().getPublicKey());
-		byte[] sig3 = people.signMessage(people.getScrooge().getPrivateKey(), tx3.getRawDataToSign(0));
+		byte[] sig3 = people.signMessage(people.getCreator().getPrivateKey(), tx3.getRawDataToSign(0));
 		tx3.addSignature(sig3, 0);
 		tx3.finalize();
 		assertTrue(txHandler.isValidTx(tx3));
@@ -76,7 +76,7 @@ abstract public class TestCases {
 		tx.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx.addOutput(4, people.getAlice().getPublicKey());
 		tx.addOutput(7, people.getBob().getPublicKey());
-		byte[] sig = people.signMessage(people.getScrooge().getPrivateKey(), tx.getRawDataToSign(0));
+		byte[] sig = people.signMessage(people.getCreator().getPrivateKey(), tx.getRawDataToSign(0));
 		tx.addSignature(sig, 0);
 		tx.finalize();
 		txHandler.isValidTx(tx);
@@ -88,7 +88,7 @@ abstract public class TestCases {
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(4, people.getAlice().getPublicKey());
 		tx1.addOutput(-7, people.getBob().getPublicKey());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivateKey(), tx1.getRawDataToSign(0));
+		byte[] sig1 = people.signMessage(people.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 		txHandler.isValidTx(tx1);
@@ -102,7 +102,7 @@ abstract public class TestCases {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.getAlice().getPublicKey());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivateKey(), tx1.getRawDataToSign(0));
+		byte[] sig1 = people.signMessage(people.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 
@@ -132,7 +132,7 @@ abstract public class TestCases {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.getAlice().getPublicKey());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivateKey(), tx1.getRawDataToSign(0));
+		byte[] sig1 = people.signMessage(people.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 
@@ -163,7 +163,7 @@ abstract public class TestCases {
 		Transaction tx1 = new Transaction();
 		tx1.addInput(bitcoins.getGenesiseTx().getHash(), 0);
 		tx1.addOutput(10, people.getAlice().getPublicKey());
-		byte[] sig1 = people.signMessage(people.getScrooge().getPrivateKey(), tx1.getRawDataToSign(0));
+		byte[] sig1 = people.signMessage(people.getCreator().getPrivateKey(), tx1.getRawDataToSign(0));
 		tx1.addSignature(sig1, 0);
 		tx1.finalize();
 

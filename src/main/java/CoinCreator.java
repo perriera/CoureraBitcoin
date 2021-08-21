@@ -1,13 +1,9 @@
 import java.security.KeyPair;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 
-class CoinCreator implements CoinCreatorInterface {
-
-    private KeyPair keypair;
+class CoinCreator extends CoinOwner implements CoinCreatorInterface {
 
     public CoinCreator(KeyPair keypair) {
-        this.keypair = keypair;
+        super(keypair);
     }
 
     @Override
@@ -18,14 +14,5 @@ class CoinCreator implements CoinCreatorInterface {
         return genesiseTx;
     }
 
-    @Override
-    public PublicKey getPublicKey() {
-        return keypair.getPublic();
-    }
-
-    @Override
-    public PrivateKey getPrivateKey() {
-        return keypair.getPrivate();
-    }
     
 }

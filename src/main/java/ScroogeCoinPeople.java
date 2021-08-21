@@ -8,7 +8,7 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
 
-public class ScroogeCoinPeople {
+public class ScroogeCoinPeople implements CoinAuthorityInterface {
 
 	private CoinCreatorInterface scroogeKeypair;
 	private CoinOwner aliceKeypair;
@@ -33,7 +33,7 @@ public class ScroogeCoinPeople {
 		return sig.sign();
 	}
 
-	public CoinCreatorInterface getScrooge() {
+	public CoinCreatorInterface getCreator() {
 		return scroogeKeypair;
 	}
 

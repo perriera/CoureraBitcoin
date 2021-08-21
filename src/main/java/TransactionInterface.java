@@ -1,13 +1,34 @@
-import java.security.PublicKey;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SignatureException;
 import java.util.ArrayList;
+
+interface CoinAuthorityInterface {
+    public byte[] signMessage(PrivateKey sk, byte[] message)
+            throws NoSuchAlgorithmException, NoSuchProviderException, SignatureException, InvalidKeyException;
+
+    public CoinCreatorInterface getCreator();
+}
 
 interface CoinOwnerInterface {
     public PublicKey getPublicKey();
+
     public PrivateKey getPrivateKey();
+
+    public TransactionInterface addCoin(TransactionInterface tx, TransactionInterface source, int index);
+
+    public TransactionInterface addBuyer(TransactionInterface tx, double amount, CoinOwnerInterface buyer);
+
+    public TransactionInterface authorizeSale(TransactionInterface tx, CoinOwnerInterface seller, int index,
+            CoinAuthorityInterface authority)
+            throws NoSuchAlgorithmException, NoSuchProviderException, SignatureException, InvalidKeyException;
+
 }
 
-interface CoinCreatorInterface extends CoinOwnerInterface{
+interface CoinCreatorInterface extends CoinOwnerInterface {
     public TransactionInterface createCoin(double value);
 
 }
