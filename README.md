@@ -586,10 +586,10 @@ With Java and Maven installed the mvn test should give you output similar to the
 ## Comments
 If you have any questions on this project please do not hesitate to contact me at perry@exparx.com or perry.anderson@gmai.com, (or visit us at [EXPARX](https://www.exparx.com), or personally [Perry Anderson](https://perryanderson.com)).
 ## Acknowledgements
-[Coursera at Princeton University](https://www.coursera.org/) For providing such an excellent course.
-[Arvind Narayanan](https://www.coursera.org/learn/cryptocurrency) For his knowledge on Bitcoin and Cryptocurrency technologies.
-[Huabing Zhao](https://medium.com/@zhaohuabing/scrooge-coin-c1d1d1e9fd00) For his excellent work on the assignment, (especially tracking down the missing pieces of the puzzle) for us.
-[Matt Williams at DMG](https://github.com/mattcoding4days) for recommend the course.
+[Coursera at Princeton University](https://www.coursera.org/) for providing such an excellent course.
+[Arvind Narayanan](https://www.coursera.org/learn/cryptocurrency) for his knowledge on Bitcoin and Cryptocurrency technologies.
+[Huabing Zhao](https://medium.com/@zhaohuabing/scrooge-coin-c1d1d1e9fd00) for his excellent work on the assignment, (especially tracking down the missing pieces of the puzzle) for us.
+[Matt Williams at DMG](https://github.com/mattcoding4days) for recommending the course.
 
 >
 ## LICENSE
