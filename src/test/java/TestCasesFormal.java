@@ -45,7 +45,7 @@ public class TestCasesFormal {
          * 
          */
 
-        // Scrooge transfer 4 coins to Alice, 6 coins to bob, no transaction fee
+        // Correction: Scrooge transfer 4 coins to Alice, 6 coins to bob, no transaction fee
 
         TransactionInterface tx1 = new Transaction();
         tx1 = authority.addCoinForSale(tx1, genesiseTx, 0);
@@ -59,7 +59,7 @@ public class TestCasesFormal {
          * the transaction fee was 0.2 coin.
          */
 
-        // Alice transfer 3.4 to mike, transaction fee is 4-3.4=0.6
+        // Correction: Alice transfer 3.4 to mike, transaction fee is 4-3.4=0.6
 
         TransactionInterface tx2 = new Transaction();
         tx2 = authority.addCoinForSale(tx2, tx1, 0);
@@ -71,7 +71,7 @@ public class TestCasesFormal {
          * transferred 9.7 coins to mike, and the transaction fee was 0.1 coin.
          */
 
-        // Bob transfer 5.5 to mike, transaction fee is 5-5.5=0.5
+        // Correction: Bob transfer 5.5 to mike, transaction fee is 5-5.5=0.5
 
         TransactionInterface tx3 = new Transaction();
         tx3 = authority.addCoinForSale(tx3, tx1, 1);
@@ -87,7 +87,7 @@ public class TestCasesFormal {
          * output of an input of the transaction is available or not.
          * 
          */
-        
+
         TxHandlerInterface maxFeeTxHandler = new MaxFeeTxHandler(pool);
         TransactionInterface[] maxAcceptedRx = maxFeeTxHandler.handleTxs(new TransactionInterface[] { tx1, tx2, tx3 });
         assertEquals(maxAcceptedRx.length, 3);
