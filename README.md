@@ -584,7 +584,7 @@ With Java and Maven installed the mvn test should give you output similar to the
 	[INFO] ------------------------------------------------------------------------
 
 ## Comments
-If you have any questions on this project please do not hesitate to contact me at perry@dmgblockchain.com, ([DMG BLOCKCHAIN SOLUTIONS](https://dmgblockchain.com)) or perry.anderson@gmail.com, ([Perry Anderson](https://perryanderson.com)).
+If you have any questions on this project please do not hesitate to contact me at perry@dmgblockchain.com, ([DMG Blockchain Solutions](https://dmgblockchain.com)) or perry.anderson@gmail.com, ([Perry Anderson](https://perryanderson.com)).
 ## Acknowledgements
 [Coursera at Princeton University](https://www.coursera.org/) for providing such an excellent course. </br>
 [Arvind Narayanan](https://www.coursera.org/learn/cryptocurrency) for his knowledge on Bitcoin and Cryptocurrency technologies.</br>
