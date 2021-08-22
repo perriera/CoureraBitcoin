@@ -1,8 +1,6 @@
-package com.coursera;
-
 import java.util.Arrays;
 
-public class UTXO implements Comparable<UTXO> {
+public class UTXO implements UTXOInterface, Comparable<UTXO> {
 
     /** Hash of the transaction from which this UTXO originates */
     private byte[] txHash;
@@ -17,6 +15,11 @@ public class UTXO implements Comparable<UTXO> {
     public UTXO(byte[] txHash, int index) {
         this.txHash = Arrays.copyOf(txHash, txHash.length);
         this.index = index;
+    }
+    
+    public UTXO(InputInterface input) {
+        this.txHash = Arrays.copyOf(input.getPrevTxHash(), input.getPrevTxHash().length);
+        this.index = input.getOutputIndex();
     }
 
     /** @return the transaction hash of this UTXO */

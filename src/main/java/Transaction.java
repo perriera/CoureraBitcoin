@@ -1,5 +1,3 @@
-package com.coursera;
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,15 +5,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 
-public class Transaction {
+public class Transaction implements TransactionInterface {
 
-    public class Input {
+    public class Input implements InputInterface {
         /** hash of the Transaction whose output is being used */
-        public byte[] prevTxHash;
+        private byte[] prevTxHash;
         /** used output's index in the previous transaction */
-        public int outputIndex;
+        private int outputIndex;
         /** the signature produced to check validity */
-        public byte[] signature;
+        private byte[] signature;
 
         public Input(byte[] prevHash, int index) {
             if (prevHash == null)
@@ -31,34 +29,56 @@ public class Transaction {
             else
                 signature = Arrays.copyOf(sig, sig.length);
         }
+
+        public byte[] getPrevTxHash() {
+            return prevTxHash;
+        }
+
+        public int getOutputIndex() {
+            return outputIndex;
+        }
+
+        public byte[] getSignature() {
+            return signature;
+        }
+
     }
 
-    public class Output {
+    public class Output implements OutputInterface {
         /** value in bitcoins of the output */
-        public double value;
+        private double value;
+
         /** the address or public key of the recipient */
-        public PublicKey address;
+        private PublicKey address;
 
         public Output(double v, PublicKey addr) {
             value = v;
             address = addr;
         }
+
+        public double getValue() {
+            return value;
+        }
+
+        public PublicKey getAddress() {
+            return address;
+        }
     }
 
     /** hash of the transaction, its unique id */
     private byte[] hash;
-    private ArrayList<Input> inputs;
-    private ArrayList<Output> outputs;
+    private ArrayList<InputInterface> inputs;
+    private ArrayList<OutputInterface> outputs;
 
     public Transaction() {
-        inputs = new ArrayList<Input>();
-        outputs = new ArrayList<Output>();
+        inputs = new ArrayList<InputInterface>();
+        outputs = new ArrayList<OutputInterface>();
     }
 
     public Transaction(Transaction tx) {
         hash = tx.hash.clone();
-        inputs = new ArrayList<Input>(tx.inputs);
-        outputs = new ArrayList<Output>(tx.outputs);
+        inputs = new ArrayList<InputInterface>(tx.inputs);
+        outputs = new ArrayList<OutputInterface>(tx.outputs);
     }
 
     public void addInput(byte[] prevTxHash, int outputIndex) {
@@ -77,8 +97,8 @@ public class Transaction {
 
     public void removeInput(UTXO ut) {
         for (int i = 0; i < inputs.size(); i++) {
-            Input in = inputs.get(i);
-            UTXO u = new UTXO(in.prevTxHash, in.outputIndex);
+            InputInterface input = inputs.get(i);
+            UTXO u = new UTXO(input);
             if (u.equals(ut)) {
                 inputs.remove(i);
                 return;
@@ -91,21 +111,21 @@ public class Transaction {
         ArrayList<Byte> sigData = new ArrayList<Byte>();
         if (index > inputs.size())
             return null;
-        Input in = inputs.get(index);
-        byte[] prevTxHash = in.prevTxHash;
+        InputInterface in = inputs.get(index);
+        byte[] prevTxHash = in.getPrevTxHash();
         ByteBuffer b = ByteBuffer.allocate(Integer.SIZE / 8);
-        b.putInt(in.outputIndex);
+        b.putInt(in.getOutputIndex());
         byte[] outputIndex = b.array();
         if (prevTxHash != null)
             for (int i = 0; i < prevTxHash.length; i++)
                 sigData.add(prevTxHash[i]);
         for (int i = 0; i < outputIndex.length; i++)
             sigData.add(outputIndex[i]);
-        for (Output op : outputs) {
+        for (OutputInterface op : outputs) {
             ByteBuffer bo = ByteBuffer.allocate(Double.SIZE / 8);
-            bo.putDouble(op.value);
+            bo.putDouble(op.getValue());
             byte[] value = bo.array();
-            byte[] addressBytes = op.address.getEncoded();
+            byte[] addressBytes = op.getAddress().getEncoded();
             for (int i = 0; i < value.length; i++)
                 sigData.add(value[i]);
 
@@ -125,12 +145,12 @@ public class Transaction {
 
     public byte[] getRawTx() {
         ArrayList<Byte> rawTx = new ArrayList<Byte>();
-        for (Input in : inputs) {
-            byte[] prevTxHash = in.prevTxHash;
+        for (InputInterface in : inputs) {
+            byte[] prevTxHash = in.getPrevTxHash();
             ByteBuffer b = ByteBuffer.allocate(Integer.SIZE / 8);
-            b.putInt(in.outputIndex);
+            b.putInt(in.getOutputIndex());
             byte[] outputIndex = b.array();
-            byte[] signature = in.signature;
+            byte[] signature = in.getSignature();
             if (prevTxHash != null)
                 for (int i = 0; i < prevTxHash.length; i++)
                     rawTx.add(prevTxHash[i]);
@@ -140,11 +160,11 @@ public class Transaction {
                 for (int i = 0; i < signature.length; i++)
                     rawTx.add(signature[i]);
         }
-        for (Output op : outputs) {
+        for (OutputInterface op : outputs) {
             ByteBuffer b = ByteBuffer.allocate(Double.SIZE / 8);
-            b.putDouble(op.value);
+            b.putDouble(op.getValue());
             byte[] value = b.array();
-            byte[] addressBytes = op.address.getEncoded();
+            byte[] addressBytes = op.getAddress().getEncoded();
             for (int i = 0; i < value.length; i++) {
                 rawTx.add(value[i]);
             }
@@ -178,22 +198,22 @@ public class Transaction {
         return hash;
     }
 
-    public ArrayList<Input> getInputs() {
+    public ArrayList<InputInterface> getInputs() {
         return inputs;
     }
 
-    public ArrayList<Output> getOutputs() {
+    public ArrayList<OutputInterface> getOutputs() {
         return outputs;
     }
 
-    public Input getInput(int index) {
+    public InputInterface getInput(int index) {
         if (index < inputs.size()) {
             return inputs.get(index);
         }
         return null;
     }
 
-    public Output getOutput(int index) {
+    public OutputInterface getOutput(int index) {
         if (index < outputs.size()) {
             return outputs.get(index);
         }
