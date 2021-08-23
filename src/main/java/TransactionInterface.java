@@ -30,29 +30,6 @@ interface HashPointerInterface {
 
 interface TransactionInputsInterface {
 
-    public InputInterface getInput(int index);
-
-    public void removeInput(int index);
-
-    public void removeInput(UTXO ut);
-
-    public ArrayList<InputInterface> getInputs();
-
-    public int numInputs();
-
-}
-
-interface TransactionOutputsInterface {
-
-    public ArrayList<OutputInterface> getOutputs();
-
-    public OutputInterface getOutput(int index);
-
-    public int numOutputs();
-}
-
-interface CoinDistributerInterface {
-
     /**
      * Every transaction has a set of inputs and a set of outputs.
      * 
@@ -67,6 +44,20 @@ interface CoinDistributerInterface {
     @Deprecated
     public void addInput(byte[] prevTxHash, int outputIndex);
 
+    public InputInterface getInput(int index);
+
+    public void removeInput(int index);
+
+    public void removeInput(UTXO ut);
+
+    public ArrayList<InputInterface> getInputs();
+
+    public int numInputs();
+
+}
+
+interface TransactionOutputsInterface {
+
     /**
      * Every transaction has a set of inputs and a set of outputs.
      * 
@@ -80,15 +71,26 @@ interface CoinDistributerInterface {
     @Deprecated
     public void addOutput(double value, PublicKey address);
 
+    public ArrayList<OutputInterface> getOutputs();
+
+    public OutputInterface getOutput(int index);
+
+    public int numOutputs();
 }
 
 /**
  * @brief TransactionInterface
  * 
  */
-interface TransactionInterface extends CoinDistributerInterface, HashPointerInterface, TransactionInputsInterface,
-        TransactionOutputsInterface {
+interface TransactionInterface extends HashPointerInterface, TransactionInputsInterface, TransactionOutputsInterface {
 
+    /**
+     * 
+     * The following methods are used to serialize the data inside the Transaction
+     * object. At the basic level the values and signatures the compose the
+     * transaction are all reduce to a simple byte[] array.
+     * 
+     */
     public byte[] getRawDataToSign(int index);
 
     @Deprecated
@@ -101,6 +103,12 @@ interface TransactionInterface extends CoinDistributerInterface, HashPointerInte
 
 }
 
+/**
+ * InputInterface
+ * 
+ * Anyone offing coin for sale provides the following methods.
+ * 
+ */
 interface InputInterface {
     public void addSignature(byte[] sig);
 
@@ -111,6 +119,12 @@ interface InputInterface {
     public byte[] getSignature();
 }
 
+/**
+ * OutputInterface
+ * 
+ * Anyone looking for purchase coin provides the following methods.
+ * 
+ */
 interface OutputInterface {
     public double getValue();
 
@@ -118,14 +132,51 @@ interface OutputInterface {
 
 }
 
+/**
+ * TxHandlerInterface
+ * 
+ * This interface defines the method necessary to process a series of
+ * Transaction objects. A variety of exceptions maybe thrown depending on the
+ * content of the inputs and outputs.
+ * 
+ */
 interface TxHandlerInterface {
+
+    /**
+     * boolean isValidTx
+     * 
+     * Tests each individual trasaction for validity.
+     * 
+     * @param tx
+     * @return
+     * @throws ConsumedCoinAvailableException
+     * @throws VerifySignatureOfConsumeCoinException
+     * @throws CoinConsumedMultipleTimesException
+     * @throws TransactionOutputLessThanZeroException
+     * @throws TransactionInputSumLessThanOutputSumException
+     */
     public boolean isValidTx(TransactionInterface tx) throws ConsumedCoinAvailableException,
             VerifySignatureOfConsumeCoinException, CoinConsumedMultipleTimesException,
             TransactionOutputLessThanZeroException, TransactionInputSumLessThanOutputSumException;
 
+    /**
+     * handleTxs()
+     * 
+     * Processes an array of transactions, (using the above method).
+     * 
+     * @param possibleTxs
+     * @return
+     * @throws Exception
+     */
     public TransactionInterface[] handleTxs(TransactionInterface[] possibleTxs) throws Exception;
 }
 
+/**
+ * UTXOInterface
+ * 
+ * Used to determine the hash of a given transaction.
+ * 
+ */
 interface UTXOInterface {
 
     /** @return the transaction hash of this UTXO */
@@ -135,6 +186,12 @@ interface UTXOInterface {
     public int getIndex();
 }
 
+/**
+ * UTXOPoolInterface
+ * 
+ * Used to manage a group of UTXOInterface instances.
+ * 
+ */
 interface UTXOPoolInterface {
     public void addUTXO(UTXO utxo, OutputInterface txOut);
 
@@ -155,6 +212,12 @@ interface UTXOPoolInterface {
 
 }
 
+/**
+ * CryptoInterface
+ * 
+ * Used to verify the signature of a transaction.
+ * 
+ */
 interface CryptoInterface {
     public boolean verifySignature(PublicKey pubKey, byte[] message, byte[] signature);
 }

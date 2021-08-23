@@ -9,9 +9,15 @@
 -- Huabing Zhao
 
  - **GIVEN** that the course is spread out over 11 weeks  
+ - **AND** there is a lot of material to cover in such a short amount of time
  - **AND** in the real world time is of the essence
  - **WHEN** we search the Internet for some help on this subject
- - **THEN** we save ourselves much time, (based on the expertise of another)
+ - **AND** group what we understand as the behavuor of Bitcoin and Cryptocurrency
+ - **AND** places specific test cases and interfaces in this Github project
+ - **THEN** we save ourselves much time in understanding the low level details
+ - **AND**  correct behaviour of Bitcoin and Cryptocurrency technologies
+ - **THAT IS**  using this project as a template
+ 
 
 The original problem statement reads as follows:
 
@@ -510,7 +516,7 @@ In the test case below the transaction identified as **tx1** is embedded inside 
         tx3 = authority.addCoinForSale(tx3, tx1, 1);
         tx3 = authority.addBuyer(tx3, 5.5, Mike);
         tx3 = authority.authorizeSale(tx3, Bob, 0);
-		
+
 Finally, to make all these transactions process the transaction handler is called. In the following code block, we actually test two implementations of the TxHandlerInterface:
 
         /**
