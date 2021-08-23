@@ -9,8 +9,8 @@
 -- Huabing Zhao
 
  - **GIVEN** there is a lot of material to cover in such a short amount of time
- - **WHEN** we  group what we understand as the behaviour of Bitcoin and Cryptocurrency
- - **THEN** we can places specific interfaces and test cases here for future reference
+ - **WHEN** we place what we understand of Bitcoin and Cryptocurrency technology here
+ - **THEN** we can define specific interfaces and test cases for future reference
  
 
 The original problem statement reads as follows:
