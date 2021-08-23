@@ -146,4 +146,3 @@ interface CoinCreatorInterface extends CoinOwnerInterface {
     public TransactionInterface createCoin(double value);
 
 }
-

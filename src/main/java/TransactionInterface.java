@@ -2,6 +2,15 @@ import java.security.PublicKey;
 import java.util.ArrayList;
 
 /**
+ * TransactionInterface is based on the current Transaction class
+ * which was supplied with the project. However, it's organization
+ * is a bit on the primative side. It's placed here for legacy purposes.
+ * 
+ * See CoinAuthorityInterface for a more logical breakdown.
+ * 
+ */
+
+/**
  * interface HashPointerInterface
  * 
  * Hash Pointer is comprised of two parts: Pointer to where some information is
