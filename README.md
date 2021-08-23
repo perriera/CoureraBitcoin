@@ -536,6 +536,51 @@ Finally, to make all these transactions process the transaction handler is calle
         assertEquals(maxAcceptedRx.length, 3);
         assertTrue(Arrays.equals(maxAcceptedRx[0].getHash(), tx2.getHash()));
 
+## C/C++
+According to a well-educated source on Bitcoin and Cryptocurrency technology, (see Matt Williams below), in the early days of Bitcoin distribution it was possible to access Bitcoin via your own very PC, (preferably an unused GPU), process the transactions for that coin and send it back for your financial compensation. But as Bitcoin popularity grew, so did the need for faster computers and faster response times. Hence, writing more optimum code would often make difference, (between two different people processing the same Bitcoin transactions on their home computers). So, C/C++ would be a better idea than Java, especially in this case where some of the implementation details of the Transaction class, (for example the way it uses the **finalize** method). Hence, a direct port of the interfaces derived in this project could easily be ported to C++ with just a little adjustment for syntax:
+
+**Java:**
+
+	/**
+	 * In the first transaction, we assume that Scrooge has created 10 coins and
+	 * assigned them to himself, we don’t doubt that because the system-Scroogecoin
+	 * has a building rule which says that Scrooge has right to create coins.
+	 */
+	interface CoinCreatorInterface extends CoinOwnerInterface {
+
+	    /**
+	     * TransactionInterface createCoin
+	     * 
+	     * Creates coin to be traded.
+	     * 
+	     * @param value
+	     * @return
+	     */
+	    public TransactionInterface createCoin(double value);
+
+	}
+
+**C++**
+
+	/**
+	 * In the first transaction, we assume that Scrooge has created 10 coins and
+	 * assigned them to himself, we don’t doubt that because the system-Scroogecoin
+	 * has a building rule which says that Scrooge has right to create coins.
+	 */
+	interface CoinCreatorInterface extends CoinOwnerInterface {
+
+	    /**
+	     * TransactionInterface createCoin
+	     * 
+	     * Creates coin to be traded.
+	     * 
+	     * @param value
+	     * @return
+	     */
+	    virtual TransactionInterface createCoin(double value) pure;
+
+	}
+
 # Conclusion
 While some formal documentation of the interfaces defined for this assignment remains, the use of interfaces and custom exceptions, (combined with the findings of Mr. Zhao) have given us a much better idea as to how Bitcoin and Cryptocurrency technology works in real applications.
  # Implementation
@@ -590,51 +635,6 @@ With Java and Maven installed the mvn test should give you output similar to the
 	[INFO] Total time:  2.262 s
 	[INFO] Finished at: 2021-08-22T15:46:53-07:00
 	[INFO] ------------------------------------------------------------------------
-
-## C/C++
-According to a well-educated source on Bitcoin and Cryptocurrency technology, (see Matt Williams below), in the early days of Bitcoin distribution it was possible to access Bitcoin via your own very PC, (preferably an unused GPU), process the transactions for that coin and send it back for your financial compensation. But as Bitcoin popularity grew, so did the need for faster computers and faster response times. Hence, writing more optimum code would often make difference, (between two different people processing the same Bitcoin transactions on their home computers). So, C/C++ would be a better idea than Java, especially in this case where some of the implementation details of the Transaction class, (for example the way it uses the **finalize** method). Hence, a direct port of the interfaces derived in this project could easily be ported to C++ with just a little adjustment for syntax:
-
-**Java:**
-
-	/**
-	 * In the first transaction, we assume that Scrooge has created 10 coins and
-	 * assigned them to himself, we don’t doubt that because the system-Scroogecoin
-	 * has a building rule which says that Scrooge has right to create coins.
-	 */
-	interface CoinCreatorInterface extends CoinOwnerInterface {
-
-	    /**
-	     * TransactionInterface createCoin
-	     * 
-	     * Creates coin to be traded.
-	     * 
-	     * @param value
-	     * @return
-	     */
-	    public TransactionInterface createCoin(double value);
-
-	}
-
-**C++**
-
-	/**
-	 * In the first transaction, we assume that Scrooge has created 10 coins and
-	 * assigned them to himself, we don’t doubt that because the system-Scroogecoin
-	 * has a building rule which says that Scrooge has right to create coins.
-	 */
-	interface CoinCreatorInterface extends CoinOwnerInterface {
-
-	    /**
-	     * TransactionInterface createCoin
-	     * 
-	     * Creates coin to be traded.
-	     * 
-	     * @param value
-	     * @return
-	     */
-	    virtual TransactionInterface createCoin(double value) pure;
-
-	}
 
 ## Comments
 If you have any questions on this project please do not hesitate to contact me at perry@dmgblockchain.com, ([DMG Blockchain Solutions](https://dmgblockchain.com)) or perry.anderson@gmail.com, ([Perry Anderson](https://perryanderson.com)).
