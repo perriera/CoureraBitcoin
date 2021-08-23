@@ -8,11 +8,8 @@
 *"This amazing course is created by the professors of Princeton University. It's free on the internet. The course has a series of well-organized lecture videos and programming practices after each lecture. I encourage anyone who is interested in cryptocurrency to attend this travis-ci onlie course. You will get a chance to learn the theories and technical details behind the popular Bitcoin and may even create your own version of cryptocurrency after finishing this course!*
 -- Huabing Zhao
 
- - **GIVEN** that the course is spread out over 11 weeks  
- - **AND** there is a lot of material to cover in such a short amount of time
- - **AND** in the real world time is of the essence
- - **WHEN** we search the Internet for some help on this subject
- - **AND** group what we understand as the behavuor of Bitcoin and Cryptocurrency
+ - **GIVEN** there is a lot of material to cover in such a short amount of time
+ - **WHEN** we  group what we understand as the behavuor of Bitcoin and Cryptocurrency
  - **AND** places specific test cases and interfaces in this Github project
  - **THEN** we save ourselves much time in understanding the low level details
  - **AND**  correct behaviour of Bitcoin and Cryptocurrency technologies
