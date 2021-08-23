@@ -1,6 +1,7 @@
 
 
 
+https://github.com/perriera/CourseraBitcoin/blob/main/etc/Merkle%20tree.png
 
 # Scrooge Coin, (Coursera Bitcoin)
   [![CMake](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml/badge.svg?branch=dev)](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml)
