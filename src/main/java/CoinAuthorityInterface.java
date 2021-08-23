@@ -147,33 +147,3 @@ interface CoinCreatorInterface extends CoinOwnerInterface {
 
 }
 
-interface CoinDistributerInterface {
-
-    /**
-     * Every transaction has a set of inputs and a set of outputs.
-     * 
-     * An input in a transaction must use a hash pointer to refer to its
-     * corresponding output in the previous transaction, and it must be signed with
-     * the private key of the owner because the owner needs to prove he/she agrees
-     * to spend his/her coins.
-     * 
-     * @param prevTxHash
-     * @param outputIndex
-     */
-    @Deprecated
-    public void addInput(byte[] prevTxHash, int outputIndex);
-
-    /**
-     * Every transaction has a set of inputs and a set of outputs.
-     * 
-     * Every output is correlated to the public key of the receiver, which is
-     * his/her ScroogeCoin address.
-     * 
-     * @param value
-     * @param address
-     */
-
-    @Deprecated
-    public void addOutput(double value, PublicKey address);
-
-}
