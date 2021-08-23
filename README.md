@@ -597,7 +597,7 @@ If you have any questions on this project please do not hesitate to contact me a
 ## Acknowledgements
 [Coursera at Princeton University](https://www.coursera.org/) for providing such an excellent course. </br>
 [Arvind Narayanan](https://www.coursera.org/learn/cryptocurrency) for his knowledge on Bitcoin and Cryptocurrency technologies.</br>
-[Huabing Zhao](https://medium.com/@zhaohuabing/scrooge-coin-c1d1d1e9fd00) for his excellent work on the assignment, (especially tracking down the missing details) for us.</br>
+[Huabing Zhao](https://medium.com/@zhaohuabing/scrooge-coin-c1d1d1e9fd00) for providing the missing implementation details.</br>
 [Matt Williams at DMG](https://github.com/mattcoding4days) for recommending the course.</br>
 [Linus Torvalds](https://en.wikipedia.org/wiki/Linus_Torvalds) for inventing Github.</br>
 
