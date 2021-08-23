@@ -600,7 +600,7 @@ If you have any questions on this project please do not hesitate to contact me a
 [Huabing Zhao](https://medium.com/@zhaohuabing/scrooge-coin-c1d1d1e9fd00) for providing the missing implementation details.</br>
 [Matt Williams at DMG](https://github.com/mattcoding4days) for recommending the course.</br>
 [Linus Torvalds](https://en.wikipedia.org/wiki/Linus_Torvalds) for inventing Github.</br>
-[Bill Gates](https://en.wikipedia.org/wiki/Bill_Gates)for not purchasing Github (yet).</br>
+[Bill Gates](https://en.wikipedia.org/wiki/Bill_Gates) for not purchasing Github (yet).</br>
 
 
 >
