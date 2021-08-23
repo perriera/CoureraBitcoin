@@ -1,6 +1,6 @@
 
 
-# ScroogeCoin, (Coursera Bitcoin)
+# Scrooge Coin, (Coursera Bitcoin)
   [![CMake](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml/badge.svg?branch=dev)](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml)
 
 > This repo is based on both the ScroogeCoin programming assignment practice of "Bitcoin and Cryptocurrency Technologies" online course as well as the work completedby [Huabing Zhao](https://medium.com/@zhaohuabing/scrooge-coin-c1d1d1e9fd00) . The course [_“Bitcoin and Cryptocurrency Technologies”_](https://www.coursera.org/learn/cryptocurrency/home/welcome) has three assignments designed to get the student ramped up quickly as to the many facits of the subject matter. However, as Mr. Zhao was quick to point out, there were some implementation details that weren't explained to well, (perhaps to give the student a lesson in learning those details).
