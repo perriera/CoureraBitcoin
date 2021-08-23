@@ -1,7 +1,7 @@
 
 
 
-https://github.com/perriera/CourseraBitcoin/blob/main/etc/Merkle%20tree.png
+
 
 # Scrooge Coin, (Coursera Bitcoin)
   [![CMake](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml/badge.svg?branch=dev)](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml)
@@ -445,6 +445,8 @@ Further to organizing this assignment in terms of properly written interfaces we
 >Every transaction has a set of inputs and a set of outputs. An input in a transaction must use a hash pointer to refer to its corresponding output in the previous transaction, and it must be signed with the private key of the owner because the owner needs to prove he/she agrees to spend his/her coins.
 >
 >Every output is correlated to the public key of the receiver, which is his/her ScroogeCoin address.
+>
+![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Merkle%20tree.png)
 
 Further to this, it was identified that Bitcoin transactions may contain other Bitcoin transactions. This was revealed in both the supplied implementation code as exemplified in the test cases:
 
