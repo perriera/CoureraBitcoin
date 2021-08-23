@@ -577,7 +577,7 @@ According to a well-educated source on Bitcoin and Cryptocurrency technology, (s
 	     * @param value
 	     * @return
 	     */
-	    virtual TransactionInterface createCoin(double value) pure;
+	    virtual TransactionInterface& createCoin(double value) pure;
 
 	}
 
