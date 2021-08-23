@@ -171,9 +171,9 @@ Before our interface definitions the test cases used to interact with the reques
 		
 After we refactored and applied our interfaces, the test cases are transformed into this:
 
-		CoinCreatorInterface  Scrooge = new  CoinCreator(keyGen);
-		CoinOwnerInterface  Alice = new  CoinOwner(keyGen);
-		CoinOwnerInterface  Bob = new  CoinOwner(keyGen);
+		CoinCreatorInterface Scrooge = new CoinCreator(keyGen);
+		CoinOwnerInterface Alice = new CoinOwner(keyGen);
+		CoinOwnerInterface Bob = new CoinOwner(keyGen);
 
     	TransactionInterface tx = new Transaction();
     	tx = authority.addCoinForSale(tx, genesiseTx, 0);
