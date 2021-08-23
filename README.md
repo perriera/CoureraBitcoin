@@ -3,7 +3,7 @@
 # Scrooge Coin, (Coursera Bitcoin)
   [![CMake](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml/badge.svg?branch=dev)](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml)
 
-> This repo started as an assignment based on the ScroogeCoin programming assignment practice of "Bitcoin and Cryptocurrency Technologies" online course, (as well as the missing details found with [Huabing Zhao](https://medium.com/@zhaohuabing/scrooge-coin-c1d1d1e9fd00)'s help). The course [_“Bitcoin and Cryptocurrency Technologies”_](https://www.coursera.org/learn/cryptocurrency/home/welcome) has three assignments designed to get the student ramped up quickly as to the many facits of the subject matter. However, as Mr. Zhao was quick to point out, there were some implementation details that weren't explained to well, (perhaps to give the student a lesson in learning those details).
+> This repo started as an assignment based on the ScroogeCoin programming assignment practice of "Bitcoin and Cryptocurrency Technologies" online course, (as well as the missing details found with [Huabing Zhao](https://medium.com/@zhaohuabing/scrooge-coin-c1d1d1e9fd00)'s help). The course [_“Bitcoin and Cryptocurrency Technologies”_](https://www.coursera.org/learn/cryptocurrency/home/welcome) has three assignments designed to get the student ramped up quickly as to the many facits of the subject matter. However, as Mr. Zhao was quick to point out, there were some implementation details that weren't explained to well, (perhaps to give the student a lesson in learning those missing details as well).
 
 *"This amazing course is created by the professors of Princeton University. It's free on the internet. The course has a series of well-organized lecture videos and programming practices after each lecture. I encourage anyone who is interested in cryptocurrency to attend this travis-ci onlie course. You will get a chance to learn the theories and technical details behind the popular Bitcoin and may even create your own version of cryptocurrency after finishing this course!*
 -- Huabing Zhao
@@ -234,7 +234,7 @@ The introduction of exceptions to C++, (and then other languages) brought with i
 
 Custom exceptions then were like the icing on the cake. Being able to organize possible exceptions as a well defined class made it much easier to expect the unexpected, (*and recover from it gracefully*).
 
-Case in point. When Mr. Huabing wrote his code, he places **if** statements inside his handler:
+Case in point. When Mr. Zhao wrote his code, he places **if** statements inside his handler:
 
 	/**
 	 * @return true if: (1) all outputs claimed by {@code tx} are in the current
@@ -599,6 +599,7 @@ If you have any questions on this project please do not hesitate to contact me a
 [Arvind Narayanan](https://www.coursera.org/learn/cryptocurrency) for his knowledge on Bitcoin and Cryptocurrency technologies.</br>
 [Huabing Zhao](https://medium.com/@zhaohuabing/scrooge-coin-c1d1d1e9fd00) for his excellent work on the assignment, (especially tracking down the missing pieces of the puzzle) for us.</br>
 [Matt Williams at DMG](https://github.com/mattcoding4days) for recommending the course.</br>
+[Linus Torvalds for inventing Github](https://en.wikipedia.org/wiki/Linus_Torvalds).</br>
 
 >
 ## LICENSE
