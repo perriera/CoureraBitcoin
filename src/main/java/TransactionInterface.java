@@ -28,11 +28,35 @@ interface HashPointerInterface {
 
 }
 
+interface TransactionInputsInterface {
+
+    public InputInterface getInput(int index);
+
+    public void removeInput(int index);
+
+    public void removeInput(UTXO ut);
+
+    public ArrayList<InputInterface> getInputs();
+
+    public int numInputs();
+
+}
+
+interface TransactionOutputsInterface {
+
+    public ArrayList<OutputInterface> getOutputs();
+
+    public OutputInterface getOutput(int index);
+
+    public int numOutputs();
+}
+
 /**
  * @brief TransactionInterface
  * 
  */
-interface TransactionInterface extends CoinDistributerInterface, HashPointerInterface {
+interface TransactionInterface extends CoinDistributerInterface, HashPointerInterface, TransactionInputsInterface,
+        TransactionOutputsInterface {
 
     public byte[] getRawDataToSign(int index);
 
@@ -43,22 +67,6 @@ interface TransactionInterface extends CoinDistributerInterface, HashPointerInte
 
     @Deprecated
     public void finalize();
-
-    public void removeInput(int index);
-
-    public void removeInput(UTXO ut);
-
-    public ArrayList<InputInterface> getInputs();
-
-    public ArrayList<OutputInterface> getOutputs();
-
-    public InputInterface getInput(int index);
-
-    public OutputInterface getOutput(int index);
-
-    public int numInputs();
-
-    public int numOutputs();
 
 }
 
