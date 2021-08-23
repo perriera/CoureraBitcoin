@@ -7,7 +7,7 @@
 
 > This repo started as an assignment based on the ScroogeCoin programming assignment practice of "Bitcoin and Cryptocurrency Technologies" online course, (as well as the missing details found with [Huabing Zhao](https://medium.com/@zhaohuabing/scrooge-coin-c1d1d1e9fd00)'s help). The course [_“Bitcoin and Cryptocurrency Technologies”_](https://www.coursera.org/learn/cryptocurrency/home/welcome) has three assignments designed to get the student ramped up quickly as to the many facits of the subject matter. However, as Mr. Zhao was quick to point out, there were some implementation details that weren't explained to well, (perhaps to give the student a lesson in learning those missing details as well).
 
-*"This amazing course is created by the professors of Princeton University. It's free on the internet. The course has a series of well-organized lecture videos and programming practices after each lecture. I encourage anyone who is interested in cryptocurrency to attend this travis-ci onlie course. You will get a chance to learn the theories and technical details behind the popular Bitcoin and may even create your own version of cryptocurrency after finishing this course!*
+*"This amazing course is created by the professors of Princeton University. It's free on the internet. The course has a series of well-organized lecture videos and programming practices after each lecture. I encourage anyone who is interested in cryptocurrency to attend this Travis-CI online course. You will get a chance to learn the theories and technical details behind the popular Bitcoin and may even create your own version of cryptocurrency after finishing this course!*
 -- Huabing Zhao
 
  - **GIVEN** there is a lot of material to cover in such a short amount of time
