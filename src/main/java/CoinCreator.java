@@ -1,9 +1,9 @@
-import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 
 class CoinCreator extends CoinOwner implements CoinCreatorInterface {
 
-    public CoinCreator(KeyPair keypair) {
-        super(keypair);
+    public CoinCreator(KeyPairGenerator keygen) {
+        super(keygen);
     }
 
     @Override

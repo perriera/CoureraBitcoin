@@ -18,10 +18,10 @@ public class ScroogeCoinAuthority implements CoinAuthorityInterfaceLegacy {
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
 		SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
 		keyGen.initialize(1024, random);
-		scroogeKeypair = new CoinCreator(keyGen.generateKeyPair());
-		aliceKeypair = new CoinOwner(keyGen.generateKeyPair());
-		bobKeypair = new CoinOwner(keyGen.generateKeyPair());
-		mikeKeypair = new CoinOwner(keyGen.generateKeyPair());
+		scroogeKeypair = new CoinCreator(keyGen);
+		aliceKeypair = new CoinOwner(keyGen);
+		bobKeypair = new CoinOwner(keyGen);
+		mikeKeypair = new CoinOwner(keyGen);
 	}
 
 	public byte[] signMessage(PrivateKey sk, byte[] message)

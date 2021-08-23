@@ -1,5 +1,6 @@
 
 
+
 # Scrooge Coin, (Coursera Bitcoin)
   [![CMake](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml/badge.svg?branch=dev)](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml)
 
@@ -156,28 +157,23 @@ Here is the current implementation of what we feel is a much better representati
 	
 Before our interface definitions the test cases used to interact with the requested **handleTxs** looked like this:
 
-        /**
-         * @brief Scrooge has right to create coins
-         * 
-         *        In the first transaction, we assume that Scrooge has created 10 coins
-         *        and assigned them to himself, we don’t doubt that because the
-         *        system-Scroogecoin has a building rule which says that Scrooge has
-         *        right to create coins.
-         * 
-         */
-
-        // Here: Scrooge transfers 4 coins to Alice, 6 coins to bob, no transaction fee
+		KeyPair scroogeKeypair = keyGen.generateKeyPair();
+		KeyPair aliceKeypair = keyGen.generateKeyPair();
+		KeyPair bobKeypair = keyGen.generateKeyPair();
 
 		Transaction tx = new Transaction();
 		tx.addInput(genesiseTx.getHash(), 0);
 		tx.addOutput(4, aliceKeypair.getPublic());
-		tx.addOutput(7, bobKeypair.getPublic());
+		tx.addOutput(6, bobKeypair.getPublic());
 		byte[] sig = signMessage(scroogeKeypair.getPrivate(), tx.getRawDataToSign(0));
 		tx.addSignature(sig, 0);
 		tx.finalize();
-		assertFalse(txHandler.isValidTx(tx));
 		
 After we refactored and applied our interfaces, the test cases are transformed to this:
+
+		CoinCreatorInterface  Scrooge = new  CoinCreator(keyGen);
+		CoinOwnerInterface  Alice = new  CoinOwner(keyGen);
+		CoinOwnerInterface  Bob = new  CoinOwner(keyGen);
 
         TransactionInterface tx = new Transaction();
         tx = authority.addCoinForSale(tx, genesiseTx, 0);
@@ -185,7 +181,7 @@ After we refactored and applied our interfaces, the test cases are transformed t
         tx = authority.addBuyer(tx, 6, Bob);
         tx = authority.authorizeSale(tx, Scrooge, 0);
 
-With properly written interfaces the code reads much more naturally.
+With properly written interfaces the code reads much more naturally. In the world of Object-Oriented Programming, (or OOP), it's all about hiding the unnecessary and repetitive details, (making code easier and more logical to work with).
 
 Further, a proper interface for the transaction handler itself, was given a nice overhaul:
 
