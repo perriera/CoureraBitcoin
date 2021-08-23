@@ -177,8 +177,8 @@ After we refactored and applied our interfaces, the test cases are transformed i
 
     	TransactionInterface tx = new Transaction();
     	tx = authority.addCoinForSale(tx, genesiseTx, 0);
-    	tx = authority.addBuyer(tx, 4, Alice);
-    	tx = authority.addBuyer(tx, 6, Bob);
+    	tx = authority.addBuyer(tx, 4.0, Alice);
+    	tx = authority.addBuyer(tx, 6.0, Bob);
     	tx = authority.authorizeSale(tx, Scrooge, 0);
 
 With properly written interfaces the code reads much more naturally. In the world of Object-Oriented Programming, it's all about hiding the unnecessary and repetitive details, (making code more logical and easier to work with).
