@@ -181,7 +181,7 @@ After we refactored and applied our interfaces, the test cases are transformed i
     	tx = authority.addBuyer(tx, 6, Bob);
     	tx = authority.authorizeSale(tx, Scrooge, 0);
 
-With properly written interfaces the code reads much more naturally. In the world of Object-Oriented Programming, it's all about hiding the unnecessary and repetitive details, (making code easier and more logical to work with).
+With properly written interfaces the code reads much more naturally. In the world of Object-Oriented Programming, it's all about hiding the unnecessary and repetitive details, (making code more logical and easier to work with).
 
 Further, a proper interface for the transaction handler itself, was given a nice overhaul:
 
