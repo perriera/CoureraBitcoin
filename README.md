@@ -447,6 +447,7 @@ Further to organizing this assignment in terms of properly written interfaces we
 >Every output is correlated to the public key of the receiver, which is his/her ScroogeCoin address.
 >
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Merkle%20tree.png)
+![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/TheRealDeal.png)
 
 Further to this, it was identified that Bitcoin transactions may contain other Bitcoin transactions. This was revealed in both the supplied implementation code as exemplified in the test cases:
 
