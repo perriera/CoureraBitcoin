@@ -10,10 +10,7 @@
 
  - **GIVEN** there is a lot of material to cover in such a short amount of time
  - **WHEN** we  group what we understand as the behavuor of Bitcoin and Cryptocurrency
- - **AND** places specific test cases and interfaces in this Github project
- - **THEN** we save ourselves much time in understanding the low level details
- - **AND**  correct behaviour of Bitcoin and Cryptocurrency technologies
- - **THAT IS**  using this project as a template
+ - **THEN** we can places specific test cases and interfaces in this Github project
  
 
 The original problem statement reads as follows:
