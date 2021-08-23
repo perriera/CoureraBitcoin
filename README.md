@@ -155,7 +155,7 @@ Here is the current implementation of what we feel is a much better representati
 	    public TransactionInterface createCoin(double value);
 	}
 	
-In the following test cases, Scrooge wishes to transfer 6 of his 10 coin to Alice and 4 to Bob. Look at how that simple idea becomes confused without the use of interfaces.
+In the following test cases, Scrooge wishes to transfer 6 of his 10 coin to Alice and 4 to Bob. Look at how that simple idea becomes confused before the use of neatly written interfaces.
 
 Before our interface definitions the test cases used to interact with the requested **handleTxs** looked like this:
 
