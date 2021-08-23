@@ -10,9 +10,9 @@ import java.security.SignatureException;
 public class ScroogeCoinAuthority implements CoinAuthorityInterface {
 
 	private CoinCreatorInterface scroogeKeypair;
-	private CoinOwner aliceKeypair;
-	private CoinOwner bobKeypair;
-	private CoinOwner mikeKeypair;
+	private CoinOwnerInterface aliceKeypair;
+	private CoinOwnerInterface bobKeypair;
+	private CoinOwnerInterface mikeKeypair;
 
 	public ScroogeCoinAuthority() throws NoSuchAlgorithmException, NoSuchProviderException {
 		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
@@ -36,15 +36,15 @@ public class ScroogeCoinAuthority implements CoinAuthorityInterface {
 		return scroogeKeypair;
 	}
 
-	public CoinOwner getAlice() {
+	public CoinOwnerInterface getAlice() {
 		return aliceKeypair;
 	}
 
-	public CoinOwner getBob() {
+	public CoinOwnerInterface getBob() {
 		return bobKeypair;
 	}
 
-	public CoinOwner getMike() {
+	public CoinOwnerInterface getMike() {
 		return mikeKeypair;
 	}
 

@@ -45,13 +45,18 @@ public class TestCasesFormal {
          * 
          */
 
+         CoinCreatorInterface Scrooge = authority.getCreator();
+         CoinOwnerInterface Alice  = authority.getAlice();
+         CoinOwnerInterface Bob =  authority.getBob();
+         CoinOwnerInterface Mike  =  authority.getMike();
+         
         // Correction: Scrooge transfer 4 coins to Alice, 6 coins to bob, no transaction fee
 
         TransactionInterface tx1 = new Transaction();
         tx1 = authority.addCoinForSale(tx1, genesiseTx, 0);
-        tx1 = authority.addBuyer(tx1, 4, authority.getAlice());
-        tx1 = authority.addBuyer(tx1, 6, authority.getBob());
-        tx1 = authority.authorizeSale(tx1, authority.getCreator(), 0);
+        tx1 = authority.addBuyer(tx1, 4, Alice);
+        tx1 = authority.addBuyer(tx1, 6, Bob);
+        tx1 = authority.authorizeSale(tx1, Scrooge, 0);
 
         /**
          * In the second transaction, Scrooge transferred 3.9 coins to Alice and 5.9
@@ -63,8 +68,8 @@ public class TestCasesFormal {
 
         TransactionInterface tx2 = new Transaction();
         tx2 = authority.addCoinForSale(tx2, tx1, 0);
-        tx2 = authority.addBuyer(tx2, 3.4, authority.getMike());
-        tx2 = authority.authorizeSale(tx2, authority.getAlice(), 0);
+        tx2 = authority.addBuyer(tx2, 3.4, Mike);
+        tx2 = authority.authorizeSale(tx2, Alice, 0);
 
         /**
          * In the third transaction, there were two inputs and one output, Alice and Bob
@@ -75,8 +80,8 @@ public class TestCasesFormal {
 
         TransactionInterface tx3 = new Transaction();
         tx3 = authority.addCoinForSale(tx3, tx1, 1);
-        tx3 = authority.addBuyer(tx3, 5.5, authority.getMike());
-        tx3 = authority.authorizeSale(tx3, authority.getBob(), 0);
+        tx3 = authority.addBuyer(tx3, 5.5, Mike);
+        tx3 = authority.authorizeSale(tx3, Bob, 0);
 
         /**
          * Unclaimed transaction outputs pool 
