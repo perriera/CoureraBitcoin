@@ -1,6 +1,7 @@
 
 
 
+
 # Scrooge Coin, (Coursera Bitcoin)
   [![CMake](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml/badge.svg?branch=dev)](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml)
 
@@ -157,7 +158,7 @@ Here is the current implementation of what we feel is a much better representati
 	
 In the following test cases, Scrooge wishes to transfer 6 of his 10 coin to Alice and 4 to Bob. Look at how that simple idea becomes confused before the use of neatly written interfaces.
 
-Before our interface definitions the test cases used to interact with the requested **handleTxs** looked like this:
+**Before** our interface definitions the test cases used to interact with the requested **handleTxs** looked like this:
 
 		KeyPair scroogeKeypair = keyGen.generateKeyPair();
 		KeyPair aliceKeypair = keyGen.generateKeyPair();
@@ -171,7 +172,7 @@ Before our interface definitions the test cases used to interact with the reques
 		tx.addSignature(sig, 0);
 		tx.finalize();
 		
-After we refactored and applied our interfaces, the test cases are transformed into this:
+**After** we refactored and applied our interfaces, the test cases are transformed into this:
 
 		CoinCreatorInterface Scrooge = new CoinCreator(keyGen);
 		CoinOwnerInterface Alice = new CoinOwner(keyGen);
@@ -589,6 +590,51 @@ With Java and Maven installed the mvn test should give you output similar to the
 	[INFO] Total time:  2.262 s
 	[INFO] Finished at: 2021-08-22T15:46:53-07:00
 	[INFO] ------------------------------------------------------------------------
+
+## C/C++
+According to a well-educated source on Bitcoin and Cryptocurrency technology, (see Matt Williams below), in the early days of Bitcoin distribution it was possible to access Bitcoin via your own very PC, (preferably an unused GPU), process the transactions for that coin and send it back for your financial compensation. But as Bitcoin popularity grew, so did the need for faster computers and faster response times. Hence, writing more optimum code would often make difference, (between two different people processing the same Bitcoin transactions on their home computers). So, C/C++ would be a better idea than Java, especially in this case where some of the implementation details of the Transaction class, (for example the way it uses the **finalize** method). Hence, a direct port of the interfaces derived in this project could easily be ported to C++ with just a little adjustment for syntax:
+
+**Java:**
+
+	/**
+	 * In the first transaction, we assume that Scrooge has created 10 coins and
+	 * assigned them to himself, we don’t doubt that because the system-Scroogecoin
+	 * has a building rule which says that Scrooge has right to create coins.
+	 */
+	interface CoinCreatorInterface extends CoinOwnerInterface {
+
+	    /**
+	     * TransactionInterface createCoin
+	     * 
+	     * Creates coin to be traded.
+	     * 
+	     * @param value
+	     * @return
+	     */
+	    public TransactionInterface createCoin(double value);
+
+	}
+
+**C++**
+
+	/**
+	 * In the first transaction, we assume that Scrooge has created 10 coins and
+	 * assigned them to himself, we don’t doubt that because the system-Scroogecoin
+	 * has a building rule which says that Scrooge has right to create coins.
+	 */
+	interface CoinCreatorInterface extends CoinOwnerInterface {
+
+	    /**
+	     * TransactionInterface createCoin
+	     * 
+	     * Creates coin to be traded.
+	     * 
+	     * @param value
+	     * @return
+	     */
+	    virtual TransactionInterface createCoin(double value) pure;
+
+	}
 
 ## Comments
 If you have any questions on this project please do not hesitate to contact me at perry@dmgblockchain.com, ([DMG Blockchain Solutions](https://dmgblockchain.com)) or perry.anderson@gmail.com, ([Perry Anderson](https://perryanderson.com)).
