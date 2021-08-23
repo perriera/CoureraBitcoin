@@ -91,6 +91,8 @@ Here is the initial interface for the transaction class, (that we managed to ext
 
 	}
 
+  (**Note:** recent updates to source code may differ from the code listed here)
+
   Here is part of that interface that we drew into it's own interface:
 
 	interface CoinDistributerInterface {
@@ -185,9 +187,9 @@ After we refactored and applied our interfaces, the test cases are transformed t
 
         TransactionInterface tx = new Transaction();
         tx = authority.addCoinForSale(tx, genesiseTx, 0);
-        tx = authority.addBuyer(tx, 4, authority.getAlice());
-        tx = authority.addBuyer(tx, 6, authority.getBob());
-        tx = authority.authorizeSale(tx, authority.getCreator(), 0);
+        tx = authority.addBuyer(tx, 4, Alice);
+        tx = authority.addBuyer(tx, 6, Bob);
+        tx = authority.authorizeSale(tx, Scrooge, 0);
 
 With properly written interfaces the code reads much more naturally.
 
