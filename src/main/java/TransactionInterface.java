@@ -2,10 +2,37 @@ import java.security.PublicKey;
 import java.util.ArrayList;
 
 /**
+ * interface HashPointerInterface
+ * 
+ * Hash Pointer is comprised of two parts: Pointer to where some information is
+ * stored Cryptographic hash of that information The pointer can be used to get
+ * the information, the hash can be used to verify that information hasn’t been
+ * changed
+ * 
+ */
+interface HashPointerInterface {
+
+    /**
+     * set the hash value
+     * 
+     * @param h
+     */
+    public void setHash(byte[] h);
+
+    /**
+     * get the hash value
+     * 
+     * @return
+     */
+    public byte[] getHash();
+
+}
+
+/**
  * @brief TransactionInterface
  * 
  */
-interface TransactionInterface extends CoinDistributerInterface {
+interface TransactionInterface extends CoinDistributerInterface, HashPointerInterface {
 
     public byte[] getRawDataToSign(int index);
 
@@ -16,10 +43,6 @@ interface TransactionInterface extends CoinDistributerInterface {
 
     @Deprecated
     public void finalize();
-
-    public void setHash(byte[] h);
-
-    public byte[] getHash();
 
     public void removeInput(int index);
 
