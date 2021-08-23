@@ -582,7 +582,7 @@ According to a well-educated source on Bitcoin and Cryptocurrency technology, (s
 	}
 
 # Conclusion
-While some formal documentation of the interfaces defined for this assignment remains, the use of interfaces and custom exceptions, (combined with the findings of Mr. Zhao) have given us a much better idea as to how Bitcoin and Cryptocurrency technology works in real applications.
+Like Jason Bourne taking the fire escape instructions right off the wall in the American embassey, when you have the interfaces for a given piece of software you can essentially achieve your goal much faster than having to search each and every single room of the building beforehand. While some formal documentation of the interfaces defined for this assignment remains, the use of interfaces and custom exceptions, (combined with the findings of Mr. Zhao) have given us a much better idea as to how Bitcoin and Cryptocurrency technology works in real applications.
  # Implementation
  If you wish to install locally please have [Java version 8, (or better)](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-18-04) as well as [Maven](https://linuxize.com/post/how-to-install-apache-maven-on-ubuntu-18-04/) installed, (preferable on a [Ubuntu](https://ubuntu.com) platform).
 
