@@ -169,7 +169,7 @@ Before our interface definitions the test cases used to interact with the reques
 		tx.addSignature(sig, 0);
 		tx.finalize();
 		
-After we refactored and applied our interfaces, the test cases are transformed to this:
+After we refactored and applied our interfaces, the test cases are transformed into this:
 
 		CoinCreatorInterface  Scrooge = new  CoinCreator(keyGen);
 		CoinOwnerInterface  Alice = new  CoinOwner(keyGen);
@@ -181,7 +181,7 @@ After we refactored and applied our interfaces, the test cases are transformed t
     	tx = authority.addBuyer(tx, 6, Bob);
     	tx = authority.authorizeSale(tx, Scrooge, 0);
 
-With properly written interfaces the code reads much more naturally. In the world of Object-Oriented Programming, (or OOP), it's all about hiding the unnecessary and repetitive details, (making code easier and more logical to work with).
+With properly written interfaces the code reads much more naturally. In the world of Object-Oriented Programming, it's all about hiding the unnecessary and repetitive details, (making code easier and more logical to work with).
 
 Further, a proper interface for the transaction handler itself, was given a nice overhaul:
 
