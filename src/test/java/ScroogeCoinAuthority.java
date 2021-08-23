@@ -7,7 +7,7 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
 
-public class ScroogeCoinAuthority implements CoinAuthorityInterface {
+public class ScroogeCoinAuthority implements CoinAuthorityInterfaceLegacy {
 
 	private CoinCreatorInterface scroogeKeypair;
 	private CoinOwnerInterface aliceKeypair;
