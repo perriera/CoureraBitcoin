@@ -450,6 +450,7 @@ Further to organizing this assignment in terms of properly written interfaces we
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/TheRealDeal.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/MiningPuzzle.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BlockReward.png)
+![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/NullPointer.png)
 
 Further to this, it was identified that Bitcoin transactions may contain other Bitcoin transactions. This was revealed in both the supplied implementation code as exemplified in the test cases:
 
