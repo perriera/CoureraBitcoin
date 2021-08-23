@@ -183,7 +183,7 @@ After we refactored and applied our interfaces, the test cases are transformed i
     	tx = authority.addBuyer(tx, 6.0, Bob);
     	tx = authority.authorizeSale(tx, Scrooge, 0);
 
-With properly written interfaces the code reads much more naturally. In the world of Object-Oriented Programming, it's all about hiding the unnecessary and repetitive details, (making code more logical and easier to work with). However, (and no fault to Mr. Zhao for his application of the supplied Transaction class) while the author of the supplied Java code appears to know a few things about the internal layout of Bitcoin and Cryptocurrency the code he wrote doesn't simplify the course material but rather complicates it for us, (in my humble opinion). However, once we took his basic idea and refurbished it,  we do now have a much better understanding of the Bitcoin, (which was the purpose of the assignment).
+With properly written interfaces the code reads much more naturally. In the world of Object-Oriented Programming, it's all about hiding the unnecessary and repetitive details, (making code more logical and easier to work with). However, (and no fault to Mr. Zhao for his application of the supplied Transaction class) while the author of the supplied Java code appears to know a few things about the internal layout of Bitcoin and Cryptocurrency the code he wrote doesn't simplify the course material but rather complicates it for us, (in my humble opinion). However, once we took his basic idea and refurbished it,  we do now have a much better understanding of the internal layout Bitcoin and Cryptocurrency, (which was the purpose of the assignment).
 
 Further, a proper interface for the transaction handler itself, was given a nice overhaul:
 
