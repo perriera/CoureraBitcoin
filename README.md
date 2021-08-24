@@ -1,6 +1,6 @@
 
 
-
+https://github.com/perriera/CourseraBitcoin
 
 
 # Scrooge Coin, (Coursera Bitcoin)
