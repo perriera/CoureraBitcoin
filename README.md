@@ -520,11 +520,14 @@ Further to organizing this assignment in terms of properly written interfaces we
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinM06.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinM07.png)
 #### Idea for an app: DMG Bitcoin Market Trader
+An app that will allow a user to trade Bitcoin as a Market Trader
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinM08.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Princeton.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinPeople.png)
 #### Idea for an app: DMG Bitcoin Coin to Cash
-#### Idea for an app: DMG Bitcoin Person-to-person Coin exchange 
+An app that will allow a user to exchange Bitcoin to cash
+#### Idea for an app: DMG Bitcoin Person-to-Person Coin Exchange 
+An app that will allow two users to exchange bitcoin
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BasicMarket.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/SupplyOfBitcoins.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinDemand.png)
