@@ -2,8 +2,8 @@
 > All notable changes to this project will be documented in this file.</br>
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).</br>
 > To add a tag to the git repository do:
-> > git tag -a v0.4.2 -m "Updated README.md"</br>
-> > git push origin v0.4.2
+> > git tag -a v0.5.0 -m "Updated README.md"</br>
+> > git push origin v0.5.0
 > >
 >
 > > POPULAR LINKS:
@@ -23,6 +23,14 @@ IMPORTANT:
 
 ## [Unreleased]
 - Update Doxygen content
+
+#### 0.5.0 (2021-08-22)
+### Added
+- /etc directory
+- A ton of photod, (from course)
+### Changed
+- README.md file
+- pom.xml file
 
 #### 0.4.2 (2021-08-22)
 ### Added
