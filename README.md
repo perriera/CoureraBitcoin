@@ -545,9 +545,13 @@ An app that will allow two users to exchange bitcoin
 ### Instructions on how to download and build Bitcoin
 > [GitHub Gist](https://gist.github.com/jonatack/9f57d398656433de5a5e04d5e0e4447e)
 > To Summerize:
-> - a
-> - b
-> - c
+> - Ensure the dependencies are installed
+> - Download the Bitcoin source files by git cloning the repository
+> - Install Berkeley DB (BDB) v4.8, a backward-compatible version needed for the wallet, using the script in /contrib
+> - [Recommended] Compile from a tagged release branch instead of master, unless you really want to test the bleeding edge
+> - Compile Bitcoin from source, optionally with lcov and gprof enabled
+> - Run unit tests
+> - Run functional tests
 
 Further to this, it was identified that Bitcoin transactions may contain other Bitcoin transactions. This was revealed in both the supplied implementation code as exemplified in the test cases:
 
