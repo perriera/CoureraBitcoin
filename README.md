@@ -534,6 +534,10 @@ An app that will allow two users to exchange bitcoin
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Markets01.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Markets02.png)
 
+### ./bitcoin-qt
+> We have downloaded the github respository for [bitcoin](https://github.com/bitcoin/bitcoin) and have compiled for version v0.21.1 on a local 512GB SSD within a Ubuntu 20.20 LTS Linux box, (presently at 16GB, 2 CPU) and are preently downloading the bitcoin core of 320GB of transactions, (recorded since 2009)
+![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Bitcore.png)
+
 
 Further to this, it was identified that Bitcoin transactions may contain other Bitcoin transactions. This was revealed in both the supplied implementation code as exemplified in the test cases:
 
