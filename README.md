@@ -1,3 +1,4 @@
+
 # Scrooge Coin, (Coursera Bitcoin)
   [![CMake](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml/badge.svg?branch=dev)](https://github.com/mattcoding4days/extras/actions/workflows/cmake.yml)
 
@@ -545,13 +546,52 @@ An app that will allow two users to exchange bitcoin
 ### Instructions on how to download and build Bitcoin
 > [GitHub Gist](https://gist.github.com/jonatack/9f57d398656433de5a5e04d5e0e4447e)
 > To Summerize:
-> - Ensure the dependencies are installed
-> - Download the Bitcoin source files by git cloning the repository
-> - Install Berkeley DB (BDB) v4.8, a backward-compatible version needed for the wallet, using the script in /contrib
-> - [Recommended] Compile from a tagged release branch instead of master, unless you really want to test the bleeding edge
-> - Compile Bitcoin from source, optionally with lcov and gprof enabled
-> - Run unit tests
-> - Run functional tests
+> - Ensure the dependencies are installed 
+> - Download the Bitcoin source files by git cloning the repository 
+> - Install Berkeley DB (BDB) v4.8, a backward-compatible version needed for the wallet, using the script in /contrib  
+> - [Recommended] Compile from a tagged release branch instead of master, unless you really want to test the bleeding edge  
+> - Compile Bitcoin from source, optionally with lcov and gprof enabled 
+> - Run unit tests  
+> - Run functional tests 
+
+`sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils python3 libssl-dev libevent-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev libminiupnpc-dev libzmq3-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler git ccache`
+
+		git clone https://github.com/bitcoin/bitcoin.git
+		cd bitcoin
+		./contrib/install_db4.sh `pwd`
+		
+  Take note of the instructions displayed in the terminal at the end of the BDB installation process:
+
+		db4 build complete.
+
+		When compiling bitcoind, run `./configure` in the following way:
+
+		export BDB_PREFIX='<PATH-TO>/db4'
+
+		./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include" ...
+[**Note**]  The '**PATH-TO**/db4' value that you see displayed on your screen and use that in place of **PATH-TO**
+
+[**Recommended**] Compile from a tagged release branch instead of master, unless you really want to test the bleeding edge:
+
+    git tag -n | sort -V  
+    git checkout v0.21.1
+    ./autogen.sh
+    export BDB_PREFIX='<PATH-TO>/db4'
+    ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
+    make -j"$(($(nproc)+1))"
+    make check
+    test/functional/test_runner.py --extended
+
+To run the GUI version of your newly compiled Bitcoin node:
+
+		cd src
+		cd qt
+		./bitcoin-qt
+
+When it asks you '_Discard blocks after verification_' leave it blank to allow a full copy of the Bitcoin repository to be downloaded to your installation. Click that checkbox if you want to use Bitcoin Core's prune mode. [See more about it here](https://bitcointalk.org/index.php?topic=5208641.0)
+
+When all is said and done hit the **Start** button.
+![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Bitcore.png)
 
 Further to this, it was identified that Bitcoin transactions may contain other Bitcoin transactions. This was revealed in both the supplied implementation code as exemplified in the test cases:
 
