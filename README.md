@@ -542,6 +542,12 @@ An app that will allow two users to exchange bitcoin
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BC002.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BC003.png)
 
+### Instructions on how to download and build Bitcoin
+> [GitHub Gist](https://gist.github.com/jonatack/9f57d398656433de5a5e04d5e0e4447e)
+> To Summerize:
+> - a
+> - b
+> - c
 
 Further to this, it was identified that Bitcoin transactions may contain other Bitcoin transactions. This was revealed in both the supplied implementation code as exemplified in the test cases:
 
