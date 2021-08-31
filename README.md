@@ -520,20 +520,20 @@ Further to organizing this assignment in terms of properly written interfaces we
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinM05.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinM06.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinM07.png)
-#### Idea for an app: DMG Bitcoin Market Trader
-An app that will allow a user to trade Bitcoin as a Market Trader
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinM08.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Princeton.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinPeople.png)
-#### Idea for an app: DMG Bitcoin Coin to Cash
-An app that will allow a user to exchange Bitcoin to cash
-#### Idea for an app: DMG Bitcoin Person-to-Person Coin Exchange 
-An app that will allow two users to exchange bitcoin
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BasicMarket.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/SupplyOfBitcoins.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/BitcoinDemand.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Markets01.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Markets02.png)
+![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/AltcoinMarketshare2014.png)
+
+#### Idea for an app
+> - DMG Bitcoin Market Trader
+> - Idea for an app: DMG Bitcoin Coin to Cash
+> - Idea for an app: DMG Bitcoin Person-to-Person Coin Exchange 
 
 ### ./bitcoin-qt
 > We have downloaded the github respository for [bitcoin](https://github.com/bitcoin/bitcoin) and have compiled for version v0.21.1 on a local 512GB SSD within a Ubuntu 20.20 LTS Linux box, (presently at 16GB, 2 CPU) and are presently downloading the bitcoin core of 320GB of transactions, (recorded since 2009)</br>
