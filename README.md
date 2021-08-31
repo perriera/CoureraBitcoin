@@ -533,7 +533,7 @@ Further to organizing this assignment in terms of properly written interfaces we
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Metrics.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Interactions.png)
 
-#### Idea for an app
+#### Ideas for a Bitcoin app
 > - DMG Bitcoin Market Trader
 > - Idea for an app: DMG Bitcoin Coin to Cash
 > - Idea for an app: DMG Bitcoin Person-to-Person Coin Exchange 
