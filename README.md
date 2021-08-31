@@ -554,6 +554,7 @@ Further to organizing this assignment in terms of properly written interfaces we
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Route4.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Dispute.png)
 ![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Route5.png)
+![Bitcoin Merkle Tree](https://github.com/perriera/CourseraBitcoin/blob/main/etc/Judy.png)
  
 #### Ideas for a Bitcoin app
 > - DMG Bitcoin Market Trader
